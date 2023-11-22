@@ -11,7 +11,7 @@ export const LoginPage = () => {
                     <input id='passwordInput' className='form-control' type='password' placeholder='Password'/>
                     <label htmlFor='passwordInput'>Password</label>
                 </div>
-                <button className='btn btn-primary w-100 py-2' type='submit'>Sign in</button>
+                <button className='btn btn-primary w-100 py-2 mt-3' type='submit'>Sign in</button>
             </form>
         </div>
     );
