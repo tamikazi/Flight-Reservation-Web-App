@@ -15,18 +15,25 @@
   background-color: #191a25;
 }
 
-.homepage-carousel-title {
-  display: flex !important;
-  justify-content: center !important;
-  align-items: center !important;
+.center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
 }
 
-.book-div {
-  width: 480px;
-  height: 384px;
+.form-signin {
+  max-width: 300px;
+  padding: 1rem;
+  display: flex;
+  align-items: center;
+  height: 75vh;
 }
 
-.inactiveLink {
-  pointer-events: none;
-  cursor: default;
+.form-payment {
+  max-width: 400px;
+  padding: 1rem;
+  display: flex;
+  align-items: center;
+  height: 75vh;
 }
