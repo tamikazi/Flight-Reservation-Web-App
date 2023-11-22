@@ -2,7 +2,7 @@ import FlightModel from "../../models/FlightModel";
 import React, {useEffect, useState} from "react";
 import SeatModel from "../../models/SeatModel";
 import {Seat} from "./components/Seat";
-import {useParams} from "react-router-dom";
+import {Link, useParams} from "react-router-dom";
 import {SpinnerLoading} from "../Utils/SpinnerLoading";
 
 export const SeatPage = () => {
@@ -132,14 +132,10 @@ export const SeatPage = () => {
                         </div>
                         <div className='row'>
                             <div className='col'>
-                                <button className='btn btn-success'>
-                                    Back
-                                </button>
+                                <Link type='button' className='btn btn-primary' to='/flights'>Back</Link>
                             </div>
                             <div className='col'>
-                                <button className='btn btn-success'>
-                                    Checkout
-                                </button>
+                                <Link type='button' className='btn btn-primary' to='/payment'>Checkout</Link>
                             </div>
                         </div>
                     </div>

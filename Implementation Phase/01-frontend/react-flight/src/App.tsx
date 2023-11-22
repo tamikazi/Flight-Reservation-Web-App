@@ -6,25 +6,29 @@ import {FlightsPage} from "./layouts/Flights/FlightsPage";
 import {AdminPage} from "./layouts/Admin/AdminPage";
 import {ManifestPage} from "./layouts/Manifest/ManifestPage";
 import {SeatPage} from "./layouts/Seat/SeatPage";
+import {PaymentPage} from "./layouts/Payment/PaymentPage";
 
 function App() {
     return (
         <div>
             <Navbar/>
             <Switch>
-                <Route path={'/'} exact>
-                    <Redirect to={'/flights'}/>
+                <Route path='/' exact>
+                    <Redirect to='/flights'/>
                 </Route>
-                <Route path={'/flights'}>
+                <Route path='/flights'>
                     <FlightsPage/>
                 </Route>
-                <Route path={'/seats/:flightId'}>
+                <Route path='/seats/:flightId'>
                     <SeatPage/>
                 </Route>
-                <Route path={'/manifest'}>
+                <Route path='/payment'>
+                    <PaymentPage/>
+                </Route>
+                <Route path='/manifest'>
                     <ManifestPage/>
                 </Route>
-                <Route path={'/admin'}>
+                <Route path='/admin'>
                     <AdminPage/>
                 </Route>
             </Switch>
