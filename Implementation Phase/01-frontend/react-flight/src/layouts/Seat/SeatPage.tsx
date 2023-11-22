@@ -69,6 +69,12 @@ export const SeatPage = () => {
                     count++;
                 }
             }
+            // Set some seats as unavailable
+            loadedSeats[2].available = false;
+            loadedSeats[9].available = false;
+            loadedSeats[10].available = false;
+            loadedSeats[15].available = false;
+            loadedSeats[17].available = false;
             setSeats(loadedSeats);
         }
 
@@ -91,19 +97,39 @@ export const SeatPage = () => {
 
 
     return (
-        <div className='container'>
+        <div className='container text-center'>
             <div className='row mt-5'>
-                <div className='col-sm-2 col-md-2'>
-                    <div className={`row row-cols-${seatColumns}`}>
+                <div className='col'>
+                    <h4>Airplane Front</h4>
+                    <div className={`row row-cols-${seatColumns} g-1`}>
                         {seats.map(seat => (
                             <Seat seat={seat} key={seat.seatId}/>
                         ))}
                     </div>
+                    <h4>Airplane Back</h4>
                 </div>
-                <div className='col-4 col-md-4 container'>
+                <div className='col container'>
                     <div className='ml-2'>
-                        <h2>Class options</h2>
-                        <h2>Insurance?</h2>
+                        <h2>Class</h2>
+                        <div className='form-check'>
+                            <input className='form-check-input' type='radio' name='seatClass' id='standard' checked/>
+                            <label className='form-check-label' htmlFor='standard'>Standard</label>
+                        </div>
+                        <div className='form-check'>
+                            <input className='form-check-input' type='radio' name='seatClass' id='comfort'/>
+                            <label className='form-check-label' htmlFor='comfort'>Comfort</label>
+                        </div>
+                        <div className='form-check'>
+                            <input className='form-check-input' type='radio' name='seatClass' id='business'/>
+                            <label className='form-check-label' htmlFor='business'>Business</label>
+                        </div>
+                        <h2>Insurance</h2>
+                        <div className='form-check'>
+                            <input className='form-check-input' type='checkbox' name='insurance' id='insurance'/>
+                            <label className='form-check-label' htmlFor='insurance'>
+                                Purchase cancellation insurance
+                            </label>
+                        </div>
                         <div className='row'>
                             <div className='col'>
                                 <button className='btn btn-success'>
@@ -119,6 +145,7 @@ export const SeatPage = () => {
                     </div>
                 </div>
             </div>
+
         </div>
     );
 };
