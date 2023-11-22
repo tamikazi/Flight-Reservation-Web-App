@@ -25,7 +25,7 @@ export const FlightsPage = () => {
         const fetchFlights = async () => {
             const baseUrl: string = "http://localhost:8080/api/flights";
 
-            let url: string = '';
+            let url: string;
 
             if (searchUrl === '') {
                 url = `${baseUrl}`;
