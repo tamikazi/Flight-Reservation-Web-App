@@ -9,6 +9,8 @@ export const FlightsPage = () => {
     const [isLoading, setIsLoading] = useState(true);
     const [httpError, setHttpError] = useState(null);
     const [searchUrl, setSearchUrl] = useState('');
+
+    // Dropdown menus
     const [dateSelection, setDateSelection] = useState('Select a Date');
     const [dateSelected, setDateSelected] = useState(false);
     const [dateOptions, setDateOptions] = useState<Set<string>>(new Set<string>);
@@ -81,6 +83,8 @@ export const FlightsPage = () => {
 
     const dateHandleDropdown = () => {
         // Only set dropdown options once, when all flights are loaded
+        // TODO: update to filter flights
+        // TODO: update to only show filtered flight dates
         if(dateOptions.size === 0) {
             const loadedDates = new Set<string>();
             for (const key in flights) {
@@ -92,6 +96,8 @@ export const FlightsPage = () => {
 
     const originHandleDropdown = () => {
         // Only set dropdown options once, when all flights are loaded
+        // TODO: update to filter flights
+        // TODO: update to only show filtered flight origins
         if(originOptions.size === 0) {
             const loadedOrigins = new Set<string>();
             for (const key in flights) {
@@ -103,6 +109,8 @@ export const FlightsPage = () => {
 
     const destinationHandleDropdown = () => {
         // Only set dropdown options once, when all flights are loaded
+        // TODO: update to filter flights
+        // TODO: update to only show filtered flight destinations
         if(destinationOptions.size === 0) {
             const loadedDestination = new Set<string>();
             for (const key in flights) {
