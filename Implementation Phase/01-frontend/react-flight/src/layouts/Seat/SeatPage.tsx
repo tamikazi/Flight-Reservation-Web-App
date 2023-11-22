@@ -98,8 +98,8 @@ export const SeatPage = () => {
 
     return (
         <div className='container text-center'>
-            <div className='row mt-5'>
-                <div className='col'>
+            <div className='row mt-5 justify-content-evenly'>
+                <div className='col-4'>
                     <h4>Airplane Front</h4>
                     <div className={`row row-cols-${seatColumns} g-1`}>
                         {seats.map(seat => (
@@ -108,11 +108,12 @@ export const SeatPage = () => {
                     </div>
                     <h4>Airplane Back</h4>
                 </div>
-                <div className='col container'>
+                <div className='col-4 '>
                     <div className='ml-2'>
                         <h2>Class</h2>
                         <div className='form-check'>
-                            <input className='form-check-input' type='radio' name='seatClass' id='standard' checked/>
+                            <input className='form-check-input' type='radio' name='seatClass' id='standard'
+                                   defaultChecked={true}/>
                             <label className='form-check-label' htmlFor='standard'>Standard</label>
                         </div>
                         <div className='form-check'>
