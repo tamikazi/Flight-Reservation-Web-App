@@ -2,7 +2,7 @@ import FlightModel from "../../models/FlightModel";
 import React, {useEffect, useState} from "react";
 import SeatModel from "../../models/SeatModel";
 import {Seat} from "./components/Seat";
-import {Link, useParams} from "react-router-dom";
+import {Link} from "react-router-dom";
 import {SpinnerLoading} from "../Utils/SpinnerLoading";
 
 export const SeatPage = () => {
