@@ -41,10 +41,6 @@ export const FlightsPage = () => {
 
             const responseData = await response.json();
 
-            // const responseData = responseJson.flights;
-
-            // setTotalFlights(responseData.totalElements);
-
             const loadedFlights: FlightModel[] = [];
 
             for (const key in responseData) {
