@@ -23,38 +23,65 @@ export const FlightsPage = () => {
 
     useEffect(() => {
         const fetchFlights = async () => {
-            const baseUrl: string = "http://localhost:8080/api/flights";
+            // const baseUrl: string = "http://localhost:8080/api/flights";
+            //
+            // let url: string;
+            //
+            // if (searchUrl === '') {
+            //     url = `${baseUrl}`;
+            // } else {
+            //     url = `${baseUrl}${searchUrl}`;
+            // }
+            //
+            // const response = await fetch(url);
+            //
+            // if (!response.ok) {
+            //     throw new Error('Something went wrong!');
+            // }
+            //
+            // const responseData = await response.json();
+            //
+            // const loadedFlights: FlightModel[] = [];
+            //
+            // for (const key in responseData) {
+            //     loadedFlights.push({
+            //         flightId: responseData[key].flightId,
+            //         code: responseData[key].code,
+            //         origin: responseData[key].origin,
+            //         destination: responseData[key].destination,
+            //         date: responseData[key].date,
+            //         aircraft: responseData[key].aircraft
+            //     });
+            // }
 
-            let url: string;
+            // Fake data
+            const mockFlights: FlightModel[] = [];
+            mockFlights.push({
+                flightId: 1,
+                code: 'AB100',
+                origin: 'Calgary',
+                destination: 'Vancouver',
+                date: '2023-11-30',
+                aircraft: 'B787'
+            });
+            mockFlights.push({
+                flightId: 2,
+                code: 'AB101',
+                origin: 'Calgary',
+                destination: 'Edmonton',
+                date: '2023-11-30',
+                aircraft: 'B787'
+            });
+            mockFlights.push({
+                flightId: 3,
+                code: 'AB103',
+                origin: 'Calgary',
+                destination: 'Toronto',
+                date: '2023-11-31',
+                aircraft: 'B787'
+            });
 
-            if (searchUrl === '') {
-                url = `${baseUrl}`;
-            } else {
-                url = `${baseUrl}${searchUrl}`;
-            }
-
-            const response = await fetch(url);
-
-            if (!response.ok) {
-                throw new Error('Something went wrong!');
-            }
-
-            const responseData = await response.json();
-
-            const loadedFlights: FlightModel[] = [];
-
-            for (const key in responseData) {
-                loadedFlights.push({
-                    flightId: responseData[key].flightId,
-                    code: responseData[key].code,
-                    origin: responseData[key].origin,
-                    destination: responseData[key].destination,
-                    date: responseData[key].date,
-                    aircraft: responseData[key].aircraft
-                });
-            }
-
-            setFlights(loadedFlights);
+            setFlights(mockFlights);
             setIsLoading(false);
         };
         fetchFlights().catch((error: any) => {

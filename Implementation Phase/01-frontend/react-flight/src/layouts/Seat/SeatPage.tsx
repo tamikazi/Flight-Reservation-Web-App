@@ -23,26 +23,36 @@ export const SeatPage = () => {
     useEffect(() => {
 
         const fetchFlight = async () => {
-            const url: string = `http://localhost:8080/api/flights/id/${flightParam}`;
+            // const url: string = `http://localhost:8080/api/flights/id/${flightParam}`;
+            //
+            // const response = await fetch(url);
+            //
+            // if (!response.ok) {
+            //     throw new Error('Something went wrong!');
+            // }
+            //
+            // const responseData = await response.json();
+            //
+            // const loadedFlight: FlightModel = {
+            //     flightId: responseData.flightId,
+            //     code: responseData.code,
+            //     origin: responseData.origin,
+            //     destination: responseData.destination,
+            //     date: responseData.date,
+            //     aircraft: responseData.aircraft
+            // };
 
-            const response = await fetch(url);
-
-            if (!response.ok) {
-                throw new Error('Something went wrong!');
-            }
-
-            const responseData = await response.json();
-
-            const loadedFlight: FlightModel = {
-                flightId: responseData.flightId,
-                code: responseData.code,
-                origin: responseData.origin,
-                destination: responseData.destination,
-                date: responseData.date,
-                aircraft: responseData.aircraft
+            //  Fake data
+            const mockFlight: FlightModel= {
+                flightId: 1,
+                code: 'AB100',
+                origin: 'Calgary',
+                destination: 'Vancouver',
+                date: '2023-11-30',
+                aircraft: 'B787'
             };
 
-            setFlight(loadedFlight);
+            setFlight(mockFlight);
             setIsLoading(false);
         };
         fetchFlight().catch((error: any) => {
