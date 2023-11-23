@@ -29,8 +29,7 @@ export const ManifestPage = () => {
                             <input className='form-control me-2' type='search'
                                    placeholder='Enter Flight Number (AB123)' id='number'
                                    onChange={() => {}}/>
-                            <input className='form-control me-2' type='date'
-                                   placeholder='Enter Date (yyyy-mm-dd)' id='date'
+                            <input className='form-control me-2' type='date' id='date'
                                    onChange={() => {}}/>
                             <button className='btn btn-outline-success'
                                     onClick={() => {}}>
