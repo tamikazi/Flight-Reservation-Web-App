@@ -14,21 +14,24 @@ public class Flight {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "FlightID")
+    @Column(name = "flightID")
     private String flightId;
 
-    @Column(name = "Code")
+    @Column(name = "code")
     private String code;
 
-    @Column(name = "Origin")
+    @Column(name = "origin")
     private String origin;
 
-    @Column(name = "Destination")
+    @Column(name = "destination")
     private String destination;
 
-    @Column(name = "Date")
+    @Column(name = "departDate")
     private String date;
 
-    @Column(name = "Aircraft")
+    @Column(name = "departTime")
+    private String time;
+
+    @Column(name = "aircraftID")
     private String aircraft;
 }

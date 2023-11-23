@@ -58,7 +58,7 @@ CREATE TABLE USER (
   username     VARCHAR(50)    NOT NULL,
   password     VARCHAR(50)    NOT NULL,
   roleID       INT		      NOT NULL,
-  member	   BOOLEAN		  NOT NULL DEFAULT FALSE,
+  member	   BOOL			  NOT NULL DEFAULT FALSE,
   PRIMARY KEY (userID),
   FOREIGN KEY (roleID) REFERENCES ROLES(roleID)
 );
@@ -537,15 +537,16 @@ CREATE TABLE TICKET (
   seatID       INT             NOT NULL,
   flightID     INT             NOT NULL,
   userID       INT			   NOT NULL,  
+  insurance	   BOOL			   NOT NULL DEFAULT FALSE,
   PRIMARY KEY (ticketID),
   FOREIGN KEY (seatID) REFERENCES SEAT(seatID),
   FOREIGN KEY (userID) REFERENCES USER(userID),
   FOREIGN KEY (flightID) REFERENCES FLIGHT(flightID)
 );
 
-INSERT INTO TICKET (seatID, flightID, userID) VALUES
-(1, 1, 4);
+INSERT INTO TICKET (seatID, flightID, userID, insurance) VALUES
+(1, 1, 4, FALSE);
 
-#SELECT IIF(ticketID IS NULL, 0, 1) AS taken FROM FLIGHT
+#SELECT * FROM FLIGHT
 #LEFT JOIN SEAT ON aircraftID
 #LEFT JOIN TICKET ON seatID;
