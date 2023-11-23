@@ -57,7 +57,7 @@ CREATE TABLE USER (
   userID       INT            NOT NULL AUTO_INCREMENT,
   username     VARCHAR(50)    NOT NULL,
   password     VARCHAR(50)    NOT NULL,
-  roleID         INT		      NOT NULL,
+  roleID       INT		      NOT NULL,
   member	   BOOLEAN		  NOT NULL DEFAULT FALSE,
   PRIMARY KEY (userID),
   FOREIGN KEY (roleID) REFERENCES ROLES(roleID)
