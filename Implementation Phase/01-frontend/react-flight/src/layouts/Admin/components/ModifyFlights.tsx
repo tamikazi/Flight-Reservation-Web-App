@@ -46,12 +46,13 @@ export const ModifyFlights = () => {
 
             // Fake data
             const mockFlight: FlightModel = ({
-                flightId: 1,
+                flightID: 1,
                 code: 'AB100',
                 origin: 'Calgary',
                 destination: 'Vancouver',
                 date: '2023-11-30',
-                aircraft: 'B787'
+                time: '1350',
+                aircraft: 1
             });
 
 

@@ -43,14 +43,15 @@ export const SeatPage = () => {
             // };
 
             //  Fake data
-            const mockFlight: FlightModel= {
-                flightId: 1,
+            const mockFlight: FlightModel = ({
+                flightID: 1,
                 code: 'AB100',
                 origin: 'Calgary',
                 destination: 'Vancouver',
                 date: '2023-11-30',
-                aircraft: 'B787'
-            };
+                time: '1350',
+                aircraft: 1
+            });
 
             setFlight(mockFlight);
             setIsLoading(false);
@@ -74,7 +75,7 @@ export const SeatPage = () => {
                         seatId: count,
                         code: ""+count,
                         available: true,
-                        flightId: flight.flightId
+                        flightId: flight.flightID
                     });
                     count++;
                 }
