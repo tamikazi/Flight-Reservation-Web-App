@@ -1,4 +1,4 @@
-import AircraftModel from "../../../models/AircraftModel";
+import AircraftModel from "../../../../models/AircraftModel";
 import React from "react";
 
 export const Aircraft: React.FC<{ aircraft: AircraftModel }> = (props) => {

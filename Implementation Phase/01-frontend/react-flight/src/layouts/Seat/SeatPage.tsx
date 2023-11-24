@@ -76,7 +76,7 @@ export const SeatPage = () => {
                         seatId: count,
                         code: ""+count,
                         available: true,
-                        flightId: flight.flightID
+                        aircraftId: flight.aircraft
                     });
                     count++;
                 }

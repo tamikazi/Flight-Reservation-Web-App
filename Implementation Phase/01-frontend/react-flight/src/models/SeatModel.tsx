@@ -1,14 +1,14 @@
 class SeatModel {
     seatId: number;
-    aircraftID: number;
-    seatNumber: string;
-    seatClass: string;
+    code: string;
+    available: boolean;
+    aircraftId: number;
 
-    constructor(seatId: number, aircraftID: number, seatNumber: string, seatClass: string) {
+    constructor(seatId: number, code: string, available: boolean, aircraftId: number) {
         this.seatId = seatId;
-        this.aircraftID = aircraftID;
-        this.seatNumber = seatNumber;
-        this.seatClass = seatClass;
+        this.code = code;
+        this.available = available;
+        this.aircraftId = aircraftId;
     }
 }
 

@@ -1,5 +1,5 @@
 import React from "react";
-import CrewModel from "../../../models/CrewModel";
+import CrewModel from "../../../../models/CrewModel";
 
 export const CrewMember:React.FC<{crewMember: CrewModel}> = (props) => {
     return (
