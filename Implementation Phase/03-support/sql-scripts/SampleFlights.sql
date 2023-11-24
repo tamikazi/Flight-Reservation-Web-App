@@ -58,21 +58,23 @@ CREATE TABLE USER (
   username     VARCHAR(50)    NOT NULL,
   password     VARCHAR(50)    DEFAULT NULL,
   roleID       INT		      NOT NULL,
-  member	   BOOL			  NOT NULL DEFAULT FALSE,
+  member	   BOOL			  NOT NULL DEFAULT TRUE,
+  Fname		   VARCHAR(50)	  NOT NULL,
+  Lname		   VARCHAR(50)	  NOT NULL,
   PRIMARY KEY (userID),
   FOREIGN KEY (roleID) REFERENCES ROLES(roleID)
 );
 
-INSERT INTO USER (username, password, roleID, member) VALUES
-('admin@example.com', 'adminpass', 1, FALSE),
-('agent@example.com', 'agentpass', 2, FALSE),
-('crew@example.com', 'crewpass', 3, FALSE),
-('passenger@example.com', 'pasengerpass', 4, FALSE);
+INSERT INTO USER (username, password, roleID, member, Fname, Lname) VALUES
+('admin@example.com', 'adminpass', 1, FALSE, 'Ava', 'Lane'),
+('agent@example.com', 'agentpass', 2, FALSE, 'Max', 'Stone'),
+('crew@example.com', 'crewpass', 3, FALSE, 'Mia', 'Cruz'),
+('passenger@example.com', 'pasengerpass',  4, FALSE, 'Leo', 'Brooks');
 
 CREATE TABLE CREW_FLIGHTS (
-	crewID		INT		NOT NULL AUTO_INCREMENT,
-    userID		INT 	NOT NULL,
-    flightID	INT		NOT NULL,
+	crewID		INT			   NOT NULL AUTO_INCREMENT,
+    userID		INT 		   NOT NULL,
+    flightID	INT			   NOT NULL,
     PRIMARY KEY (crewID),
     FOREIGN KEY (userID) REFERENCES USER(userID),
     FOREIGN KEY (flightID) REFERENCES FLIGHT(flightID)
@@ -536,7 +538,7 @@ CREATE TABLE TICKET (
   ticketID     INT             NOT NULL AUTO_INCREMENT,
   seatID       INT             NOT NULL,
   flightID     INT             NOT NULL,
-  userID       INT			   NOT NULL,  
+  userID       INT			   NOT NULL,
   insurance	   BOOL			   NOT NULL DEFAULT FALSE,
   PRIMARY KEY (ticketID),
   FOREIGN KEY (seatID) REFERENCES SEAT(seatID),
