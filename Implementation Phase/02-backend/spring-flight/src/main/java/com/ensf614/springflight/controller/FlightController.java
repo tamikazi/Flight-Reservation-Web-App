@@ -8,9 +8,9 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Optional;
 
-//@CrossOrigin("http://localhose:3000")
+//@CrossOrigin("http://localhost:3000")
 @CrossOrigin(origins = "*")
-@RestController
+@RestController // abstract controller
 @RequestMapping("/api/flights")
 public class FlightController {
 
@@ -44,6 +44,11 @@ public class FlightController {
     @GetMapping("/dateorigindestination/{date}/{origin}/{destination}")
     public List<Flight> getFlightsByDate(@PathVariable String date, @PathVariable String origin, @PathVariable String destination) {
         return flightService.findByDateAndOriginAndDestination(date, origin, destination);
+    }
+
+    @GetMapping("/origindestination/{origin}/{destination}")
+    public List<Flight> getFlightsByDate(@PathVariable String origin, @PathVariable String destination) {
+        return flightService.findByOriginAndDestination(origin, destination);
     }
 
 }

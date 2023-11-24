@@ -34,4 +34,7 @@ public class Flight {
 
     @Column(name = "aircraftID")
     private String aircraft;
+
+    @Column(name = "basePrice")
+    private float basePrice;
 }

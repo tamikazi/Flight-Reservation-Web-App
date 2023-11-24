@@ -1,9 +1,10 @@
 class CrewModel {
-    name: string;
+    crewID: number;
+    flightID: number;
 
-    constructor(name: string) {
-        this.name = name;
+    constructor(crewID: number, flightID: number) {
+        this.crewID = crewID;
+        this.flightID = flightID;
     }
 }
-
 export default CrewModel;

@@ -7,7 +7,7 @@ class FlightModel {
     time: string;
     aircraft: number;
 
-
+  
     constructor(flightID: number, code: string, origin: string, destination: string,
                 date: string, time: string, aircraft: number) {
         this.flightID = flightID;

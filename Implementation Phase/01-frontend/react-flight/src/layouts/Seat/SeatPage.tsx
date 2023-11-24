@@ -13,7 +13,7 @@ export const SeatPage = () => {
     const [httpError, setHttpError] = useState(null);
 
     // Get flightid from url
-    const flightParam = (window.location.pathname).split('/')[2];
+    const flightParam = (window.location.pathname).split('/')[3];
 
     // Make up row/column
     const seatColumns: number = 4;
@@ -39,6 +39,7 @@ export const SeatPage = () => {
             //     origin: responseData.origin,
             //     destination: responseData.destination,
             //     date: responseData.date,
+            //     time: responseData.time,
             //     aircraft: responseData.aircraft
             // };
 
@@ -80,7 +81,7 @@ export const SeatPage = () => {
                     count++;
                 }
             }
-            // Set some seats as unavailable
+            //Set some seats as unavailable
             loadedSeats[2].available = false;
             loadedSeats[9].available = false;
             loadedSeats[10].available = false;

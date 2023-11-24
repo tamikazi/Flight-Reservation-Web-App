@@ -25,21 +25,22 @@ CREATE TABLE FLIGHT (
   departDate      	DATE			NOT NULL,
   departTime		TIME			NOT NULL,
   aircraftID   		INT				NOT NULL,
+  basePrice			DECIMAL(10,2)	NOT NULL,
 PRIMARY KEY (flightID),
 FOREIGN KEY (aircraftID) REFERENCES AIRCRAFT(aircraftID));
 
-INSERT INTO FLIGHT (code, origin, destination, departDate, departTime, aircraftID) 
+INSERT INTO FLIGHT (code, origin, destination, departDate, departTime, aircraftID, basePrice) 
 VALUES 
-('A3100', 'Chicago', 'Calgary', '2023-12-20', '11:15:06', 1), 
-('B7101', 'London', 'Paris', '2023-12-21', '10:53:56', 2), 
-('B7102', 'Toronto', 'Los Angeles', '2023-12-22', '15:48:32', 3), 
-('B7103', 'Paris', 'London', '2023-11-23', '19:28:15', 4), 
-('C2104', 'Vancouver', 'New York', '2023-12-24', '15:00:59', 5), 
-('A3101', 'Tokyo', 'New York', '2023-12-20', '17:54:52', 1), 
-('B7104', 'New York', 'Calgary', '2023-12-21', '11:19:33', 2), 
-('B7105', 'New York', 'London', '2023-12-22', '14:01:21', 3), 
-('B7106', 'Paris', 'Tokyo', '2023-12-23', '16:32:05', 4), 
-('C2105', 'San Francisco', 'New York', '2023-12-24', '13:19:57', 5);
+('A3100', 'Chicago', 'Calgary', '2023-12-20', '11:15:06', 1, 1500.50),
+('B7101', 'London', 'Paris', '2023-12-21', '10:53:56', 2, 1700.75),
+('B7102', 'Toronto', 'Los Angeles', '2023-12-22', '15:48:32', 3, 1800.25),
+('B7103', 'Paris', 'London', '2023-11-23', '19:28:15', 4, 1300.80),
+('C2104', 'Vancouver', 'New York', '2023-12-24', '15:00:59', 5, 1600.90),
+('A3101', 'Tokyo', 'New York', '2023-12-20', '17:54:52', 1, 1400.60),
+('B7104', 'New York', 'Calgary', '2023-12-21', '11:19:33', 2, 1550.30),
+('B7105', 'New York', 'London', '2023-12-22', '14:01:21', 3, 1750.20),
+('B7106', 'Paris', 'Tokyo', '2023-12-23', '16:32:05', 4, 1200.40),
+('C2105', 'San Francisco', 'New York', '2023-12-24', '13:19:57', 5, 1900.70);
 
 CREATE TABLE ROLES (
 	roleID		INT			NOT NULL AUTO_INCREMENT,
@@ -56,23 +57,25 @@ INSERT INTO ROLES (roleName) VALUES
 CREATE TABLE USER (
   userID       INT            NOT NULL AUTO_INCREMENT,
   username     VARCHAR(50)    NOT NULL,
-  password     VARCHAR(50)    NOT NULL,
+  password     VARCHAR(50)    DEFAULT NULL,
   roleID       INT		      NOT NULL,
-  member	   BOOL			  NOT NULL DEFAULT FALSE,
+  member	   BOOL			  NOT NULL DEFAULT TRUE,
+  Fname		   VARCHAR(50)	  NOT NULL,
+  Lname		   VARCHAR(50)	  NOT NULL,
   PRIMARY KEY (userID),
   FOREIGN KEY (roleID) REFERENCES ROLES(roleID)
 );
 
-INSERT INTO USER (username, password, roleID, member) VALUES
-('admin@example.com', 'adminpass', 1, FALSE),
-('agent@example.com', 'agentpass', 2, FALSE),
-('crew@example.com', 'crewpass', 3, FALSE),
-('passenger@example.com', 'pasengerpass', 4, FALSE);
+INSERT INTO USER (username, password, roleID, member, Fname, Lname) VALUES
+('admin@example.com', 'adminpass', 1, FALSE, 'Ava', 'Lane'),
+('agent@example.com', 'agentpass', 2, FALSE, 'Max', 'Stone'),
+('crew@example.com', 'crewpass', 3, FALSE, 'Mia', 'Cruz'),
+('passenger@example.com', 'pasengerpass',  4, FALSE, 'Leo', 'Brooks');
 
 CREATE TABLE CREW_FLIGHTS (
-	crewID		INT		NOT NULL AUTO_INCREMENT,
-    userID		INT 	NOT NULL,
-    flightID	INT		NOT NULL,
+	crewID		INT			   NOT NULL AUTO_INCREMENT,
+    userID		INT 		   NOT NULL,
+    flightID	INT			   NOT NULL,
     PRIMARY KEY (crewID),
     FOREIGN KEY (userID) REFERENCES USER(userID),
     FOREIGN KEY (flightID) REFERENCES FLIGHT(flightID)
@@ -536,7 +539,7 @@ CREATE TABLE TICKET (
   ticketID     INT             NOT NULL AUTO_INCREMENT,
   seatID       INT             NOT NULL,
   flightID     INT             NOT NULL,
-  userID       INT			   NOT NULL,  
+  userID       INT			   NOT NULL,
   insurance	   BOOL			   NOT NULL DEFAULT FALSE,
   PRIMARY KEY (ticketID),
   FOREIGN KEY (seatID) REFERENCES SEAT(seatID),
@@ -545,7 +548,8 @@ CREATE TABLE TICKET (
 );
 
 INSERT INTO TICKET (seatID, flightID, userID, insurance) VALUES
-(1, 1, 4, FALSE);
+(1, 1, 4, FALSE),
+(2, 1, 4, FALSE);
 
 #SELECT * FROM FLIGHT
 #LEFT JOIN SEAT ON aircraftID

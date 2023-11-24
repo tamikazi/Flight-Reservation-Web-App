@@ -11,6 +11,7 @@ export const Flight: React.FC<{ flight: FlightModel }> = (props) => {
                     <h6 className='mb-0'>From: {props.flight.origin}</h6>
                     <h6 className='mb-0'>To: {props.flight.destination}</h6>
                     <p className='mb-0 opacity-75'>Departing: {props.flight.date}</p>
+                    <p className='mb-0 opacity-75'>Time: {props.flight.time}</p>
                 </div>
             </div>
         </Link>
