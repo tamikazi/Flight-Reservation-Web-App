@@ -1,0 +1,31 @@
+@startuml
+
+class Airline {}
+
+class Flight {}
+
+class Aircraft {}
+
+class Ticket {}
+
+class Seat {}
+
+class User {}
+
+class Payment {}
+
+class Email {}
+
+Airline "1" -- "1..*" Flight : hosts
+Airline "1" -- "1..*" Aircraft : owns
+Flight "1..*" -- "1" Aircraft : flies on
+Aircraft "1" -- "n" Seat : carries
+Flight "1" -- "0..*" Ticket : has
+Crew "n" -- "1" Flight : crews
+Ticket "1" -- "1" Seat : reserves
+User "1" -- "0..*" Ticket : buys
+Ticket "1" -- "1" Email : generates
+User "1" -- "0..*" Payment : pays
+Payment "1" -- "1" Email : generates
+
+@enduml
