@@ -46,4 +46,9 @@ public class FlightController {
         return flightService.findByDateAndOriginAndDestination(date, origin, destination);
     }
 
+    @GetMapping("/origindestination/{origin}/{destination}")
+    public List<Flight> getFlightsByDate(@PathVariable String origin, @PathVariable String destination) {
+        return flightService.findByOriginAndDestination(origin, destination);
+    }
+
 }

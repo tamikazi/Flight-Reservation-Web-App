@@ -6,10 +6,16 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 
 public interface TicketRepository extends JpaRepository<Ticket, String> {
-    List<Ticket> findByTicketIDAndUserID(int ticketID, int userID);
+
+    Ticket findByTicketID(int ticketID);
+    Ticket findByTicketIDAndUserID(int ticketID, int userID);
 
     List<Ticket> findByUserID(int userID);
 
     List<Ticket> findByFlightID(int flightID);
+
+    List<Ticket> findByFlightIDAndUserID(int flightID, int userID);
+
+
 
 }

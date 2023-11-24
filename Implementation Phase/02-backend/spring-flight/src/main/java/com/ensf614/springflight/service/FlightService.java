@@ -31,4 +31,8 @@ public class FlightService {
     public List<Flight> findByDateAndOriginAndDestination(String date, String origin, String destination) {
         return flightRepository.findByDateAndOriginAndDestination(date, origin, destination);
     }
+
+    public List<Flight> findByOriginAndDestination(String origin, String destination) {
+        return flightRepository.findByOriginAndDestination(origin, destination);
+    }
 }

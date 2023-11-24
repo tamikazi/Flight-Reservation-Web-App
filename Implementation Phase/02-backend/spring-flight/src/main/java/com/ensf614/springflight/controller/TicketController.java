@@ -18,6 +18,15 @@ public class TicketController {
         this.ticketService = ticketService;
     }
 
+    @GetMapping
+    public List<Ticket> getAllTickets() {
+        return ticketService.allTickets();
+    }
+
+    @GetMapping("/id/{id}")
+    public Ticket getTicketById(@PathVariable int id) {
+        return ticketService.ticketByID(id);
+    }
     @GetMapping("/flightid/{id}")
     public List<Ticket> getTicketByFlightID(@PathVariable int id) {
         return ticketService.allTicketsOnFlight(id);
@@ -28,7 +37,12 @@ public class TicketController {
     }
 
     @GetMapping("/userflights/{userID}/{ticketID}")
-    public List<Ticket> getTicketByTicketIDAndUserID(@PathVariable int userID, @PathVariable int ticketID) {
+    public Ticket getTicketByTicketIDAndUserID(@PathVariable int userID, @PathVariable int ticketID) {
         return ticketService.ticketsOnTicketIDAndUserID(ticketID, userID);
+    }
+
+    @GetMapping("/userflight/{userID}/{flightID}")
+    public List<Ticket> getTicketByFlightIDAndUserID(@PathVariable int userID, @PathVariable int flightID) {
+        return ticketService.ticketsOnFlightIDAndUserID(flightID, userID);
     }
 }

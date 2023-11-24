@@ -26,7 +26,7 @@ public class AircraftController {
     }
 
     @GetMapping("/id/{id}")
-    public List<Aircraft> getAircraftById(@PathVariable int id) {
+    public Aircraft getAircraftById(@PathVariable int id) {
         return aircraftService.aircraftByID(id);
     }
 

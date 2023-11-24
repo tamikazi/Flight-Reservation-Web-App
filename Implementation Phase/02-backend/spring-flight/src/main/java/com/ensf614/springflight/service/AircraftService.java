@@ -19,7 +19,7 @@ public class AircraftService {
         return aircraftRepository.findAll();
     }
 
-    public List<Aircraft> aircraftByID(int id) {
+    public Aircraft aircraftByID(int id) {
         return aircraftRepository.findByAircraftID(id);
     }
 
