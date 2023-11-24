@@ -25,21 +25,22 @@ CREATE TABLE FLIGHT (
   departDate      	DATE			NOT NULL,
   departTime		TIME			NOT NULL,
   aircraftID   		INT				NOT NULL,
+  basePrice			DECIMAL(10,2)	NOT NULL,
 PRIMARY KEY (flightID),
 FOREIGN KEY (aircraftID) REFERENCES AIRCRAFT(aircraftID));
 
-INSERT INTO FLIGHT (code, origin, destination, departDate, departTime, aircraftID) 
+INSERT INTO FLIGHT (code, origin, destination, departDate, departTime, aircraftID, basePrice) 
 VALUES 
-('A3100', 'Chicago', 'Calgary', '2023-12-20', '11:15:06', 1), 
-('B7101', 'London', 'Paris', '2023-12-21', '10:53:56', 2), 
-('B7102', 'Toronto', 'Los Angeles', '2023-12-22', '15:48:32', 3), 
-('B7103', 'Paris', 'London', '2023-11-23', '19:28:15', 4), 
-('C2104', 'Vancouver', 'New York', '2023-12-24', '15:00:59', 5), 
-('A3101', 'Tokyo', 'New York', '2023-12-20', '17:54:52', 1), 
-('B7104', 'New York', 'Calgary', '2023-12-21', '11:19:33', 2), 
-('B7105', 'New York', 'London', '2023-12-22', '14:01:21', 3), 
-('B7106', 'Paris', 'Tokyo', '2023-12-23', '16:32:05', 4), 
-('C2105', 'San Francisco', 'New York', '2023-12-24', '13:19:57', 5);
+('A3100', 'Chicago', 'Calgary', '2023-12-20', '11:15:06', 1, 1500.50),
+('B7101', 'London', 'Paris', '2023-12-21', '10:53:56', 2, 1700.75),
+('B7102', 'Toronto', 'Los Angeles', '2023-12-22', '15:48:32', 3, 1800.25),
+('B7103', 'Paris', 'London', '2023-11-23', '19:28:15', 4, 1300.80),
+('C2104', 'Vancouver', 'New York', '2023-12-24', '15:00:59', 5, 1600.90),
+('A3101', 'Tokyo', 'New York', '2023-12-20', '17:54:52', 1, 1400.60),
+('B7104', 'New York', 'Calgary', '2023-12-21', '11:19:33', 2, 1550.30),
+('B7105', 'New York', 'London', '2023-12-22', '14:01:21', 3, 1750.20),
+('B7106', 'Paris', 'Tokyo', '2023-12-23', '16:32:05', 4, 1200.40),
+('C2105', 'San Francisco', 'New York', '2023-12-24', '13:19:57', 5, 1900.70);
 
 CREATE TABLE ROLES (
 	roleID		INT			NOT NULL AUTO_INCREMENT,
