@@ -28,7 +28,4 @@ public class Ticket {
 
     @Column(name = "insurance")
     private boolean insurance;
-
-    @Column(name = "class")
-    private String seatClass;
 }

@@ -10,4 +10,6 @@ public interface TicketRepository extends JpaRepository<Ticket, String> {
 
     List<Ticket> findByUserID(int userID);
 
+    List<Ticket> findByFlightID(int flightID);
+
 }
