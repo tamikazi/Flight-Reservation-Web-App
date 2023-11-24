@@ -39,6 +39,7 @@ export const SeatPage = () => {
                 origin: responseData.origin,
                 destination: responseData.destination,
                 date: responseData.date,
+                time: responseData.time,
                 aircraft: responseData.aircraft
             };
 

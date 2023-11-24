@@ -50,6 +50,7 @@ export const FlightsPage = () => {
                     origin: responseData[key].origin,
                     destination: responseData[key].destination,
                     date: responseData[key].date,
+                    time: responseData[key].time,
                     aircraft: responseData[key].aircraft
                 });
             }

@@ -56,7 +56,7 @@ INSERT INTO ROLES (roleName) VALUES
 CREATE TABLE USER (
   userID       INT            NOT NULL AUTO_INCREMENT,
   username     VARCHAR(50)    NOT NULL,
-  password     VARCHAR(50)    NOT NULL,
+  password     VARCHAR(50)    DEFAULT NULL,
   roleID       INT		      NOT NULL,
   member	   BOOL			  NOT NULL DEFAULT FALSE,
   PRIMARY KEY (userID),
