@@ -45,7 +45,7 @@ export const FlightsPage = () => {
 
             for (const key in responseData) {
                 loadedFlights.push({
-                    flightId: responseData[key].flightId,
+                    flightID: responseData[key].flightID,
                     code: responseData[key].code,
                     origin: responseData[key].origin,
                     destination: responseData[key].destination,
@@ -54,6 +54,33 @@ export const FlightsPage = () => {
                     aircraft: responseData[key].aircraft
                 });
             }
+
+            // // Fake data
+            // const mockFlights: FlightModel[] = [];
+            // mockFlights.push({
+            //     flightId: 1,
+            //     code: 'AB100',
+            //     origin: 'Calgary',
+            //     destination: 'Vancouver',
+            //     date: '2023-11-30',
+            //     aircraft: 'B787'
+            // });
+            // mockFlights.push({
+            //     flightId: 2,
+            //     code: 'AB101',
+            //     origin: 'Calgary',
+            //     destination: 'Edmonton',
+            //     date: '2023-11-30',
+            //     aircraft: 'B787'
+            // });
+            // mockFlights.push({
+            //     flightId: 3,
+            //     code: 'AB103',
+            //     origin: 'Calgary',
+            //     destination: 'Toronto',
+            //     date: '2023-11-31',
+            //     aircraft: 'B787'
+            // });
 
             setFlights(loadedFlights);
             setIsLoading(false);
@@ -227,7 +254,7 @@ export const FlightsPage = () => {
                         </div>
                         <div className='list-group'>
                             {flights.map(flight => (
-                                <Flight flight={flight} key={flight.flightId}/>
+                                <Flight flight={flight} key={flight.flightID}/>
                             ))}
                         </div>
                     </>

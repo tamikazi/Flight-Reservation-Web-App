@@ -7,6 +7,7 @@ import {AdminPage} from "./layouts/Admin/AdminPage";
 import {ManifestPage} from "./layouts/Manifest/ManifestPage";
 import {SeatPage} from "./layouts/Seat/SeatPage";
 import {PaymentPage} from "./layouts/Payment/PaymentPage";
+import {LoginPage} from "./layouts/Login/LoginPage";
 
 function App() {
     return (
@@ -15,6 +16,9 @@ function App() {
             <Switch>
                 <Route path='/' exact>
                     <Redirect to='/flights'/>
+                </Route>
+                <Route path='/login'>
+                    <LoginPage/>
                 </Route>
                 <Route path='/flights'>
                     <FlightsPage/>

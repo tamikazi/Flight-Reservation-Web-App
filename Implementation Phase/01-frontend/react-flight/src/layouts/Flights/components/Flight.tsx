@@ -4,7 +4,7 @@ import {Link} from "react-router-dom";
 export const Flight: React.FC<{ flight: FlightModel }> = (props) => {
     return (
         <Link className='list-group-item list-group-item-action d-flex gap-5 py-3'
-              to={`/seats/${props.flight.flightId}`} aria-current='true'>
+              to={`/seats/${props.flight.flightID}`} aria-current='true'>
             <h4 className='mb-0'>{props.flight.code}</h4>
             <div className='d-flex gap-2 w-100 justify-content-between'>
                 <div>

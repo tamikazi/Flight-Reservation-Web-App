@@ -27,7 +27,7 @@ export const Navbar = () => {
                     </ul>
                     <ul className='navbar-nav ms-auto'>
                         <li className='nav-item m-1'>
-                            <NavLink type='button' className='btn btn-outline-light' to='#'>Sign in</NavLink>
+                            <NavLink type='button' className='btn btn-outline-light' to='/login'>Sign in</NavLink>
                         </li>
                     </ul>
                 </div>
