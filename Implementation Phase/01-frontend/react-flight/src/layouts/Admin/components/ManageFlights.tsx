@@ -4,7 +4,7 @@ import FlightModel from "../../../models/FlightModel";
 import {SpinnerLoading} from "../../Utils/SpinnerLoading";
 import {Flight} from "../../Flights/components/Flight";
 
-export const ModifyFlights = () => {
+export const ManageFlights = () => {
 
     const [flight, setFlight] = useState<FlightModel>();
     const [isLoading, setIsLoading] = useState(true);
@@ -83,7 +83,7 @@ export const ModifyFlights = () => {
         <div className='container mt-5 mb-5'>
             <div className='card'>
                 <div className='card-header'>
-                    Modify flights
+                    Manage flights
                 </div>
                 <div className='card-body'>
                     <form>

@@ -2,9 +2,9 @@ import {Passenger} from "../../Manifest/components/Passenger";
 import {useEffect, useState} from "react";
 import {SpinnerLoading} from "../../Utils/SpinnerLoading";
 import CrewModel from "../../../models/CrewModel";
-import {CrewMember} from "./CrewMember";
+import {CrewMember} from "./cards/CrewMember";
 
-export const ModifyCrew = () => {
+export const ManageCrew = () => {
 
     const [crew, setCrew] = useState<CrewModel[]>([]);
     const [isLoading, setIsLoading] = useState(true);
@@ -80,7 +80,7 @@ export const ModifyCrew = () => {
         <div className='container mt-5 mb-5'>
             <div className='card'>
                 <div className='card-header'>
-                    Modify crew
+                    Manage crew
                 </div>
                 <div className='card-body'>
                     <div className='row mt-5 mb-5'>

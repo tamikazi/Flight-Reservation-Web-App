@@ -2,11 +2,11 @@ import {Passenger} from "../../Manifest/components/Passenger";
 import {useEffect, useState} from "react";
 import {SpinnerLoading} from "../../Utils/SpinnerLoading";
 import CrewModel from "../../../models/CrewModel";
-import {CrewMember} from "./CrewMember";
+import {CrewMember} from "./cards/CrewMember";
 import AircraftModel from "../../../models/AircraftModel";
-import {Aircraft} from "./Aircraft";
+import {Aircraft} from "./cards/Aircraft";
 
-export const ModifyAircraft = () => {
+export const ManageAircraft = () => {
 
     const [aircraft, setAircraft] = useState<AircraftModel[]>([]);
     const [isLoading, setIsLoading] = useState(true);
@@ -78,7 +78,7 @@ export const ModifyAircraft = () => {
         <div className='container mt-5 mb-5'>
             <div className='card'>
                 <div className='card-header'>
-                    Modify aircraft
+                    Manage aircraft
                 </div>
                 <div className='card-body'>
                     <form>
