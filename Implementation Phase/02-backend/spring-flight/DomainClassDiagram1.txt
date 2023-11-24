@@ -6,6 +6,8 @@ class Flight {}
 
 class Aircraft {}
 
+class Crew {}
+
 class Ticket {}
 
 class Seat {}
