@@ -5,7 +5,6 @@ class Airline {
 }
 
 class Flight {
-- flightID: number
 - code: string
 - origin: string
 - destination: string
@@ -16,19 +15,16 @@ class Flight {
 + getByCodeAndDate(code: string, date: Date): Flight
 + getByDateAndOriginAndDestination(date: Date,
 origin: string, destination: string): Flight[]
-+ addFlight(all fields): void
 + updateFlight(all fields): void
 + deleteFlight(code: string, date: string): void
 }
 
 class Aircraft {
-- aircraftID: number
 - model: string
 - numCols: number
 - numRows: number
 
 + getAllAircraft(): Aircraft[]
-+ addAircraft(all fields): void
 + deleteAircraft(aircraftID: number): void
 + getAircraft(aircraftID: number): Aircraft
 }
@@ -48,12 +44,10 @@ class Ticket {
 - user: User
 - insurance: boolean
 
-+ addTicket(all fields): void
 + deleteTicket(flightID: number, seatID: number): void
 }
 
 class Seat {
-- seatID: number
 - seatNumber: string
 - class: string
 
@@ -61,7 +55,6 @@ class Seat {
 }
 
 class User {
-- userID: number
 - FName: string
 - LName: string
 - email: string
@@ -74,16 +67,15 @@ class User {
 + getRole(username: string): string
 + logout(): void
 + getManifest(flightID: number): User[]
++ getMember(): User[]
 + registerUser(): void
 }
 
 class Payment {
-- paymentID: number
-- userID: number
+- user: User
 - date: Date
 - amount: number
 
-+ addPayment(all fields): void
 + getHistory(userID: number): Payment[]
 }
 
@@ -97,16 +89,26 @@ class Email {
 + sendEmail(): void
 }
 
-Airline "1" -- "1..*" Flight : hosts
-Airline "1" -- "1..*" Aircraft : owns
-Flight "1..*" -- "1" Aircraft : flies on
-Aircraft "1" -- "n" Seat : carries
-Flight "1" -- "0..*" Ticket : has
+interface Manage {
+{abstract} add()
+{abstract} update()
+{abstract} delete()
+}
+
+Airline "1" o-- "1..*" Flight : hosts
+Airline "1" o-- "1..*" Aircraft : owns
+Flight "1..*" o-- "1" Aircraft : flies on
+Aircraft "1" *-- "n" Seat : carries
+Flight ..|> Manage
+Aircraft ..|> Manage
+Crew ..|> Manage
+Flight "1" --o "0..*" Ticket : has
 Crew "n" -- "1" Flight : crews
-Ticket "1" -- "1" Seat : reserves
-User "1" -- "0..*" Ticket : buys
+Ticket "1" o-- "1" Seat : reserves
+User "1" --o "0..*" Ticket : buys
 Ticket "1" -- "1" Email : generates
-User "1" -- "0..*" Payment : pays
+User "1" o-- "0..*" Payment : pays
 Payment "1" -- "1" Email : generates
+Crew --|> User
 
 @enduml
