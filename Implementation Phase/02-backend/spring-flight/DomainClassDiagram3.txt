@@ -1,0 +1,181 @@
+@startuml
+
+class Domain {}
+
+class LoginPage {}
+
+class SearchPage {}
+
+class FlightsPage {}
+
+class ManifestPage {}
+
+class SeatPage {}
+
+class PaymentPage {}
+
+class PaymentConfirmationPage {}
+
+class ManageBookingPage {}
+
+class MembershipPage {}
+
+class ManageUsersPage {}
+
+class ViewFlightsPage {}
+
+class ManageFlightsPage {}
+
+class ManageCrewPage {}
+
+class ManageAircraftPage {}
+
+class ManifestPage {}
+
+class FlightView {
+- flightID: number
+- code: string
+- origin: string
+- destination: string
+- departDate: Date
+- departTime: Time
+}
+class SeatView {
+- seatID: number
+- seatNumber: string
+- class: string
+- available: boolean
+}
+class TicketView {
+- flightID: number
+- seatID: number
+- userID: number
+- name: string
+- insurance: boolean
+}
+class PaymentView {
+- userID: number
+- date: string
+- amount: number
+}
+class CrewView {
+- userID: number
+- name: string
+}
+class PassengerView {
+- name: string
+- seatNumber: string
+}
+class AircraftView {
+- aircraftID: number
+- View: string
+- numCols: number
+- numRows: number
+}
+class LoginRequestView {
+- username: string
+- password: string
+}
+class LoginResponseView {
+- userID: number
+- role: string
+}
+class UserView {
+- userID: number
+- username: string
+- fName: string
+- lName: string
+- member: boolean
+}
+
+class FlightController {
++ getAllFlights(): FlightView[]
+}
+
+class SeatController {
++ getSeats(flightID: number): Seat[]
+}
+
+class TicketController {
++ addTicket(ticket: TicketView): void
++ getUserTickets(userID: number): TicketView[]
++ deleteTicket(ticketID: number): void
+}
+
+class PaymentController {
++ addPayment(payment: PaymentView): void
++ getUserPayments(userID: number): PaymentView[]
+}
+
+class AdminController {
++ getUsers(): UserView[]
++ getAircraft(): AircraftView[]
++ addAircraft(AircraftView): void
++ deleteAircraft(aircraftID: number): void
++ getAllCrew(): CrewView[]
++ getCrew(code: string): CrewView[]
++ addCrew(code: string, userID: number): void
++ deleteCrew(code: string, userID: number): void
++ getFlights(date: string): FlightView[]
++ getFlight(code: string, date: string): FlightView
++ addFlight(flight: FlightView): void
++ updateFlight(flight: FlightView): void
++ deleteFlight(flight: FlightView): void
+}
+
+class ManifestController {
++ getManifest(code: string, date: string): PassengerView[]
+}
+
+class UserController {
++ getUser(userID: number): UserView
+}
+
+class LoginController {
++ requestLogin(request: LoginRequestView): LoginResponseView
+}
+
+LoginPage -- LoginRequestView
+LoginPage -- LoginResponseView
+SearchPage -- FlightView
+SeatPage -- SeatView
+PaymentPage -- PaymentView
+TicketPage -- TicketView
+ManifestPage -- PassengerView
+ManageBookingPage -- TicketView
+MembershipPage -- UserView
+ManageUsersPage -- UserView
+ViewFlightsPage -- FlightView
+ManageFlightsPage -- FlightView
+ManageCrewPage -- CrewView
+ManageAircraftPage -- AircraftView
+
+LoginRequestView -- LoginController
+LoginResponseView -- LoginController
+FlightView -- FlightController
+FlightView -- AdminController
+SeatView -- SeatController
+PaymentView -- PaymentController
+TicketView -- TicketController
+PassengerView -- ManifestController
+UserView -- AdminController
+CrewView -- AdminController
+AircraftView -- AdminController
+UserView -- UserController
+
+LoginController -- Domain
+FlightController -- Domain
+SeatController -- Domain
+PaymentController -- Domain
+TicketController -- Domain
+AdminController -- Domain
+UserController -- Domain
+ManifestController -- Domain
+
+
+SearchPage - FlightsPage
+FlightsPage - SeatPage
+SeatPage - PaymentPage
+PaymentPage - PaymentConfirmationPage
+
+@enduml
