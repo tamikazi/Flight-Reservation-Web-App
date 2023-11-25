@@ -61,13 +61,14 @@ class User {
 - password: string
 - member: boolean
 - role: string
+- address: string
 
 + getAllUsers(): User[]
 + login(username: string, password: string): boolean
 + getRole(username: string): string
 + logout(): void
 + getManifest(flightID: number): User[]
-+ getMember(): User[]
++ getMembers(): User[]
 + registerUser(): void
 }
 
