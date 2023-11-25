@@ -8,6 +8,7 @@ import {ManifestPage} from "./layouts/Manifest/ManifestPage";
 import {SeatPage} from "./layouts/Seat/SeatPage";
 import {PaymentPage} from "./layouts/Payment/PaymentPage";
 import {LoginPage} from "./layouts/Login/LoginPage";
+import {SearchPage} from "./layouts/SearchFlights/SearchPage";
 
 function App() {
     return (
@@ -19,6 +20,9 @@ function App() {
                 </Route>
                 <Route path='/login'>
                     <LoginPage/>
+                </Route>
+                <Route path='/search'>
+                    <SearchPage/>
                 </Route>
                 <Route path='/flights'>
                     <FlightsPage/>
