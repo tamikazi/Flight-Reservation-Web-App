@@ -549,7 +549,8 @@ CREATE TABLE TICKET (
 
 INSERT INTO TICKET (seatID, flightID, userID, insurance) VALUES
 (1, 1, 4, FALSE),
-(2, 1, 4, FALSE);
+(2, 1, 4, FALSE),
+(1, 2, 2, FALSE);
 
 #SELECT * FROM FLIGHT
 #LEFT JOIN SEAT ON aircraftID

@@ -41,4 +41,9 @@ public class SeatController {
     public List<Seat> getSeatByFlightId(@PathVariable int id) {
         return seatService.allSeatsOnFlight(id);
     }
+
+    @GetMapping("/bookedseats/{id}")
+    public List<Seat> getBookedSeatsByFlightId(@PathVariable int id) {
+        return seatService.allBookedSeatsOnFlight(id);
+    }
 }

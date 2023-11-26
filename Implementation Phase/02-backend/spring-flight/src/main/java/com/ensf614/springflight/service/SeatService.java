@@ -28,4 +28,6 @@ public class SeatService {
 
     public List<Seat> allSeatsOnFlight(int flightID) { return seatRepository.findByFlightID(flightID); }
 
+    public List<Seat> allBookedSeatsOnFlight(int flightID) { return seatRepository.findBookedSeats(flightID); }
+
 }
