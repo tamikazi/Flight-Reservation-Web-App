@@ -27,7 +27,7 @@ public class FlightController {
     }
 
     @GetMapping("/id/{id}")
-    public Optional<Flight> getFlightById(@PathVariable String id) {
+    public Optional<Flight> getFlightById(@PathVariable int id) {
         return flightService.findById(id);
     }
 

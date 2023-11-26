@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import java.util.List;
 import java.util.Optional;
 
-public interface FlightRepository extends JpaRepository<Flight, String> {
+public interface FlightRepository extends JpaRepository<Flight, Number> {
 
     // Currently returns first instance of flight with specified code
     Optional<Flight> findByCode(String code);

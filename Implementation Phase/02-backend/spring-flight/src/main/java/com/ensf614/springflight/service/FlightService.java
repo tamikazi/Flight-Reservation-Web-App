@@ -18,7 +18,7 @@ public class FlightService {
 
     public List<Flight> allFlights() { return flightRepository.findAll(); }
 
-    public Optional<Flight> findById(String id) {
+    public Optional<Flight> findById(int id) {
         return flightRepository.findById(id);
     }
 
@@ -35,4 +35,5 @@ public class FlightService {
     public List<Flight> findByOriginAndDestination(String origin, String destination) {
         return flightRepository.findByOriginAndDestination(origin, destination);
     }
+
 }

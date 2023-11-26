@@ -22,8 +22,12 @@ public class User {
     @Column(name = "password")
     private String password;
 
-    @Column(name = "roleID")
+    @Column(name = "roleID", insertable = false, updatable = false)
     private int roleID;
+
+    @OneToOne
+    @JoinColumn(name = "roleID")
+    private Roles role;
 
     @Column(name = "member")
     private boolean member;

@@ -15,7 +15,7 @@ public class Flight {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "flightID")
-    private String flightId;
+    private int flightID;
 
     @Column(name = "code")
     private String code;
@@ -32,9 +32,14 @@ public class Flight {
     @Column(name = "departTime")
     private String time;
 
-    @Column(name = "aircraftID")
-    private String aircraft;
+    @Column(name = "aircraftID", insertable = false, updatable = false)
+    private int aircraftID;
+
+    @ManyToOne
+    @JoinColumn(name = "aircraftID")
+    private Aircraft aircraft;
 
     @Column(name = "basePrice")
     private float basePrice;
+
 }

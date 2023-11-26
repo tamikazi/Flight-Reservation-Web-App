@@ -17,14 +17,26 @@ public class Ticket {
     @Column(name = "ticketID")
     private int ticketID;
 
-    @Column(name = "seatID")
+    @Column(name = "seatID", insertable = false, updatable = false)
     private int seatID;
 
-    @Column(name = "flightID")
+    @OneToOne
+    @JoinColumn(name = "seatID")
+    private Seat seat;
+
+    @Column(name = "flightID", insertable = false, updatable = false)
     private int flightID;
 
-    @Column(name = "userID")
+    @ManyToOne
+    @JoinColumn(name = "flightID")
+    private Flight flight;
+
+    @Column(name = "userID", insertable = false, updatable = false)
     private int userID;
+
+    @ManyToOne
+    @JoinColumn(name = "userID")
+    private User user;
 
     @Column(name = "insurance")
     private boolean insurance;
