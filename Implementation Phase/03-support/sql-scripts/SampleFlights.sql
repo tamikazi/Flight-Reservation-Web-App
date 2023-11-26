@@ -552,6 +552,22 @@ INSERT INTO TICKET (seatID, flightID, userID, insurance) VALUES
 (2, 1, 4, FALSE),
 (1, 2, 2, FALSE);
 
+CREATE TABLE PAYMENT (
+	paymentID	INT				NOT NULL AUTO_INCREMENT,
+    userID		INT				NOT NULL,
+    payDate		DATE			NOT NULL,
+    amount		DECIMAL(10,2)	NOT NULL,
+    ticketID	INT				DEFAULT NULL,
+    PRIMARY KEY (paymentID),
+    FOREIGN KEY (userID) REFERENCES USER(userID),
+    FOREIGN KEY (ticketID) REFERENCES TICKET(ticketID)
+);
+
+INSERT INTO PAYMENT (userID, payDate, amount, ticketID) VALUES
+	(4, '2023-11-24', 1300.00, 1),
+    (4, '2023-11-24', 1600.00, 2),
+    (2, '2023-11-25', 1100.00, 3);
+
 #SELECT * FROM FLIGHT
 #LEFT JOIN SEAT ON aircraftID
 #LEFT JOIN TICKET ON seatID;
