@@ -15,7 +15,7 @@ public interface SeatRepository extends JpaRepository<Seat, Number> {
 
     List<Seat> findByAircraftID(int aircraftID);
 
-    @Query("SELECT s FROM Seat s WHERE s.aircraftID IN (SELECT a.aircraftID FROM Flight f JOIN f.aircraft a WHERE f.flightID = :flightId)")
+    @Query("SELECT s FROM Seat s, Flight f WHERE s.aircraftID = f.aircraftID AND f.flightID = :flightId")
     List<Seat> findByFlightID(@Param("flightId") int flightId);
 
 }

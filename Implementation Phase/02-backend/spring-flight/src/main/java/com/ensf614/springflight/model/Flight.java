@@ -32,12 +32,8 @@ public class Flight {
     @Column(name = "departTime")
     private String time;
 
-    @Column(name = "aircraftID", insertable = false, updatable = false)
+    @Column(name = "aircraftID")
     private int aircraftID;
-
-    @ManyToOne
-    @JoinColumn(name = "aircraftID")
-    private Aircraft aircraft;
 
     @Column(name = "basePrice")
     private float basePrice;

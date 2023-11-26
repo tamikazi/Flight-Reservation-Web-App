@@ -17,12 +17,8 @@ public class Seat {
     @Column(name = "seatID")
     private int seatID;
 
-    @Column(name = "aircraftID", insertable = false, updatable = false)
+    @Column(name = "aircraftID")
     private int aircraftID;
-
-    @ManyToOne
-    @JoinColumn (name = "aircraftID")
-    private Aircraft aircraft;
 
     @Column(name = "seatNumber")
     private String seatNumber;

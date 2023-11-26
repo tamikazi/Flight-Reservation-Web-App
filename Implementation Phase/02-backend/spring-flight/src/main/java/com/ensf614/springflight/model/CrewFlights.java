@@ -16,10 +16,10 @@ public class CrewFlights {
     @Column(name = "crewID")
     private int crewID;
 
-    @Column(name = "flightID", insertable = false, updatable = false)
+    @Column(name = "userID")
+    private int userID;
+
+    @Column(name = "flightID")
     private int flightID;
 
-    @ManyToOne
-    @JoinColumn(name = "flightID")
-    private Flight flight;
 }
