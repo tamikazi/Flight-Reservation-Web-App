@@ -42,6 +42,8 @@ class Ticket {
 - flight: Flight
 - seat: Seat
 - user: User
+- price: number
+- passengerName: string
 - insurance: boolean
 
 + deleteTicket(flightID: number, seatID: number): void
@@ -60,7 +62,6 @@ class User {
 - email: string
 - password: string
 - member: boolean
-- role: string
 - address: string
 
 + getAllUsers(): User[]
@@ -85,8 +86,10 @@ class Email {
 - subject: string
 - body: string
 
-+ makeReceipt(payment: Payment, ticket: Ticket, user: User)
-+ makeNewsletter(body: string, users: User[])
++ makeReceipt(payment: Payment, ticket: Ticket, user: User): void
++ makeTicket(ticket: Ticket): void
++ makeConfirmation(ticket: Ticket): void
++ makeNewsletter(body: string, users: User[]): void
 + sendEmail(): void
 }
 
@@ -99,7 +102,7 @@ interface Manage {
 Airline "1" o-- "1..*" Flight : hosts
 Airline "1" o-- "1..*" Aircraft : owns
 Flight "1..*" o-- "1" Aircraft : flies on
-Aircraft "1" *-- "n" Seat : carries
+Aircraft "1" -- "n" Seat : carries
 Flight ..|> Manage
 Aircraft ..|> Manage
 Crew ..|> Manage
@@ -108,8 +111,9 @@ Crew "n" -- "1" Flight : crews
 Ticket "1" o-- "1" Seat : reserves
 User "1" --o "0..*" Ticket : buys
 Ticket "1" -- "1" Email : generates
-User "1" o-- "0..*" Payment : pays
+User "1" --o "0..*" Payment : pays
 Payment "1" -- "1" Email : generates
-Crew --|> User
+User -- Email : signsup
+
 
 @enduml

@@ -5,7 +5,7 @@ import {Seat} from "./components/Seat";
 import {Link} from "react-router-dom";
 import {SpinnerLoading} from "../Utils/SpinnerLoading";
 
-export const SeatPage = () => {
+export const SeatPage: React.FC<{ flightId: string }> = (props) => {
 
     const [seats, setSeats] = useState<SeatModel[]>([]);
     const [flight, setFlight] = useState<FlightModel>();
@@ -13,7 +13,7 @@ export const SeatPage = () => {
     const [httpError, setHttpError] = useState(null);
 
     // Get flightid from url
-    const flightParam = (window.location.pathname).split('/')[3];
+    // const flightParam = (window.location.pathname).split('/')[3];
 
     // Make up row/column
     const seatColumns: number = 4;
@@ -22,46 +22,48 @@ export const SeatPage = () => {
     // Get flight
     useEffect(() => {
 
+        console.log('flightID: ' + props.flightId)
+
         const fetchFlight = async () => {
-            // const url: string = `http://localhost:8080/api/flights/id/${flightParam}`;
-            //
-            // const response = await fetch(url);
-            //
-            // if (!response.ok) {
-            //     throw new Error('Something went wrong!');
-            // }
-            //
-            // const responseData = await response.json();
-            //
-            // const loadedFlight: FlightModel = {
-            //     flightId: responseData.flightId,
-            //     code: responseData.code,
-            //     origin: responseData.origin,
-            //     destination: responseData.destination,
-            //     date: responseData.date,
-            //     time: responseData.time,
-            //     aircraft: responseData.aircraft
-            // };
+            const url: string = `http://localhost:8080/api/flights/id/${props.flightId}`;
 
-            //  Fake data
-            const mockFlight: FlightModel = ({
-                flightID: 1,
-                code: 'AB100',
-                origin: 'Calgary',
-                destination: 'Vancouver',
-                date: '2023-11-30',
-                time: '1350',
-                aircraft: 1
-            });
+            const response = await fetch(url);
 
-            setFlight(mockFlight);
+            if (!response.ok) {
+                throw new Error('Something went wrong!');
+            }
+
+            const responseData = await response.json();
+
+            const loadedFlight: FlightModel = {
+                flightId: responseData.flightId,
+                code: responseData.code,
+                origin: responseData.origin,
+                destination: responseData.destination,
+                date: responseData.date,
+                time: responseData.time,
+                aircraft: responseData.aircraft,
+            };
+
+            // //  Fake data
+            // const mockFlight: FlightModel = ({
+            //     flightID: 1,
+            //     code: 'AB100',
+            //     origin: 'Calgary',
+            //     destination: 'Vancouver',
+            //     date: '2023-11-30',
+            //     time: '1350',
+            //     aircraft: 1
+            // });
+
+            setFlight(loadedFlight);
             setIsLoading(false);
         };
         fetchFlight().catch((error: any) => {
             setIsLoading(false);
             setHttpError(error.message);
         })
-    }, [flightParam]);
+    }, []);
 
     // Get seats
     useEffect(() => {

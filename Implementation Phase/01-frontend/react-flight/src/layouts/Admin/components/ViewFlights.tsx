@@ -47,31 +47,31 @@ export const ViewFlights = () => {
             // Fake data
             const mockFlights: FlightModel[] = [];
             mockFlights.push({
-                flightID: 1,
+                flightId: '1',
                 code: 'AB100',
                 origin: 'Calgary',
                 destination: 'Vancouver',
                 date: '2023-11-30',
                 time: '0800',
-                aircraft: 1
+                aircraft: '1'
             });
             mockFlights.push({
-                flightID: 2,
+                flightId: '2',
                 code: 'AB101',
                 origin: 'Calgary',
                 destination: 'Edmonton',
                 date: '2023-11-30',
                 time: '1350',
-                aircraft: 2
+                aircraft: '2'
             });
             mockFlights.push({
-                flightID: 3,
+                flightId: '3',
                 code: 'AB102',
                 origin: 'Vancouver',
                 destination: 'Calgary',
                 date: '2023-11-30',
                 time: '1530',
-                aircraft: 1
+                aircraft: '1'
             });
 
             setFlights(mockFlights);
@@ -124,7 +124,7 @@ export const ViewFlights = () => {
                                 </div>
                                 <div className='list-group'>
                                     {flights.map(flight => (
-                                        <Flight flight={flight} key={flight.flightID}/>
+                                        <Flight flight={flight} onClick={() => {}} key={flight.flightId}/>
                                     ))}
                                 </div>
                             </>

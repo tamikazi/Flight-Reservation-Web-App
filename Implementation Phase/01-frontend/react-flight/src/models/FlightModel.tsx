@@ -1,16 +1,16 @@
 class FlightModel {
-    flightID: number;
+    flightId: string;
     code: string;
     origin: string;
     destination: string;
     date: string;
     time: string;
-    aircraft: number;
+    aircraft: string;
 
   
-    constructor(flightID: number, code: string, origin: string, destination: string,
-                date: string, time: string, aircraft: number) {
-        this.flightID = flightID;
+    constructor(flightId: string, code: string, origin: string, destination: string,
+                date: string, time: string, aircraft: string) {
+        this.flightId = flightId;
         this.code = code;
         this.origin = origin;
         this.destination = destination;

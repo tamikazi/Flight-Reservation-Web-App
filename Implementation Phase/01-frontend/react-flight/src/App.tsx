@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import './App.css';
 import {Redirect, Route, Switch} from "react-router-dom";
 import {Navbar} from "./layouts/Nav/Navbar";
@@ -11,24 +11,35 @@ import {LoginPage} from "./layouts/Login/LoginPage";
 import {SearchPage} from "./layouts/SearchFlights/SearchPage";
 
 function App() {
+
+    // Search paramters
+    const [origin, setOrigin] = useState('Chicago');
+    const [destination, setDestination] = useState('Calgary');
+    const [date, setDate] = useState('2023-12-20');
+    const [guests, setGuests] = useState('2');
+    const [flightId, setFlightId] = useState('');
+
+
+
     return (
         <div>
             <Navbar/>
             <Switch>
                 <Route path='/' exact>
-                    <Redirect to='/flights'/>
+                    <Redirect to='/search'/>
                 </Route>
                 <Route path='/login'>
                     <LoginPage/>
                 </Route>
                 <Route path='/search'>
-                    <SearchPage/>
+                    <SearchPage setOrigin={setOrigin} setDestination={setDestination}
+                                setDate={setDate} setGuests={setGuests}/>
                 </Route>
                 <Route path='/flights'>
-                    <FlightsPage/>
+                    <FlightsPage origin={origin} destination={destination} date={date} setFlightId={setFlightId}/>
                 </Route>
-                <Route path='/seats/:flightId'>
-                    <SeatPage/>
+                <Route path='/seats'>
+                    <SeatPage flightId={flightId}/>
                 </Route>
                 <Route path='/payment'>
                     <PaymentPage/>

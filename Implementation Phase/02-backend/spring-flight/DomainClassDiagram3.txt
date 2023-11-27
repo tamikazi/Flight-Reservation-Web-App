@@ -93,7 +93,7 @@ class FlightController {
 }
 
 class SeatController {
-+ getSeats(flightID: number): Seat[]
++ getSeats(flightID: number): SeatView[]
 }
 
 class TicketController {
