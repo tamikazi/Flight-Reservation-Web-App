@@ -31,9 +31,11 @@ public class User {
     @Column(name = "member")
     private boolean member;
 
+    @Getter
     @Column(name = "Fname")
     private String Fname;
 
+    @Getter
     @Column(name = "Lname")
     private String Lname;
 

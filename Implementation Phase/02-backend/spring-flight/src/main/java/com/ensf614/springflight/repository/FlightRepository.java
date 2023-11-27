@@ -19,6 +19,8 @@ public interface FlightRepository extends JpaRepository<Flight, Number> {
 
     List<Flight> findByOriginAndDestination(String origin, String destination);
 
+    Optional<Flight> findByCodeAndDate(String code, String date);
+
     void deleteByFlightID(int flightID);
 
 }

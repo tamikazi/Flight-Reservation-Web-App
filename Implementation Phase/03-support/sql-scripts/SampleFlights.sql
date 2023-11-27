@@ -551,7 +551,10 @@ CREATE TABLE TICKET (
 INSERT INTO TICKET (seatID, flightID, userID, insurance) VALUES
 (1, 1, 4, FALSE),
 (2, 1, 4, FALSE),
-(1, 2, 2, FALSE);
+(1, 2, 2, FALSE),
+(7, 1, 1, FALSE),
+(12, 1, 2, FALSE),
+(23, 1, 3, FALSE);
 
 CREATE TABLE PAYMENT (
 	paymentID	INT				NOT NULL AUTO_INCREMENT,
