@@ -22,7 +22,7 @@ public class Payment {
     private String payDate;
 
     @Column(name = "amount")
-    private int amount;
+    private float amount;
 
     @Column(name = "ticketID")
     private int ticketID;
