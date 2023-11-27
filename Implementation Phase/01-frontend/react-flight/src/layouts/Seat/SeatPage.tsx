@@ -8,6 +8,7 @@ import {SpinnerLoading} from "../Utils/SpinnerLoading";
 export const SeatPage: React.FC<{ flightId: string }> = (props) => {
 
     const [seats, setSeats] = useState<SeatModel[]>([]);
+    const [selectedSeats, setSelectedSeats] = useState<number[]>([]);
     const [flight, setFlight] = useState<FlightModel>();
     const [isLoading, setIsLoading] = useState(true);
     const [httpError, setHttpError] = useState(null);
@@ -20,80 +21,90 @@ export const SeatPage: React.FC<{ flightId: string }> = (props) => {
     const seatRows: number = 5;
 
     // Get flight
-    useEffect(() => {
-
-        console.log('flightID: ' + props.flightId)
-
-        const fetchFlight = async () => {
-            const url: string = `http://localhost:8080/api/flights/id/${props.flightId}`;
-
-            const response = await fetch(url);
-
-            if (!response.ok) {
-                throw new Error('Something went wrong!');
-            }
-
-            const responseData = await response.json();
-
-            const loadedFlight: FlightModel = {
-                flightId: responseData.flightId,
-                code: responseData.code,
-                origin: responseData.origin,
-                destination: responseData.destination,
-                date: responseData.date,
-                time: responseData.time,
-                aircraft: responseData.aircraft,
-            };
-
-            // //  Fake data
-            // const mockFlight: FlightModel = ({
-            //     flightID: 1,
-            //     code: 'AB100',
-            //     origin: 'Calgary',
-            //     destination: 'Vancouver',
-            //     date: '2023-11-30',
-            //     time: '1350',
-            //     aircraft: 1
-            // });
-
-            setFlight(loadedFlight);
-            setIsLoading(false);
-        };
-        fetchFlight().catch((error: any) => {
-            setIsLoading(false);
-            setHttpError(error.message);
-        })
-    }, []);
+    // useEffect(() => {
+    //
+    //     const fetchFlight = async () => {
+    //         const url: string = `http://localhost:8080/api/flights/id/1`;
+    //         // const url: string = `http://localhost:8080/api/flights/id/${props.flightId}`;
+    //
+    //         const response = await fetch(url);
+    //
+    //         if (!response.ok) {
+    //             throw new Error('Something went wrong!');
+    //         }
+    //
+    //         const responseData = await response.json();
+    //
+    //         const loadedFlight: FlightModel = {
+    //             flightId: responseData.flightId,
+    //             code: responseData.code,
+    //             origin: responseData.origin,
+    //             destination: responseData.destination,
+    //             date: responseData.date,
+    //             time: responseData.time,
+    //             aircraft: responseData.aircraft,
+    //         };
+    //
+    //         // //  Fake data
+    //         // const mockFlight: FlightModel = ({
+    //         //     flightID: 1,
+    //         //     code: 'AB100',
+    //         //     origin: 'Calgary',
+    //         //     destination: 'Vancouver',
+    //         //     date: '2023-11-30',
+    //         //     time: '1350',
+    //         //     aircraft: 1
+    //         // });
+    //
+    //         setFlight(loadedFlight);
+    //         setIsLoading(false);
+    //     };
+    //     fetchFlight().catch((error: any) => {
+    //         setIsLoading(false);
+    //         setHttpError(error.message);
+    //     })
+    // }, []);
 
     // Get seats
     useEffect(() => {
 
-        if (flight != null ){
-            // Make up fake seats
-            const loadedSeats: SeatModel[] = [];
-            let count: number = 0;
-            for (let i = 0; i < seatRows; i++) {
-                for (let j = 0; j < seatColumns; j++) {
-                    loadedSeats.push({
-                        seatId: count,
-                        code: ""+count,
-                        available: true,
-                        aircraftId: flight.aircraft
-                    });
-                    count++;
-                }
+        // Make up fake seats
+        const loadedSeats: SeatModel[] = [];
+        let count: number = 0;
+        for (let i = 0; i < seatRows; i++) {
+            for (let j = 0; j < seatColumns; j++) {
+                loadedSeats.push({
+                    seatId: count,
+                    seatNumber: "A1",
+                    // seatClass: (i = 0) ? "Business" : "Standard",
+                    seatClass: "Standard",
+                    available: true,
+                });
+                count++;
             }
-            //Set some seats as unavailable
-            loadedSeats[2].available = false;
-            loadedSeats[9].available = false;
-            loadedSeats[10].available = false;
-            loadedSeats[15].available = false;
-            loadedSeats[17].available = false;
-            setSeats(loadedSeats);
         }
+        //Set some seats as unavailable
+        loadedSeats[2].available = false;
+        loadedSeats[9].available = false;
+        loadedSeats[10].available = false;
+        loadedSeats[15].available = false;
+        loadedSeats[17].available = false;
 
+        setSeats(loadedSeats);
+        setIsLoading(false);
 
-    }, [flight]);
+    //
+    //     const fetchSeats =  () => {
+    //
+    //
+    //     };
+    //     fetchSeats().catch((error: any) => {
+    //         setIsLoading(false);
+    //         setHttpError(error.message);
+    //     })
+    //
+    //
+    }, []);
 
     if (isLoading) {
         return (
@@ -109,6 +120,22 @@ export const SeatPage: React.FC<{ flightId: string }> = (props) => {
         )
     }
 
+    // When seat is selected, adds the seat to selection array, removes if already there
+    const seatHandleChange = (seatId: number) => {
+        const seatList = selectedSeats;
+
+        if(seatList.includes(seatId)){
+            // Remove if already in array (seat is unselected)
+            const index = seatList.indexOf(seatId);
+            seatList.splice(index, 1);
+        } else {
+            // Add if not already in array (seat is selected)
+            seatList.push(seatId);
+        }
+
+        setSelectedSeats(seatList);
+        console.log(selectedSeats)
+    }
 
     return (
         <div className='container text-center'>
@@ -117,27 +144,13 @@ export const SeatPage: React.FC<{ flightId: string }> = (props) => {
                     <h4>Airplane Front</h4>
                     <div className={`row row-cols-${seatColumns} g-1`}>
                         {seats.map(seat => (
-                            <Seat seat={seat} key={seat.seatId}/>
+                            <Seat seat={seat} onClick={() => seatHandleChange(seat.seatId)} key={seat.seatId}/>
                         ))}
                     </div>
                     <h4>Airplane Back</h4>
                 </div>
                 <div className='col-4 '>
                     <div className='ml-2'>
-                        <h2>Class</h2>
-                        <div className='form-check'>
-                            <input className='form-check-input' type='radio' name='seatClass' id='standard'
-                                   defaultChecked={true}/>
-                            <label className='form-check-label' htmlFor='standard'>Standard</label>
-                        </div>
-                        <div className='form-check'>
-                            <input className='form-check-input' type='radio' name='seatClass' id='comfort'/>
-                            <label className='form-check-label' htmlFor='comfort'>Comfort</label>
-                        </div>
-                        <div className='form-check'>
-                            <input className='form-check-input' type='radio' name='seatClass' id='business'/>
-                            <label className='form-check-label' htmlFor='business'>Business</label>
-                        </div>
                         <h2>Insurance</h2>
                         <div className='form-check'>
                             <input className='form-check-input' type='checkbox' name='insurance' id='insurance'/>
