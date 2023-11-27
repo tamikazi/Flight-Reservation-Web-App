@@ -4,11 +4,13 @@ import com.ensf614.springflight.service.AdminService;
 import com.ensf614.springflight.model.User;
 import com.ensf614.springflight.model.Aircraft;
 import com.ensf614.springflight.model.CrewFlights;
+import com.ensf614.springflight.model.Flight;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @CrossOrigin(origins = "*")
 @RestController // abstract controller
@@ -50,6 +52,31 @@ public class AdminController {
     @PostMapping("/crewflights/add")
     public CrewFlights addCrewFlights(@RequestBody CrewFlights crewFlights) {
         return adminService.addCrewFlights(crewFlights);
+    }
+
+    @GetMapping("/flights/id/{id}")
+    public Optional<Flight> getFlightById(@PathVariable int id) {
+        return adminService.findByFlightID(id);
+    }
+
+    @GetMapping("/flights/code/{code}")
+    public Optional<Flight> getFlightByCode(@PathVariable String code) {
+        return adminService.findByCode(code);
+    }
+
+    @GetMapping("/flights/date/{date}")
+    public List<Flight> getFlightsByDate(@PathVariable String date) {
+        return adminService.findByDate(date);
+    }
+
+    @GetMapping("/flights/dateorigindestination/{date}/{origin}/{destination}")
+    public List<Flight> getFlightsByDate(@PathVariable String date, @PathVariable String origin, @PathVariable String destination) {
+        return adminService.findByDateAndOriginAndDestination(date, origin, destination);
+    }
+
+    @GetMapping("/flights/origindestination/{origin}/{destination}")
+    public List<Flight> getFlightsByDate(@PathVariable String origin, @PathVariable String destination) {
+        return adminService.findByOriginAndDestination(origin, destination);
     }
 
 }
