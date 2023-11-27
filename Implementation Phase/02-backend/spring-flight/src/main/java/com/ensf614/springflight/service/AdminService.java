@@ -10,7 +10,9 @@ import com.ensf614.springflight.model.Flight;
 import com.ensf614.springflight.repository.FlightRepository;
 import com.ensf614.springflight.model.Seat;
 import com.ensf614.springflight.repository.SeatRepository;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -60,7 +62,7 @@ public class AdminService {
         return newAircraft;
     }
 
-    public void generateSeatsForAircraft(Aircraft aircraft) {
+    private void generateSeatsForAircraft(Aircraft aircraft) {
 
         if (aircraft != null) {
             int rows = aircraft.getNumRows();
@@ -108,6 +110,11 @@ public class AdminService {
     public CrewFlights addCrewFlights(CrewFlights crewFlights) {
         return crewFlightsRepository.save(crewFlights);
     }
+
+    public Optional<CrewFlights> findByCrewID(int crewID) {
+        return crewFlightsRepository.findByCrewID(crewID);
+    }
+
     public Optional<Flight> findByFlightID(int id) {
         return flightRepository.findById(id);
     }
@@ -125,5 +132,34 @@ public class AdminService {
     public List<Flight> findByOriginAndDestination(String origin, String destination) {
         return flightRepository.findByOriginAndDestination(origin, destination);
     }
+
+    public Flight addFlight(Flight flight) {
+        return flightRepository.save(flight);
+    }
+
+    public void updateFlight(Flight flight) {
+        int flightID = flight.getFlightID();
+
+        Optional<Flight> flightToUpdate = flightRepository.findById(flightID);
+        if (flightToUpdate.isPresent()) {
+            Flight updatedFlight = flightToUpdate.get();
+            updatedFlight.setCode(flight.getCode());
+            updatedFlight.setOrigin(flight.getOrigin());
+            updatedFlight.setDestination(flight.getDestination());
+            updatedFlight.setDate(flight.getDate());
+            updatedFlight.setTime(flight.getTime());
+            updatedFlight.setAircraftID(flight.getAircraftID());
+            updatedFlight.setBasePrice(flight.getBasePrice());
+            flightRepository.save(updatedFlight);
+        }
+        else {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Flight with ID: " + flightID + " not found.");
+        }
+    }
+
+    public void deleteFlight(int flightID) {
+        flightRepository.deleteByFlightID(flightID);
+    }
+
 
 }

@@ -5,6 +5,7 @@ import com.ensf614.springflight.repository.CrewFlightsRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 @Service
 public class CrewFlightsService {
 
@@ -16,7 +17,7 @@ public class CrewFlightsService {
     public List<CrewFlights> allCrewFlights() {
         return crewFlightsRepository.findAll();
     }
-    public List<CrewFlights> allCrewFlightsOnCrew(int crewID) { return crewFlightsRepository.findByCrewID(crewID); }
+    public Optional<CrewFlights> allCrewFlightsOnCrew(int crewID) { return crewFlightsRepository.findByCrewID(crewID); }
 
     public List<CrewFlights> allCrewFlightsOnFlight(int flightID) { return crewFlightsRepository.findByFlightID(flightID); }
 

@@ -58,6 +58,11 @@ public class AdminController {
         return adminService.allCrewFlights();
     }
 
+    @GetMapping("/crewflights/crew/{crewID}")
+    public Optional<CrewFlights> getCrewFlightsByCrewID(@PathVariable int crewID) {
+        return adminService.findByCrewID(crewID);
+    }
+
     @PostMapping("/crewflights/add")
     public CrewFlights addCrewFlights(@RequestBody CrewFlights crewFlights) {
         return adminService.addCrewFlights(crewFlights);
@@ -86,6 +91,22 @@ public class AdminController {
     @GetMapping("/flights/origindestination/{origin}/{destination}")
     public List<Flight> getFlightsByDate(@PathVariable String origin, @PathVariable String destination) {
         return adminService.findByOriginAndDestination(origin, destination);
+    }
+
+    @PostMapping("/flights/add")
+    public Flight addFlight(@RequestBody Flight flight) {
+        return adminService.addFlight(flight);
+    }
+
+    @PutMapping("/flights/update")
+    public void updateFlight(@RequestBody Flight flight) {
+        adminService.updateFlight(flight);
+    }
+
+    @Transactional
+    @DeleteMapping("/flights/delete/{flightID}")
+    public void deleteFlight(@PathVariable int flightID) {
+        adminService.deleteFlight(flightID);
     }
 
 }
