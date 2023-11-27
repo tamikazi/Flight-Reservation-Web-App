@@ -9,6 +9,7 @@ export const SeatPage: React.FC<{ flightId: string }> = (props) => {
 
     const [seats, setSeats] = useState<SeatModel[]>([]);
     const [selectedSeats, setSelectedSeats] = useState<number[]>([]);
+    const [cost, setCost] = useState(0);
     const [flight, setFlight] = useState<FlightModel>();
     const [isLoading, setIsLoading] = useState(true);
     const [httpError, setHttpError] = useState(null);
@@ -79,6 +80,7 @@ export const SeatPage: React.FC<{ flightId: string }> = (props) => {
                     // seatClass: (i = 0) ? "Business" : "Standard",
                     seatClass: "Standard",
                     available: true,
+                    price: 100
                 });
                 count++;
             }
@@ -120,21 +122,22 @@ export const SeatPage: React.FC<{ flightId: string }> = (props) => {
         )
     }
 
-    // When seat is selected, adds the seat to selection array, removes if already there
-    const seatHandleChange = (seatId: number) => {
+    // When seat is selected, adds the seat to selection array and updates cost, removes if already there
+    const seatHandleChange = (seat: SeatModel) => {
         const seatList = selectedSeats;
 
-        if(seatList.includes(seatId)){
+        if(seatList.includes(seat.seatId)){
             // Remove if already in array (seat is unselected)
-            const index = seatList.indexOf(seatId);
+            const index = seatList.indexOf(seat.seatId);
             seatList.splice(index, 1);
+            setCost(cost - seat.price);
         } else {
             // Add if not already in array (seat is selected)
-            seatList.push(seatId);
+            seatList.push(seat.seatId);
+            setCost(cost + seat.price);
         }
 
         setSelectedSeats(seatList);
-        console.log(selectedSeats)
     }
 
     return (
@@ -144,21 +147,29 @@ export const SeatPage: React.FC<{ flightId: string }> = (props) => {
                     <h4>Airplane Front</h4>
                     <div className={`row row-cols-${seatColumns} g-1`}>
                         {seats.map(seat => (
-                            <Seat seat={seat} onClick={() => seatHandleChange(seat.seatId)} key={seat.seatId}/>
+                            <Seat seat={seat} onClick={() => seatHandleChange(seat)} key={seat.seatId}/>
                         ))}
                     </div>
                     <h4>Airplane Back</h4>
                 </div>
                 <div className='col-4 '>
                     <div className='ml-2'>
-                        <h2>Insurance</h2>
-                        <div className='form-check'>
-                            <input className='form-check-input' type='checkbox' name='insurance' id='insurance'/>
-                            <label className='form-check-label' htmlFor='insurance'>
-                                Purchase cancellation insurance
-                            </label>
-                        </div>
                         <div className='row'>
+                            <h2>Insurance</h2>
+                            <div className='form-check'>
+                                <input className='form-check-input' type='checkbox' name='insurance' id='insurance'/>
+                                <label className='form-check-label' htmlFor='insurance'>
+                                    Purchase cancellation insurance
+                                </label>
+                            </div>
+                        </div>
+                        <div className='row mt-3'>
+                        <h2>Cost</h2>
+                        <div className='form-check'>
+                            <span>{`Total Cost: $${cost}`}</span>
+                        </div>
+                    </div>
+                        <div className='row mt-3'>
                             <div className='col'>
                                 <Link type='button' className='btn btn-primary' to='/flights'>Back</Link>
                             </div>
@@ -166,6 +177,7 @@ export const SeatPage: React.FC<{ flightId: string }> = (props) => {
                                 <Link type='button' className='btn btn-primary' to='/payment'>Checkout</Link>
                             </div>
                         </div>
+
                     </div>
                 </div>
             </div>
