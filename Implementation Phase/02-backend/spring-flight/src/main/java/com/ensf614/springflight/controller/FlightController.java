@@ -2,7 +2,6 @@ package com.ensf614.springflight.controller;
 
 import com.ensf614.springflight.model.Flight;
 import com.ensf614.springflight.repository.FlightRepository;
-import com.ensf614.springflight.service.FlightRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
