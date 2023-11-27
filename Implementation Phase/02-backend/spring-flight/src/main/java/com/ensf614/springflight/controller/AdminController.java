@@ -29,6 +29,15 @@ public class AdminController {
         return adminService.allUsers();
     }
 
+    @GetMapping("/users/role/{id}")
+    public List<User> getUserByUsername(@PathVariable int id) {
+        return adminService.allUsersByRole(id);
+    }
+    @GetMapping("/users/member/{member}")
+    public List<User> getUserByMember(@PathVariable boolean member) {
+        return adminService.allUsersByMember(member);
+    }
+
     @GetMapping("/aircrafts/all")
     public List<Aircraft> getAllAircrafts() {
         return adminService.allAircrafts();

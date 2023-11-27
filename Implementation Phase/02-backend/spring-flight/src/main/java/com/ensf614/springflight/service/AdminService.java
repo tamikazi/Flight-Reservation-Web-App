@@ -36,6 +36,18 @@ public class AdminService {
             return aircraftRepository.findAll();
     }
 
+    public User userByUsername(String username) {
+        return userRepository.findByUsername(username);
+    }
+
+    public List<User> allUsersByRole(int roleID) {
+        return userRepository.findByRoleID(roleID);
+    }
+
+    public List<User> allUsersByMember(boolean member) {
+        return userRepository.findByMember(member);
+    }
+
     public Aircraft addAircraft(Aircraft aircraft) {
         return aircraftRepository.save(aircraft);
     }

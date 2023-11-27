@@ -1,7 +1,7 @@
 package com.ensf614.springflight.controller;
 
 import com.ensf614.springflight.model.User;
-import com.ensf614.springflight.service.UserService;
+import com.ensf614.springflight.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,36 +13,16 @@ import java.util.List;
 @RequestMapping("/api/users")
 public class UserController {
 
-    private UserService userService;
+    private UserRepository userRepository;
 
     @Autowired
-    public UserController(UserService userService) {
-        this.userService = userService;
+    public UserController(UserRepository userRepository) {
+        this.userRepository = userRepository;
     }
 
     @GetMapping
     public List<User> getAllUsers() {
-        return userService.allUsers();
-    }
-
-    @GetMapping("/id/{id}")
-    public User getUserById(@PathVariable int id) {
-        return userService.userByID(id);
-    }
-
-    @GetMapping("/username/{username}")
-    public User getUserByUsername(@PathVariable String username) {
-        return userService.userByUsername(username);
-    }
-
-    @GetMapping("/role/{id}")
-    public List<User> getUserByUsername(@PathVariable int id) {
-        return userService.allUsersByRole(id);
-    }
-
-    @GetMapping("/member/{member}")
-    public List<User> getUserByMember(@PathVariable boolean member) {
-        return userService.allUsersByMember(member);
+        return userRepository.findAll();
     }
 
 }

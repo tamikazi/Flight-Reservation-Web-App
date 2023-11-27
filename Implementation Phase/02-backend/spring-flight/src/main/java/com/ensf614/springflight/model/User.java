@@ -22,7 +22,7 @@ public class User {
     @Column(name = "password")
     private String password;
 
-    @Column(name = "roleID", insertable = false, updatable = false)
+    @Column(name = "roleID")
     private int roleID;
 
     @OneToOne
