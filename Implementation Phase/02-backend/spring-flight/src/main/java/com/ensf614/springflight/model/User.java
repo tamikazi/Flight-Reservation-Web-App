@@ -25,10 +25,6 @@ public class User {
     @Column(name = "roleID")
     private int roleID;
 
-    @OneToOne
-    @JoinColumn(name = "roleID")
-    private Roles role;
-
     @Column(name = "member")
     private boolean member;
 

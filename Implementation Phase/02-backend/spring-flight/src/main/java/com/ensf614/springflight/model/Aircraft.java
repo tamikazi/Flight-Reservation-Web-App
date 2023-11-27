@@ -3,6 +3,7 @@ package com.ensf614.springflight.model;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Entity
@@ -19,9 +20,11 @@ public class Aircraft {
     @Column(name = "model")
     private String model;
 
+    @Getter
     @Column(name = "numCols")
     private int numCols;
 
+    @Getter
     @Column(name = "numRows")
     private int numRows;
 
