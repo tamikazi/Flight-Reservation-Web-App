@@ -26,6 +26,9 @@ public class Ticket {
     @Column(name = "userID")
     private int userID;
 
+    @Column(name = "cost")
+    private float cost;
+
     @Column(name = "insurance")
     private boolean insurance;
 }

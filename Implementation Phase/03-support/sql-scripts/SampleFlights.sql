@@ -541,6 +541,7 @@ CREATE TABLE TICKET (
   seatID       INT             NOT NULL,
   flightID     INT             NOT NULL,
   userID       INT			   NOT NULL,
+  cost		   DECIMAL(10,2)   NOT NULL,
   insurance	   BOOL			   NOT NULL DEFAULT FALSE,
   PRIMARY KEY (ticketID),
   FOREIGN KEY (seatID) REFERENCES SEAT(seatID),
@@ -548,13 +549,13 @@ CREATE TABLE TICKET (
   FOREIGN KEY (flightID) REFERENCES FLIGHT(flightID) ON DELETE CASCADE
 );
 
-INSERT INTO TICKET (seatID, flightID, userID, insurance) VALUES
-(1, 1, 4, FALSE),
-(2, 1, 4, FALSE),
-(1, 2, 2, FALSE),
-(7, 1, 1, FALSE),
-(12, 1, 2, FALSE),
-(23, 1, 3, FALSE);
+INSERT INTO TICKET (seatID, flightID, userID, cost, insurance) VALUES
+(1, 1, 4, 100.00, FALSE),
+(2, 1, 4, 200.00, FALSE),
+(1, 2, 2, 300.00, FALSE),
+(7, 1, 1, 400.00, FALSE),
+(12, 1, 2, 500.00, FALSE),
+(23, 1, 3, 600.00, FALSE);
 
 CREATE TABLE PAYMENT (
 	paymentID	INT				NOT NULL AUTO_INCREMENT,
