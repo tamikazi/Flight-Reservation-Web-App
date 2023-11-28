@@ -12,6 +12,8 @@ class ManifestPage {}
 
 class SeatPage {}
 
+class NamePage{}
+
 class PaymentPage {}
 
 class PaymentConfirmationPage {}
@@ -37,8 +39,9 @@ class FlightView {
 - code: string
 - origin: string
 - destination: string
-- departDate: Date
+- departDate: string
 - departTime: Time
+- price: number
 }
 class SeatView {
 - seatID: number
@@ -87,9 +90,13 @@ class UserView {
 - lName: string
 - member: boolean
 }
+class MenuViewMaybe {
+- menuItems: string[]
+}
 
 class FlightController {
 + getAllFlights(): FlightView[]
++ getFlightByDateAndOriginAndDestination(): FlightView[]
 }
 
 class SeatController {
@@ -97,7 +104,7 @@ class SeatController {
 }
 
 class TicketController {
-+ addTicket(ticket: TicketView): void
++ addTickets(ticket: TicketView[]): void
 + getUserTickets(userID: number): TicketView[]
 + deleteTicket(ticketID: number): void
 }
@@ -137,10 +144,11 @@ class LoginController {
 
 LoginPage -- LoginRequestView
 LoginPage -- LoginResponseView
-SearchPage -- FlightView
+SearchPage -- MenuViewMaybe
+FlightsPage -- FlightView
 SeatPage -- SeatView
 PaymentPage -- PaymentView
-TicketPage -- TicketView
+PaymentPage -- TicketView
 ManifestPage -- PassengerView
 ManageBookingPage -- TicketView
 MembershipPage -- UserView
@@ -175,7 +183,8 @@ ManifestController -- Domain
 
 SearchPage - FlightsPage
 FlightsPage - SeatPage
-SeatPage - PaymentPage
+SeatPage - NamePage
+NamePage - PaymentPage
 PaymentPage - PaymentConfirmationPage
 
 @enduml
