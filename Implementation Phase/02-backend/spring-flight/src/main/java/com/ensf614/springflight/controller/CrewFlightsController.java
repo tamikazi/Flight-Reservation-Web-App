@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @CrossOrigin(origins = "*")
 @RestController // abstract controller
@@ -25,7 +26,7 @@ public class CrewFlightsController {
     }
 
     @GetMapping("/crewid/{id}")
-    public List<CrewFlights> getCrewFlightsByCrewID(@PathVariable int id) {
+    public Optional<CrewFlights> getCrewFlightsByCrewID(@PathVariable int id) {
         return crewFlightsService.allCrewFlightsOnCrew(id);
     }
     @GetMapping("/flightid/{id}")

@@ -1,34 +1,29 @@
 package com.ensf614.springflight.model;
-
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Table(name = "TICKET")
+@Table(name = "PAYMENT")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Ticket {
-
+public class Payment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "ticketID")
-    private int ticketID;
-
-    @Column(name = "seatID")
-    private int seatID;
-
-    @Column(name = "flightID")
-    private int flightID;
+    @Column(name = "paymentID")
+    private int paymentID;
 
     @Column(name = "userID")
     private int userID;
 
-    @Column(name = "cost")
-    private float cost;
+    @Column(name = "payDate")
+    private String payDate;
 
-    @Column(name = "insurance")
-    private boolean insurance;
+    @Column(name = "amount")
+    private float amount;
+
+    @Column(name = "ticketID")
+    private int ticketID;
 }

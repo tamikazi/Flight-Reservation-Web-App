@@ -16,6 +16,10 @@ public class CrewFlights {
     @Column(name = "crewID")
     private int crewID;
 
+    @Column(name = "userID")
+    private int userID;
+
     @Column(name = "flightID")
     private int flightID;
+
 }

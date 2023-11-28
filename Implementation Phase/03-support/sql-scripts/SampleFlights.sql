@@ -27,7 +27,8 @@ CREATE TABLE FLIGHT (
   aircraftID   		INT				NOT NULL,
   basePrice			DECIMAL(10,2)	NOT NULL,
 PRIMARY KEY (flightID),
-FOREIGN KEY (aircraftID) REFERENCES AIRCRAFT(aircraftID));
+FOREIGN KEY (aircraftID) REFERENCES AIRCRAFT(aircraftID) ON DELETE CASCADE
+);
 
 INSERT INTO FLIGHT (code, origin, destination, departDate, departTime, aircraftID, basePrice) 
 VALUES 
@@ -75,10 +76,10 @@ INSERT INTO USER (username, password, roleID, member, Fname, Lname) VALUES
 CREATE TABLE CREW_FLIGHTS (
 	crewID		INT			   NOT NULL AUTO_INCREMENT,
     userID		INT 		   NOT NULL,
-    flightID	INT			   NOT NULL,
+    flightID	INT,
     PRIMARY KEY (crewID),
-    FOREIGN KEY (userID) REFERENCES USER(userID),
-    FOREIGN KEY (flightID) REFERENCES FLIGHT(flightID)
+    FOREIGN KEY (userID) REFERENCES USER(userID) ON DELETE CASCADE,
+    FOREIGN KEY (flightID) REFERENCES FLIGHT(flightID) ON DELETE SET NULL
 );
 
 INSERT INTO CREW_FLIGHTS (userID, flightID) VALUES
@@ -90,7 +91,7 @@ CREATE TABLE SEAT (
   seatNumber   VARCHAR(5)     NOT NULL, 
   class        VARCHAR(20)    NOT NULL,
   PRIMARY KEY (seatID),
-  FOREIGN KEY (aircraftID) REFERENCES AIRCRAFT(aircraftID)
+  FOREIGN KEY (aircraftID) REFERENCES AIRCRAFT(aircraftID) ON DELETE CASCADE
 );
 
 INSERT INTO SEAT (aircraftID, seatNumber, class) VALUES 
@@ -540,16 +541,37 @@ CREATE TABLE TICKET (
   seatID       INT             NOT NULL,
   flightID     INT             NOT NULL,
   userID       INT			   NOT NULL,
+  cost		   DECIMAL(10,2)   NOT NULL,
   insurance	   BOOL			   NOT NULL DEFAULT FALSE,
   PRIMARY KEY (ticketID),
   FOREIGN KEY (seatID) REFERENCES SEAT(seatID),
-  FOREIGN KEY (userID) REFERENCES USER(userID),
-  FOREIGN KEY (flightID) REFERENCES FLIGHT(flightID)
+  FOREIGN KEY (userID) REFERENCES USER(userID) ON DELETE CASCADE,
+  FOREIGN KEY (flightID) REFERENCES FLIGHT(flightID) ON DELETE CASCADE
 );
 
-INSERT INTO TICKET (seatID, flightID, userID, insurance) VALUES
-(1, 1, 4, FALSE),
-(2, 1, 4, FALSE);
+INSERT INTO TICKET (seatID, flightID, userID, cost, insurance) VALUES
+(1, 1, 4, 100.00, FALSE),
+(2, 1, 4, 200.00, FALSE),
+(1, 2, 2, 300.00, FALSE),
+(7, 1, 1, 400.00, FALSE),
+(12, 1, 2, 500.00, FALSE),
+(23, 1, 3, 600.00, FALSE);
+
+CREATE TABLE PAYMENT (
+	paymentID	INT				NOT NULL AUTO_INCREMENT,
+    userID		INT				NOT NULL,
+    payDate		DATE			NOT NULL,
+    amount		DECIMAL(10,2)	NOT NULL,
+    ticketID	INT				DEFAULT NULL,
+    PRIMARY KEY (paymentID),
+    FOREIGN KEY (userID) REFERENCES USER(userID) ON DELETE CASCADE,
+    FOREIGN KEY (ticketID) REFERENCES TICKET(ticketID)
+);
+
+INSERT INTO PAYMENT (userID, payDate, amount, ticketID) VALUES
+	(4, '2023-11-24', 1300.00, 1),
+    (4, '2023-11-24', 1600.00, 2),
+    (2, '2023-11-25', 1100.00, 3);
 
 #SELECT * FROM FLIGHT
 #LEFT JOIN SEAT ON aircraftID

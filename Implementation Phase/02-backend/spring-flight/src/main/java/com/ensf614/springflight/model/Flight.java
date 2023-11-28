@@ -15,7 +15,7 @@ public class Flight {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "flightID")
-    private String flightId;
+    private int flightID;
 
     @Column(name = "code")
     private String code;
@@ -33,8 +33,9 @@ public class Flight {
     private String time;
 
     @Column(name = "aircraftID")
-    private String aircraft;
+    private int aircraftID;
 
     @Column(name = "basePrice")
     private float basePrice;
+
 }

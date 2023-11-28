@@ -36,4 +36,12 @@ public class TicketService {
         return ticketRepository.findByFlightIDAndUserID(flightID, userID);
     }
 
+    public Ticket addTicket(Ticket ticket) {
+        return ticketRepository.save(ticket);
+    }
+
+    public void deleteTicket(int ticketID) {
+        ticketRepository.deleteByTicketID(ticketID);
+    }
+
 }

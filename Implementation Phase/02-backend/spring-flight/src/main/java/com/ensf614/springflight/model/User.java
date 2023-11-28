@@ -3,6 +3,7 @@ package com.ensf614.springflight.model;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Entity
@@ -16,9 +17,11 @@ public class User {
     @Column(name = "userID")
     private int userID;
 
+    @Getter
     @Column(name = "username")
     private String username;
 
+    @Getter
     @Column(name = "password")
     private String password;
 
@@ -28,9 +31,11 @@ public class User {
     @Column(name = "member")
     private boolean member;
 
+    @Getter
     @Column(name = "Fname")
     private String Fname;
 
+    @Getter
     @Column(name = "Lname")
     private String Lname;
 

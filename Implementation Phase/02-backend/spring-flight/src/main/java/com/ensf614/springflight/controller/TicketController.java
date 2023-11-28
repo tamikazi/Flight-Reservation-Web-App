@@ -45,4 +45,14 @@ public class TicketController {
     public List<Ticket> getTicketByFlightIDAndUserID(@PathVariable int userID, @PathVariable int flightID) {
         return ticketService.ticketsOnFlightIDAndUserID(flightID, userID);
     }
+
+    @PostMapping("/add")
+    public Ticket addTicket(@RequestBody Ticket ticket) {
+        return ticketService.addTicket(ticket);
+    }
+
+    @DeleteMapping("/delete/{ticketID}")
+    public void deleteTicket(@PathVariable int ticketID) {
+        ticketService.deleteTicket(ticketID);
+    }
 }
