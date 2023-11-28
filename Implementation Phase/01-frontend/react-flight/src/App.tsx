@@ -10,6 +10,8 @@ import {PaymentPage} from "./layouts/Payment/PaymentPage";
 import {LoginPage} from "./layouts/Login/LoginPage";
 import {SearchPage} from "./layouts/SearchFlights/SearchPage";
 import FlightModel from "./models/FlightModel";
+import CheckoutSeatModel from "./models/CheckoutSeatModel";
+import {NamesPage} from "./layouts/Names/NamesPage";
 
 function App() {
 
@@ -18,9 +20,10 @@ function App() {
     const [destination, setDestination] = useState('Calgary');
     const [date, setDate] = useState('2023-12-20');
     const [checkoutFlightId, setCheckoutFlightId] = useState('');
-    const [numGuests, setNumGuests] = useState('2');
+    const [numGuests, setNumGuests] = useState(3);
     const [guestNames, setGuestNames] = useState<string[]>([]);
     const [checkoutSeatIds, setCheckoutSeatIds] = useState<string[]>([]);
+    const [checkoutSeats, setCheckoutSeats] = useState<CheckoutSeatModel[]>([]);
     const [checkoutCost, setCheckoutCost] = useState(0);
     const [checkoutInsurance, setCheckoutInsurance] = useState(false);
 
@@ -43,9 +46,13 @@ function App() {
                                  setCheckoutFlightId={setCheckoutFlightId}/>
                 </Route>
                 <Route path='/seats'>
-                    <SeatPage setCheckoutCost={setCheckoutCost}
-                              setCheckoutSeatIds={setCheckoutSeatIds}
+                    <SeatPage numGuests={numGuests}
+                              setCheckoutCost={setCheckoutCost}
+                              setCheckoutSeats={setCheckoutSeats}
                               setCheckoutInsurance={setCheckoutInsurance}/>
+                </Route>
+                <Route path='/names'>
+                    <NamesPage checkoutSeats={checkoutSeats} setCheckoutSeats={setCheckoutSeats}/>
                 </Route>
                 <Route path='/payment'>
                     <PaymentPage/>

@@ -4,15 +4,17 @@ import SeatMapModel from "../../models/SeatMapModel";
 import {Seat} from "./components/Seat";
 import {Link} from "react-router-dom";
 import {SpinnerLoading} from "../Utils/SpinnerLoading";
+import checkoutSeatModel from "../../models/CheckoutSeatModel";
 
 export const SeatPage: React.FC<{
+    numGuests: number,
     setCheckoutCost: any,
-    setCheckoutSeatIds: any,
+    setCheckoutSeats: any,
     setCheckoutInsurance: any
 }> = (props) => {
 
     const [seats, setSeats] = useState<SeatMapModel[]>([]);
-    const [selectedSeats, setSelectedSeats] = useState<number[]>([]);
+    const [selectedSeats, setSelectedSeats] = useState<checkoutSeatModel[]>([]);
     const [cost, setCost] = useState(0);
     const [isLoading, setIsLoading] = useState(true);
     const [httpError, setHttpError] = useState(null);
@@ -76,7 +78,7 @@ export const SeatPage: React.FC<{
             for (let j = 0; j < seatColumns; j++) {
                 loadedSeats.push({
                     seatId: count,
-                    seatNumber: "A1",
+                    seatNumber: `A${count}`,
                     seatClass: "Standard",
                     available: true,
                     price: 100
@@ -121,27 +123,33 @@ export const SeatPage: React.FC<{
         )
     }
 
-    // When seat is selected, adds the seat to selection array and updates cost, removes if already there
+    // When seat is selected, adds the seat to local selection array and updates cost, removes if already there
     const seatHandleChange = (seat: SeatMapModel) => {
         const seatList = selectedSeats;
 
-        if(seatList.includes(seat.seatId)){
-            // Remove if already in array (seat is unselected)
-            const index = seatList.indexOf(seat.seatId);
-            seatList.splice(index, 1);
+        // Check if already in list
+        const i = seatList.findIndex(s => s.seatId === seat.seatId)
+        if(i > -1) {
+            // Exists in list
+            seatList.splice(i,1);
             setCost(cost - seat.price);
         } else {
-            // Add if not already in array (seat is selected)
-            seatList.push(seat.seatId);
+            // Add to list
+            seatList.push({
+                seatId: seat.seatId,
+                seatNumber: seat.seatNumber
+            })
             setCost(cost + seat.price);
+
         }
 
+        // Update local state list
         setSelectedSeats(seatList);
     }
 
     // Set hoisted state variables when next button is clicked
-    const nextButtonHandleChange = (seatList: number[], cost: number) => {
-        props.setCheckoutSeatIds(seatList);
+    const nextButtonHandleChange = (seatList: checkoutSeatModel[], cost: number) => {
+        props.setCheckoutSeats(seatList);
         props.setCheckoutCost(cost);
     }
 
@@ -180,7 +188,7 @@ export const SeatPage: React.FC<{
                                 <Link type='button' className='btn btn-primary' to='/flights'>Back</Link>
                             </div>
                             <div className='col'>
-                                <Link type='button' className='btn btn-primary' to='/payment'
+                                <Link type='button' className='btn btn-primary' to='/names'
                                       onClick={() => nextButtonHandleChange(selectedSeats, cost)}>Next</Link>
                             </div>
                         </div>

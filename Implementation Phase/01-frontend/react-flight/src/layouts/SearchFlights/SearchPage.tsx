@@ -165,7 +165,7 @@ export const SearchPage: React.FC<{
                 <form>
                     <div className='row g-3'>
                         <div className='col-12'>
-                            <label htmlFor='code' className='form-label'>From</label>
+                            <label htmlFor='from' className='form-label'>From</label>
                             <input type='text' list='from' className='form-control'
                                 onChange={e => props.setOrigin(e.target.value)}/>
                         </div>
@@ -188,7 +188,7 @@ export const SearchPage: React.FC<{
                         {/*    </div>*/}
                         {/*</div>*/}
                         <div className='col-12'>
-                            <label htmlFor='code' className='form-label'>Going to</label>
+                            <label htmlFor='to' className='form-label'>Going to</label>
                             <input type='text' className='form-control' id='to'
                                    onChange={e => props.setDestination(e.target.value)}/>
                         </div>
@@ -234,7 +234,7 @@ export const SearchPage: React.FC<{
                         {/*    </div>*/}
                         {/*</div>*/}
                         <div className='col-12'>
-                            <label htmlFor='origin' className='form-label'>Number of Guests</label>
+                            <label htmlFor='guests' className='form-label'>Number of Guests</label>
                             <input type='number' className='form-control' id='guests'
                                     onChange={e => props.setGuests(e.target.value)}/>
                         </div>
