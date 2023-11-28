@@ -1,21 +1,21 @@
 import FlightModel from "../../models/FlightModel";
 import React, {useEffect, useState} from "react";
-import SeatModel from "../../models/SeatModel";
+import SeatMapModel from "../../models/SeatMapModel";
 import {Seat} from "./components/Seat";
 import {Link} from "react-router-dom";
 import {SpinnerLoading} from "../Utils/SpinnerLoading";
 
-export const SeatPage: React.FC<{ flightId: string }> = (props) => {
+export const SeatPage: React.FC<{
+    setCheckoutCost: any,
+    setCheckoutSeatIds: any,
+    setCheckoutInsurance: any
+}> = (props) => {
 
-    const [seats, setSeats] = useState<SeatModel[]>([]);
+    const [seats, setSeats] = useState<SeatMapModel[]>([]);
     const [selectedSeats, setSelectedSeats] = useState<number[]>([]);
     const [cost, setCost] = useState(0);
-    const [flight, setFlight] = useState<FlightModel>();
     const [isLoading, setIsLoading] = useState(true);
     const [httpError, setHttpError] = useState(null);
-
-    // Get flightid from url
-    // const flightParam = (window.location.pathname).split('/')[3];
 
     // Make up row/column
     const seatColumns: number = 4;
@@ -70,14 +70,13 @@ export const SeatPage: React.FC<{ flightId: string }> = (props) => {
     useEffect(() => {
 
         // Make up fake seats
-        const loadedSeats: SeatModel[] = [];
+        const loadedSeats: SeatMapModel[] = [];
         let count: number = 0;
         for (let i = 0; i < seatRows; i++) {
             for (let j = 0; j < seatColumns; j++) {
                 loadedSeats.push({
                     seatId: count,
                     seatNumber: "A1",
-                    // seatClass: (i = 0) ? "Business" : "Standard",
                     seatClass: "Standard",
                     available: true,
                     price: 100
@@ -123,7 +122,7 @@ export const SeatPage: React.FC<{ flightId: string }> = (props) => {
     }
 
     // When seat is selected, adds the seat to selection array and updates cost, removes if already there
-    const seatHandleChange = (seat: SeatModel) => {
+    const seatHandleChange = (seat: SeatMapModel) => {
         const seatList = selectedSeats;
 
         if(seatList.includes(seat.seatId)){
@@ -138,6 +137,12 @@ export const SeatPage: React.FC<{ flightId: string }> = (props) => {
         }
 
         setSelectedSeats(seatList);
+    }
+
+    // Set hoisted state variables when next button is clicked
+    const nextButtonHandleChange = (seatList: number[], cost: number) => {
+        props.setCheckoutSeatIds(seatList);
+        props.setCheckoutCost(cost);
     }
 
     return (
@@ -157,7 +162,8 @@ export const SeatPage: React.FC<{ flightId: string }> = (props) => {
                         <div className='row'>
                             <h2>Insurance</h2>
                             <div className='form-check'>
-                                <input className='form-check-input' type='checkbox' name='insurance' id='insurance'/>
+                                <input className='form-check-input' type='checkbox' name='insurance' id='insurance'
+                                        onChange={e => props.setCheckoutInsurance(e.target.checked)}/>
                                 <label className='form-check-label' htmlFor='insurance'>
                                     Purchase cancellation insurance
                                 </label>
@@ -174,7 +180,8 @@ export const SeatPage: React.FC<{ flightId: string }> = (props) => {
                                 <Link type='button' className='btn btn-primary' to='/flights'>Back</Link>
                             </div>
                             <div className='col'>
-                                <Link type='button' className='btn btn-primary' to='/payment'>Checkout</Link>
+                                <Link type='button' className='btn btn-primary' to='/payment'
+                                      onClick={() => nextButtonHandleChange(selectedSeats, cost)}>Next</Link>
                             </div>
                         </div>
 

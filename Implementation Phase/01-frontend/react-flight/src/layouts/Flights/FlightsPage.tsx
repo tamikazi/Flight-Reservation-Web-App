@@ -8,7 +8,7 @@ export const FlightsPage: React.FC<{
     origin: string,
     destination: string,
     date: string
-    setFlightId: any
+    setCheckoutFlightId: any
 }> = (props) => {
 
     const [flights, setFlights] = useState<FlightModel[]>([]);
@@ -41,7 +41,8 @@ export const FlightsPage: React.FC<{
                     destination: responseData[key].destination,
                     date: responseData[key].date,
                     time: responseData[key].time,
-                    aircraft: responseData[key].aircraft
+                    aircraft: responseData[key].aircraft,
+                    price: Number(responseData[key].price)
                 });
             }
 
@@ -78,7 +79,7 @@ export const FlightsPage: React.FC<{
                         </div>
                         <div className='list-group'>
                             {flights.map((flight, index) => (
-                                <Flight flight={flight} onClick={() => props.setFlightId(flight.flightId)} key={index}/>
+                                <Flight flight={flight} onClick={() => props.setCheckoutFlightId(flight.flightId)} key={index}/>
                             ))}
                         </div>
                     </>

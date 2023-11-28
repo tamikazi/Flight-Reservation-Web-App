@@ -53,7 +53,8 @@ export const ViewFlights = () => {
                 destination: 'Vancouver',
                 date: '2023-11-30',
                 time: '0800',
-                aircraft: '1'
+                aircraft: '1',
+                price: 100
             });
             mockFlights.push({
                 flightId: '2',
@@ -62,7 +63,8 @@ export const ViewFlights = () => {
                 destination: 'Edmonton',
                 date: '2023-11-30',
                 time: '1350',
-                aircraft: '2'
+                aircraft: '2',
+                price: 100
             });
             mockFlights.push({
                 flightId: '3',
@@ -71,7 +73,8 @@ export const ViewFlights = () => {
                 destination: 'Calgary',
                 date: '2023-11-30',
                 time: '1530',
-                aircraft: '1'
+                aircraft: '1',
+                price: 100
             });
 
             setFlights(mockFlights);

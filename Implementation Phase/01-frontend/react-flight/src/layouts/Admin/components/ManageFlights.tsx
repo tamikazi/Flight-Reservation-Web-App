@@ -52,7 +52,8 @@ export const ManageFlights = () => {
                 destination: 'Vancouver',
                 date: '2023-11-30',
                 time: '1350',
-                aircraft: '1'
+                aircraft: '1',
+                price: 100
             });
 
 

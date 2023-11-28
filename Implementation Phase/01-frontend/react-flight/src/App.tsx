@@ -9,17 +9,20 @@ import {SeatPage} from "./layouts/Seat/SeatPage";
 import {PaymentPage} from "./layouts/Payment/PaymentPage";
 import {LoginPage} from "./layouts/Login/LoginPage";
 import {SearchPage} from "./layouts/SearchFlights/SearchPage";
+import FlightModel from "./models/FlightModel";
 
 function App() {
 
-    // Search paramters
+    // Order information
     const [origin, setOrigin] = useState('Chicago');
     const [destination, setDestination] = useState('Calgary');
     const [date, setDate] = useState('2023-12-20');
-    const [guests, setGuests] = useState('2');
-    const [flightId, setFlightId] = useState('');
-
-
+    const [checkoutFlightId, setCheckoutFlightId] = useState('');
+    const [numGuests, setNumGuests] = useState('2');
+    const [guestNames, setGuestNames] = useState<string[]>([]);
+    const [checkoutSeatIds, setCheckoutSeatIds] = useState<string[]>([]);
+    const [checkoutCost, setCheckoutCost] = useState(0);
+    const [checkoutInsurance, setCheckoutInsurance] = useState(false);
 
     return (
         <div>
@@ -33,13 +36,16 @@ function App() {
                 </Route>
                 <Route path='/search'>
                     <SearchPage setOrigin={setOrigin} setDestination={setDestination}
-                                setDate={setDate} setGuests={setGuests}/>
+                                setDate={setDate} setGuests={setNumGuests}/>
                 </Route>
                 <Route path='/flights'>
-                    <FlightsPage origin={origin} destination={destination} date={date} setFlightId={setFlightId}/>
+                    <FlightsPage origin={origin} destination={destination} date={date}
+                                 setCheckoutFlightId={setCheckoutFlightId}/>
                 </Route>
                 <Route path='/seats'>
-                    <SeatPage flightId={flightId}/>
+                    <SeatPage setCheckoutCost={setCheckoutCost}
+                              setCheckoutSeatIds={setCheckoutSeatIds}
+                              setCheckoutInsurance={setCheckoutInsurance}/>
                 </Route>
                 <Route path='/payment'>
                     <PaymentPage/>
