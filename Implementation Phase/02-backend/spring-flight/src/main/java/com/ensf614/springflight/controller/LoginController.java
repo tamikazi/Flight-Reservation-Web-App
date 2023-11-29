@@ -1,7 +1,7 @@
 package com.ensf614.springflight.controller;
 
-import com.ensf614.springflight.model.User;
 import com.ensf614.springflight.service.LoginService;
+import com.ensf614.springflight.viewmodels.LoginView;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,10 +17,8 @@ public class LoginController {
         this.loginService = loginService;
     }
 
-    @PostMapping("/authenticate")
-    public User authenticateUser(@RequestBody User user) {
-        String username = user.getUsername();
-        String password = user.getPassword();
+    @GetMapping("/{username}/{password}")
+    public LoginView authenticateUser(@PathVariable String username, @PathVariable String password) {
 
         return loginService.authenticateUser(username, password);
     }

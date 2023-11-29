@@ -1,6 +1,7 @@
 package com.ensf614.springflight.service;
 
 import com.ensf614.springflight.model.User;
+import com.ensf614.springflight.viewmodels.LoginView;
 import com.ensf614.springflight.repository.UserRepository;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -16,10 +17,13 @@ public class LoginService {
         this.userRepository = userRepository;
     }
 
-    public User authenticateUser(String username, String password) {
+    public LoginView authenticateUser(String username, String password) {
         Optional<User> user = userRepository.findByUsernameAndPassword(username, password);
         if (user.isPresent()) {
-            return user.get();
+            LoginView currentUser = new LoginView();
+            currentUser.setUserID(user.get().getUserID());
+            currentUser.setRoleID(user.get().getRoleID());
+            return currentUser;
         } else {
             throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Invalid username or password");
         }
