@@ -3,6 +3,7 @@ package com.ensf614.springflight.model;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Entity
@@ -35,6 +36,7 @@ public class Flight {
     @Column(name = "aircraftID")
     private int aircraftID;
 
+    @Getter
     @Column(name = "basePrice")
     private float basePrice;
 
