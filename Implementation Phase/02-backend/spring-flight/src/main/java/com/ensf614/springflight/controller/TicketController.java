@@ -2,6 +2,7 @@ package com.ensf614.springflight.controller;
 
 import com.ensf614.springflight.model.Ticket;
 import com.ensf614.springflight.service.TicketService;
+import com.ensf614.springflight.viewmodels.TicketView;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -32,7 +33,7 @@ public class TicketController {
         return ticketService.allTicketsOnFlight(id);
     }
     @GetMapping("/userid/{id}")
-    public List<Ticket> getTicketByUserID(@PathVariable int id) {
+    public List<TicketView> getTicketByUserID(@PathVariable int id) {
         return ticketService.allTicketsOnUser(id);
     }
 

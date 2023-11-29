@@ -27,7 +27,6 @@ public class SeatService {
         this.ticketRepository = ticketRepository;
     }
 
-
     public List<Seat> allSeats() {
         return seatRepository.findAll();
     }
