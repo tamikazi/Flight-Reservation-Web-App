@@ -1,7 +1,8 @@
 package com.ensf614.springflight.controller;
 
 import com.ensf614.springflight.model.Seat;
-import com.ensf614.springflight.repository.SeatRepository;
+import com.ensf614.springflight.viewmodels.SeatView;
+import com.ensf614.springflight.service.SeatService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -12,35 +13,30 @@ import java.util.List;
 @RestController // abstract controller
 @RequestMapping("/api/seats")
 public class SeatController {
-
-    private SeatRepository seatRepository;
+    private SeatService seatService;
 
     @Autowired
-    public SeatController(SeatRepository seatRepository) {
-        this.seatRepository = seatRepository;
+    public SeatController(SeatService seatService) {
+        this.seatService = seatService;
     }
 
     @GetMapping
     public List<Seat> getAllSeats() {
-        return seatRepository.findAll();
+        return seatService.allSeats();
     }
 
     @GetMapping("/id/{id}")
     public Seat getSeatById(@PathVariable int id) {
-        return seatRepository.findBySeatID(id);
+        return seatService.seatById(id);
     }
     @GetMapping("/aircraftid/{id}")
     public List<Seat> getSeatByAircraftId(@PathVariable int id) {
-        return seatRepository.findByAircraftID(id);
+        return seatService.seatByAircraftId(id);
     }
 
     @GetMapping("/flightid/{id}")
-    public List<Seat> getSeatByFlightId(@PathVariable int id) {
-        return seatRepository.findByFlightID(id);
+    public List<SeatView> getSeatByFlightId(@PathVariable int id) {
+        return seatService.seatsOnFlight(id);
     }
 
-    @GetMapping("/bookedseats/{id}")
-    public List<Seat> getBookedSeatsByFlightId(@PathVariable int id) {
-        return seatRepository.findBookedSeats(id);
-    }
 }
