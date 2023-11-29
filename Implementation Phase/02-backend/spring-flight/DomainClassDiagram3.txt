@@ -93,6 +93,16 @@ class UserView {
 class MenuViewMaybe {
 - menuItems: string[]
 }
+class BookingView {
+- ticketId: number
+- code: string
+- origin: string
+- destination: string
+- date: string
+- seatName: string
+- passengerName: string
+- insurance: boolean
+}
 
 class FlightController {
 + getAllFlights(): FlightView[]
@@ -105,7 +115,7 @@ class SeatController {
 
 class TicketController {
 + addTickets(ticket: TicketView[]): void
-+ getUserTickets(userID: number): TicketView[]
++ getUserTickets(userID: number): BookingView[]
 + deleteTicket(ticketID: number): void
 }
 
@@ -120,9 +130,9 @@ class AdminController {
 + addAircraft(AircraftView): void
 + deleteAircraft(aircraftID: number): void
 + getAllCrew(): CrewView[]
-+ getCrew(code: string): CrewView[]
-+ addCrew(code: string, userID: number): void
-+ deleteCrew(code: string, userID: number): void
++ getCrewByFlight(code: string): CrewView[]
++ addCrewToFlight(code: string, userID: number): void
++ removeCrewFromFlight(code: string, userID: number): void
 + getFlights(date: string): FlightView[]
 + getFlight(code: string, date: string): FlightView
 + addFlight(flight: FlightView): void
@@ -150,7 +160,7 @@ SeatPage -- SeatView
 PaymentPage -- PaymentView
 PaymentPage -- TicketView
 ManifestPage -- PassengerView
-ManageBookingPage -- TicketView
+ManageBookingPage -- BookingView
 MembershipPage -- UserView
 ManageUsersPage -- UserView
 ViewFlightsPage -- FlightView
@@ -165,6 +175,7 @@ FlightView -- AdminController
 SeatView -- SeatController
 PaymentView -- PaymentController
 TicketView -- TicketController
+BookingView -- TicketController
 PassengerView -- ManifestController
 UserView -- AdminController
 CrewView -- AdminController
