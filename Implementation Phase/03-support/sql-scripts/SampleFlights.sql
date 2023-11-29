@@ -58,20 +58,20 @@ INSERT INTO ROLES (roleName) VALUES
 CREATE TABLE USER (
   userID       INT            NOT NULL AUTO_INCREMENT,
   username     VARCHAR(50)    NOT NULL,
-  password     VARCHAR(50)    DEFAULT NULL,
+  password     VARCHAR(50)    NOT NULL,
   roleID       INT		      NOT NULL,
-  member	   BOOL			  NOT NULL DEFAULT TRUE,
+  card		   BOOL			  NOT NULL DEFAULT FALSE,
   Fname		   VARCHAR(50)	  NOT NULL,
   Lname		   VARCHAR(50)	  NOT NULL,
   PRIMARY KEY (userID),
   FOREIGN KEY (roleID) REFERENCES ROLES(roleID)
 );
 
-INSERT INTO USER (username, password, roleID, member, Fname, Lname) VALUES
+INSERT INTO USER (username, password, roleID, card, Fname, Lname) VALUES
 ('admin@example.com', 'adminpass', 1, FALSE, 'Ava', 'Lane'),
-('agent@example.com', 'agentpass', 2, FALSE, 'Max', 'Stone'),
+('agent@example.com', 'agentpass', 2, TRUE, 'Max', 'Stone'),
 ('crew@example.com', 'crewpass', 3, FALSE, 'Mia', 'Cruz'),
-('passenger@example.com', 'pasengerpass',  4, FALSE, 'Leo', 'Brooks');
+('passenger@example.com', 'pasengerpass',  4, TRUE, 'Leo', 'Brooks');
 
 CREATE TABLE CREW_FLIGHTS (
 	crewID		INT			   NOT NULL AUTO_INCREMENT,
