@@ -48,8 +48,7 @@ public class TicketService {
             currentTicket.setFlightID(ticket.getFlightID());
             currentTicket.setUserID(ticket.getUserID());
             currentTicket.setSeatNumber(seatRepository.findBySeatID(ticket.getSeatID()).getSeatNumber());
-            currentTicket.setFname(userRepository.findByUserID(ticket.getUserID()).getFname());
-            currentTicket.setLname(userRepository.findByUserID(ticket.getUserID()).getLname());
+            currentTicket.setName(ticket.getName());
             currentTicket.setPrice(ticket.getCost());
             currentTicket.setInsurance(ticket.isInsurance());
             userTicketsView.add(currentTicket);

@@ -8,8 +8,7 @@ public class TicketView {
     private int flightID;
     private int userID;
     private String seatNumber;
-    private String Fname;
-    private String Lname;
+    private String name;
     private float price;
     private boolean insurance;
 }

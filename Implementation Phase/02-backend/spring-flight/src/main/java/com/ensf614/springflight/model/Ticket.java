@@ -27,6 +27,9 @@ public class Ticket {
     @Column(name = "userID")
     private int userID;
 
+    @Column(name = "name")
+    private String name;
+
     @Column(name = "cost")
     private float cost;
 
