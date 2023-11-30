@@ -9,11 +9,14 @@ import {SeatPage} from "./layouts/Seat/SeatPage";
 import {PaymentPage} from "./layouts/Payment/PaymentPage";
 import {LoginPage} from "./layouts/Login/LoginPage";
 import {SearchPage} from "./layouts/SearchFlights/SearchPage";
-import FlightModel from "./models/FlightModel";
 import CheckoutSeatModel from "./models/CheckoutSeatModel";
 import {NamesPage} from "./layouts/Names/NamesPage";
+import CurrentUserContext, {CurrentUserContextType, defaultUser, Roles} from "./contexts/CurrentUserContext";
 
 function App() {
+
+    // User login state, default to Guest
+    const [currentUser, setCurrentUser] = useState<CurrentUserContextType>(defaultUser);
 
     // Order information
     const [origin, setOrigin] = useState('Chicago');
@@ -27,44 +30,47 @@ function App() {
     const [checkoutCost, setCheckoutCost] = useState(0);
     const [checkoutInsurance, setCheckoutInsurance] = useState(false);
 
+
     return (
-        <div>
-            <Navbar/>
-            <Switch>
-                <Route path='/' exact>
-                    <Redirect to='/search'/>
-                </Route>
-                <Route path='/login'>
-                    <LoginPage/>
-                </Route>
-                <Route path='/search'>
-                    <SearchPage setOrigin={setOrigin} setDestination={setDestination}
-                                setDate={setDate} setGuests={setNumGuests}/>
-                </Route>
-                <Route path='/flights'>
-                    <FlightsPage origin={origin} destination={destination} date={date}
-                                 setCheckoutFlightId={setCheckoutFlightId}/>
-                </Route>
-                <Route path='/seats'>
-                    <SeatPage numGuests={numGuests}
-                              setCheckoutCost={setCheckoutCost}
-                              setCheckoutSeats={setCheckoutSeats}
-                              setCheckoutInsurance={setCheckoutInsurance}/>
-                </Route>
-                <Route path='/names'>
-                    <NamesPage checkoutSeats={checkoutSeats} setCheckoutSeats={setCheckoutSeats}/>
-                </Route>
-                <Route path='/payment'>
-                    <PaymentPage/>
-                </Route>
-                <Route path='/manifest'>
-                    <ManifestPage/>
-                </Route>
-                <Route path='/admin'>
-                    <AdminPage/>
-                </Route>
-            </Switch>
-        </div>
+        <CurrentUserContext.Provider value={currentUser}>
+            <div>
+                <Navbar/>
+                <Switch>
+                    <Route path='/' exact>
+                        <Redirect to='/search'/>
+                    </Route>
+                    <Route path='/login'>
+                        <LoginPage setCurrentUser={setCurrentUser}/>
+                    </Route>
+                    <Route path='/search'>
+                        <SearchPage setOrigin={setOrigin} setDestination={setDestination}
+                                    setDate={setDate} setGuests={setNumGuests}/>
+                    </Route>
+                    <Route path='/flights'>
+                        <FlightsPage origin={origin} destination={destination} date={date}
+                                     setCheckoutFlightId={setCheckoutFlightId}/>
+                    </Route>
+                    <Route path='/seats'>
+                        <SeatPage numGuests={numGuests}
+                                  setCheckoutCost={setCheckoutCost}
+                                  setCheckoutSeats={setCheckoutSeats}
+                                  setCheckoutInsurance={setCheckoutInsurance}/>
+                    </Route>
+                    <Route path='/names'>
+                        <NamesPage checkoutSeats={checkoutSeats} setCheckoutSeats={setCheckoutSeats}/>
+                    </Route>
+                    <Route path='/payment'>
+                        <PaymentPage/>
+                    </Route>
+                    <Route path='/manifest'>
+                        <ManifestPage/>
+                    </Route>
+                    <Route path='/admin'>
+                        <AdminPage/>
+                    </Route>
+                </Switch>
+            </div>
+        </CurrentUserContext.Provider>
     );
 }
 
