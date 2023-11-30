@@ -1,7 +1,8 @@
 package com.ensf614.springflight.controller;
 
 import com.ensf614.springflight.model.Payment;
-import com.ensf614.springflight.repository.PaymentRepository;
+import com.ensf614.springflight.viewmodels.PaymentView;
+import com.ensf614.springflight.service.PaymentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
@@ -14,37 +15,31 @@ import java.util.Optional;
 @RequestMapping("/api/payment")
 
 public class PaymentController {
-
-        private PaymentRepository paymentRepository;
+        private PaymentService paymentService;
 
         @Autowired
-        public PaymentController(PaymentRepository paymentRepository) {
-            this.paymentRepository = paymentRepository;
-        }
-
-        @GetMapping("/all")
-        public List<Payment> getAllPayments() {
-            return paymentRepository.findAll();
+        public PaymentController(PaymentService paymentService) {
+            this.paymentService = paymentService;
         }
 
         @GetMapping("/id/{id}")
         public Optional<Payment> getPaymentById(@PathVariable int id) {
-            return paymentRepository.findByPaymentID(id);
+            return paymentService.getPaymentById(id);
         }
 
         @GetMapping("/user/{userID}")
-        public List<Payment> getPaymentByUserID(@PathVariable int userID) {
-            return paymentRepository.findByUserID(userID);
+        public List<PaymentView> getPaymentByUserID(@PathVariable int userID) {
+            return paymentService.getPaymentByUserID(userID);
         }
 
         @PostMapping("/add")
         public Payment addPayment(@RequestBody Payment payment) {
-            return paymentRepository.save(payment);
+            return paymentService.addPayment(payment);
         }
 
         @Transactional
         @DeleteMapping("/delete/{paymentID}")
         public void deletePayment(@PathVariable int paymentID) {
-            paymentRepository.deleteByPaymentID(paymentID);
+            paymentService.deletePayment(paymentID);
         }
 }

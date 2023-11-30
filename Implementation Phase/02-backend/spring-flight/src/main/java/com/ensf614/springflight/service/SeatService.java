@@ -6,10 +6,8 @@ import com.ensf614.springflight.viewmodels.SeatView;
 import org.springframework.stereotype.Service;
 import com.ensf614.springflight.model.Flight;
 import com.ensf614.springflight.repository.FlightRepository;
-import com.ensf614.springflight.model.Ticket;
 import com.ensf614.springflight.repository.TicketRepository;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
+
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,7 +24,6 @@ public class SeatService {
         this.flightRepository = flightRepository;
         this.ticketRepository = ticketRepository;
     }
-
 
     public List<Seat> allSeats() {
         return seatRepository.findAll();

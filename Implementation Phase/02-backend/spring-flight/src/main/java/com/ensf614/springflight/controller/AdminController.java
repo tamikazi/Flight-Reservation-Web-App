@@ -33,9 +33,9 @@ public class AdminController {
     public List<User> getUserByUsername(@PathVariable int id) {
         return adminService.allUsersByRole(id);
     }
-    @GetMapping("/users/member/{member}")
-    public List<User> getUserByMember(@PathVariable boolean member) {
-        return adminService.allUsersByMember(member);
+    @GetMapping("/users/card/{card}")
+    public List<User> getUserByMember(@PathVariable boolean card) {
+        return adminService.allUsersByCard(card);
     }
 
     @GetMapping("/aircrafts/all")

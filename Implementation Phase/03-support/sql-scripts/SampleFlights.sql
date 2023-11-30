@@ -58,20 +58,20 @@ INSERT INTO ROLES (roleName) VALUES
 CREATE TABLE USER (
   userID       INT            NOT NULL AUTO_INCREMENT,
   username     VARCHAR(50)    NOT NULL,
-  password     VARCHAR(50)    DEFAULT NULL,
+  password     VARCHAR(50)    NOT NULL,
   roleID       INT		      NOT NULL,
-  member	   BOOL			  NOT NULL DEFAULT TRUE,
+  card		   BOOL			  NOT NULL DEFAULT FALSE,
   Fname		   VARCHAR(50)	  NOT NULL,
   Lname		   VARCHAR(50)	  NOT NULL,
   PRIMARY KEY (userID),
   FOREIGN KEY (roleID) REFERENCES ROLES(roleID)
 );
 
-INSERT INTO USER (username, password, roleID, member, Fname, Lname) VALUES
+INSERT INTO USER (username, password, roleID, card, Fname, Lname) VALUES
 ('admin@example.com', 'adminpass', 1, FALSE, 'Ava', 'Lane'),
-('agent@example.com', 'agentpass', 2, FALSE, 'Max', 'Stone'),
+('agent@example.com', 'agentpass', 2, TRUE, 'Max', 'Stone'),
 ('crew@example.com', 'crewpass', 3, FALSE, 'Mia', 'Cruz'),
-('passenger@example.com', 'pasengerpass',  4, FALSE, 'Leo', 'Brooks');
+('passenger@example.com', 'pasengerpass',  4, TRUE, 'Leo', 'Brooks');
 
 CREATE TABLE CREW_FLIGHTS (
 	crewID		INT			   NOT NULL AUTO_INCREMENT,
@@ -540,7 +540,8 @@ CREATE TABLE TICKET (
   ticketID     INT             NOT NULL AUTO_INCREMENT,
   seatID       INT             NOT NULL,
   flightID     INT             NOT NULL,
-  userID       INT			   NOT NULL,
+  userID       INT			   DEFAULT NULL,
+  name		   VARCHAR(50)	   NOT NULL,
   cost		   DECIMAL(10,2)   NOT NULL,
   insurance	   BOOL			   NOT NULL DEFAULT FALSE,
   PRIMARY KEY (ticketID),
@@ -549,13 +550,13 @@ CREATE TABLE TICKET (
   FOREIGN KEY (flightID) REFERENCES FLIGHT(flightID) ON DELETE CASCADE
 );
 
-INSERT INTO TICKET (seatID, flightID, userID, cost, insurance) VALUES
-(1, 1, 4, 100.00, FALSE),
-(2, 1, 4, 200.00, FALSE),
-(1, 2, 2, 300.00, FALSE),
-(7, 1, 1, 400.00, FALSE),
-(12, 1, 2, 500.00, FALSE),
-(23, 1, 3, 600.00, FALSE);
+INSERT INTO TICKET (seatID, flightID, userID, name, cost, insurance) VALUES
+(1, 1, 4, 'Charlie Adams', 100.00, FALSE),
+(2, 1, 4, 'Quinn Cook', 200.00, FALSE),
+(1, 2, 2, 'Ava Smith',  300.00, FALSE),
+(7, 1, 1, 'Denise Williams', 400.00, FALSE),
+(12, 1, 2, 'James McNeil', 500.00, FALSE),
+(23, 1, 3, 'Sally Clip', 600.00, FALSE);
 
 CREATE TABLE PAYMENT (
 	paymentID	INT				NOT NULL AUTO_INCREMENT,

@@ -2,6 +2,8 @@ package com.ensf614.springflight.controller;
 
 import com.ensf614.springflight.model.Ticket;
 import com.ensf614.springflight.service.TicketService;
+import com.ensf614.springflight.viewmodels.BookingView;
+import com.ensf614.springflight.viewmodels.TicketView;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -32,22 +34,19 @@ public class TicketController {
         return ticketService.allTicketsOnFlight(id);
     }
     @GetMapping("/userid/{id}")
-    public List<Ticket> getTicketByUserID(@PathVariable int id) {
+    public List<BookingView> getTicketByUserID(@PathVariable int id) {
         return ticketService.allTicketsOnUser(id);
     }
 
-    @GetMapping("/userflights/{userID}/{ticketID}")
-    public Ticket getTicketByTicketIDAndUserID(@PathVariable int userID, @PathVariable int ticketID) {
-        return ticketService.ticketsOnTicketIDAndUserID(ticketID, userID);
+    @GetMapping("/userflights/{ticketID}/{name}")
+    public List<BookingView> getTicketByTicketIDAndName(@PathVariable int ticketID, @PathVariable String name) {
+
+        return ticketService.ticketsOnTicketIDAndName(ticketID, name);
     }
 
-    @GetMapping("/userflight/{userID}/{flightID}")
-    public List<Ticket> getTicketByFlightIDAndUserID(@PathVariable int userID, @PathVariable int flightID) {
-        return ticketService.ticketsOnFlightIDAndUserID(flightID, userID);
-    }
 
     @PostMapping("/add")
-    public Ticket addTicket(@RequestBody Ticket ticket) {
+    public Ticket addTicket(@RequestBody TicketView ticket) {
         return ticketService.addTicket(ticket);
     }
 
