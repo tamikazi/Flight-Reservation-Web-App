@@ -5,7 +5,9 @@ import com.ensf614.springflight.model.Ticket;
 import com.ensf614.springflight.repository.SeatRepository;
 import com.ensf614.springflight.repository.TicketRepository;
 import com.ensf614.springflight.viewmodels.TicketView;
+import com.ensf614.springflight.viewmodels.BookingView;
 import com.ensf614.springflight.repository.UserRepository;
+import com.ensf614.springflight.repository.FlightRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -19,12 +21,15 @@ public class TicketService {
 
     private SeatRepository seatRepository;
 
+    private FlightRepository flightRepository;
+
 
     public TicketService(TicketRepository ticketRepository, UserRepository userRepository,
-                         SeatRepository seatRepository) {
+                         SeatRepository seatRepository, FlightRepository flightRepository) {
         this.ticketRepository = ticketRepository;
         this.userRepository = userRepository;
         this.seatRepository = seatRepository;
+        this.flightRepository = flightRepository;
     }
 
     public List<Ticket> allTickets() {
@@ -36,38 +41,71 @@ public class TicketService {
     }
     public List<Ticket> allTicketsOnFlight(int flightID) { return ticketRepository.findByFlightID(flightID); }
 
-    public List<TicketView> allTicketsOnUser(int userID) {
+    public List<BookingView> allTicketsOnUser(int userID) {
         List <Ticket> userTickets = ticketRepository.findByUserID(userID);
 
-        List<TicketView> userTicketsView = new ArrayList<TicketView>();
-        Seat userSeats = seatRepository.findBySeatID(userID);
+        List<BookingView> userBookings = new ArrayList<BookingView>();
 
         for (Ticket ticket : userTickets) {
-            TicketView currentTicket = new TicketView();
-            currentTicket.setTicketID(ticket.getTicketID());
-            currentTicket.setFlightID(ticket.getFlightID());
-            currentTicket.setUserID(ticket.getUserID());
-            currentTicket.setSeatNumber(seatRepository.findBySeatID(ticket.getSeatID()).getSeatNumber());
-            currentTicket.setName(ticket.getName());
-            currentTicket.setPrice(ticket.getCost());
-            currentTicket.setInsurance(ticket.isInsurance());
-            userTicketsView.add(currentTicket);
+            BookingView currentBooking = new BookingView();
+            currentBooking.setTicketID(ticket.getTicketID());
+            currentBooking.setCode(flightRepository.findByFlightID(ticket.getFlightID()).getCode());
+            currentBooking.setOrigin(flightRepository.findByFlightID(ticket.getFlightID()).getOrigin());
+            currentBooking.setDestination(flightRepository.findByFlightID(ticket.getFlightID()).getDestination());
+            currentBooking.setDate(flightRepository.findByFlightID(ticket.getFlightID()).getDate());
+            currentBooking.setTime(flightRepository.findByFlightID(ticket.getFlightID()).getTime());
+            currentBooking.setSeatNumber(seatRepository.findBySeatID(ticket.getSeatID()).getSeatNumber());
+            currentBooking.setName(ticket.getName());
+            currentBooking.setInsurance(ticket.isInsurance());
+            userBookings.add(currentBooking);
         }
 
 
-        return userTicketsView;
+        return userBookings;
     }
 
-    public Ticket ticketsOnTicketIDAndUserID(int ticketID, int userID) {
-        return ticketRepository.findByTicketIDAndUserID(ticketID, userID);
+    public List<BookingView> ticketsOnTicketIDAndName(int ticketID, String name) {
+
+        List<Ticket> tickets = ticketRepository.findByTicketIDAndName(ticketID, name);
+
+        if (tickets.isEmpty()) {
+            throw new RuntimeException("No tickets found");
+        }
+        else {
+            List<BookingView> bookings = new ArrayList<BookingView>();
+
+            for (Ticket ticket : tickets) {
+                BookingView currentBooking = new BookingView();
+                currentBooking.setTicketID(ticket.getTicketID());
+                currentBooking.setCode(flightRepository.findByFlightID(ticket.getFlightID()).getCode());
+                currentBooking.setOrigin(flightRepository.findByFlightID(ticket.getFlightID()).getOrigin());
+                currentBooking.setDestination(flightRepository.findByFlightID(ticket.getFlightID()).getDestination());
+                currentBooking.setDate(flightRepository.findByFlightID(ticket.getFlightID()).getDate());
+                currentBooking.setTime(flightRepository.findByFlightID(ticket.getFlightID()).getTime());
+                currentBooking.setSeatNumber(seatRepository.findBySeatID(ticket.getSeatID()).getSeatNumber());
+                currentBooking.setName(ticket.getName());
+                currentBooking.setInsurance(ticket.isInsurance());
+                bookings.add(currentBooking);
+            }
+
+            return bookings;
+
+        }
     }
 
     public List<Ticket> ticketsOnFlightIDAndUserID(int flightID, int userID) {
         return ticketRepository.findByFlightIDAndUserID(flightID, userID);
     }
 
-    public Ticket addTicket(Ticket ticket) {
-        return ticketRepository.save(ticket);
+    public Ticket addTicket(TicketView ticket) {
+        Ticket newTicket = new Ticket();
+        newTicket.setFlightID(ticket.getFlightID());
+        newTicket.setUserID(ticket.getUserID());
+        newTicket.setSeatID(ticket.getSeatID());
+        newTicket.setName(ticket.getName());
+        newTicket.setCost(ticket.getPrice());
+        newTicket.setInsurance(ticket.isInsurance());
+        return ticketRepository.save(newTicket);
     }
 
     public void deleteTicket(int ticketID) {

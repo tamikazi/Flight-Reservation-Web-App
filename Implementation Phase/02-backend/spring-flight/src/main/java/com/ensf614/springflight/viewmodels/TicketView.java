@@ -4,10 +4,9 @@ import lombok.Data;
 
 @Data
 public class TicketView {
-    private int ticketID;
     private int flightID;
     private int userID;
-    private String seatNumber;
+    private int seatID;
     private String name;
     private float price;
     private boolean insurance;
