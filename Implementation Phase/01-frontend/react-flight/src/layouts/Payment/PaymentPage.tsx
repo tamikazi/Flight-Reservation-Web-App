@@ -25,7 +25,7 @@ export const PaymentPage = () => {
                     <Link type='button' className='btn btn-primary' to='/flights'>Back</Link>
                 </div>
                 <div className='col-6'>
-                    <button className='btn btn-primary' type='submit'>Pay</button>
+                    <button type='button' className='btn btn-primary'>Pay</button>
                 </div>
             </form>
         </div>
