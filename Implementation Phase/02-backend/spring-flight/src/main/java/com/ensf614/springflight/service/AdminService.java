@@ -52,8 +52,8 @@ public class AdminService {
         return userRepository.findByRoleID(roleID);
     }
 
-    public List<User> allUsersByMember(boolean member) {
-        return userRepository.findByMember(member);
+    public List<User> allUsersByCard(boolean card) {
+        return userRepository.findByCard(card);
     }
 
     public Aircraft addAircraft(Aircraft aircraft) {

@@ -28,8 +28,8 @@ public class User {
     @Column(name = "roleID")
     private int roleID;
 
-    @Column(name = "member")
-    private boolean member;
+    @Column(name = "card")
+    private boolean card;
 
     @Getter
     @Column(name = "Fname")

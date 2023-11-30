@@ -1,6 +1,7 @@
 package com.ensf614.springflight.controller;
 
 import com.ensf614.springflight.service.ManifestService;
+import com.ensf614.springflight.viewmodels.PassengerView;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,7 +19,7 @@ public class ManifestController {
     }
 
     @GetMapping("/{code}/{date}")
-    public List<Object[]> getPassengerManifest(@PathVariable String code, @PathVariable String date) {
+    public List<PassengerView> getPassengerManifest(@PathVariable String code, @PathVariable String date) {
         return manifestService.getPassengerManifest(code, date);
     }
 }

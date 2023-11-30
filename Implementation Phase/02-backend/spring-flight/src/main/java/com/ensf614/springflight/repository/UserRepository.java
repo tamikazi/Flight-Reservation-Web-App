@@ -15,7 +15,7 @@ public interface UserRepository extends JpaRepository<User, String> {
 
     List<User> findByRoleID(int roleID);
 
-    List<User> findByMember(boolean member);
+    List<User> findByCard(boolean Card);
 
     Optional<User> findByUsernameAndPassword(String username, String password);
 
