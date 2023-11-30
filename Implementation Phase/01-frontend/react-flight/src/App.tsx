@@ -12,6 +12,7 @@ import {SearchPage} from "./layouts/SearchFlights/SearchPage";
 import CheckoutSeatModel from "./models/CheckoutSeatModel";
 import {NamesPage} from "./layouts/Names/NamesPage";
 import CurrentUserContext, {CurrentUserContextType, defaultUser, Roles} from "./contexts/CurrentUserContext";
+import {UserPage} from "./layouts/User/UserPage";
 
 function App() {
     // User login state, default to Guest
@@ -31,15 +32,15 @@ function App() {
 
 
     return (
-        <CurrentUserContext.Provider value={{currentUser, setCurrentUser}}>
+        <CurrentUserContext.Provider value={currentUser}>
             <div>
-                <Navbar/>
+                <Navbar setUser={setCurrentUser}/>
                 <Switch>
                     <Route path='/' exact>
                         <Redirect to='/search'/>
                     </Route>
                     <Route path='/login'>
-                        <LoginPage />
+                        <LoginPage setUser={setCurrentUser}/>
                     </Route>
                     <Route path='/search'>
                         <SearchPage setOrigin={setOrigin} setDestination={setDestination}
@@ -67,6 +68,9 @@ function App() {
                     </Route>
                     <Route path='/admin'>
                         <AdminPage/>
+                    </Route>
+                    <Route path='/user'>
+                        <UserPage/>
                     </Route>
                 </Switch>
             </div>
