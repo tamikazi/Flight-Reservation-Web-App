@@ -1,7 +1,15 @@
-import React from "react";
+import React, {useContext} from "react";
 import {NavLink} from "react-router-dom";
+import CurrentUserContext, {Roles} from "../../contexts/CurrentUserContext";
 
-export const Navbar = () => {
+export const Navbar: React.FC<{ setUser: any }> = (props) => {
+    const currentUser = useContext(CurrentUserContext);
+
+    // Reset to guest
+    const handleLogout = () => {
+        props.setUser({ userId: -1, role: Roles.Guest })
+    }
+
     return (
         <nav className='navbar navbar-expand-lg navbar-dark main-color py-1'>
             <div className='container-fluid'>
@@ -22,13 +30,24 @@ export const Navbar = () => {
                             <NavLink className='nav-link' to='/manifest'>Manifest</NavLink>
                         </li>
                         <li className='nav-item'>
+                            <NavLink className='nav-link' to='/user'>User</NavLink>
+                        </li>
+                        <li className='nav-item'>
                             <NavLink className='nav-link' to='/admin'>Admin</NavLink>
                         </li>
                     </ul>
                     <ul className='navbar-nav ms-auto'>
-                        <li className='nav-item m-1'>
-                            <NavLink type='button' className='btn btn-outline-light' to='/login'>Sign in</NavLink>
-                        </li>
+                        {currentUser.role === Roles.Guest ?
+                            <li className='nav-item m-1'>
+                                <NavLink type='button' className='btn btn-outline-light' to='/login'>Sign in</NavLink>
+                            </li>
+                            :
+                            <>
+                                <li className='nav-item m-1'>
+                                    <button className='btn btn-outline-light' onClick={handleLogout}>Logout</button>
+                                </li>
+                            </>
+                        }
                     </ul>
                 </div>
             </div>
