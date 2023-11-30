@@ -45,24 +45,13 @@ export const SeatPage: React.FC<{
 
             for (const key in responseData) {
                 loadedSeats.push({
-                    seatId: responseData[key].seatId,
+                    seatId: responseData[key].seatID,
                     seatNumber: responseData[key].seatNumber,
                     seatClass: responseData[key].seatClass,
                     available: responseData[key].available,
                     price: responseData[key].price
                 });
             }
-
-            // //  Fake data
-            // const mockFlight: FlightModel = ({
-            //     flightID: 1,
-            //     code: 'AB100',
-            //     origin: 'Calgary',
-            //     destination: 'Vancouver',
-            //     date: '2023-11-30',
-            //     time: '1350',
-            //     aircraft: 1
-            // });
 
             setSeats(loadedSeats);
             setIsLoading(false);
@@ -72,47 +61,6 @@ export const SeatPage: React.FC<{
             setHttpError(error.message);
         })
     }, []);
-
-    // Get seats
-    // useEffect(() => {
-    //
-    //     // Make up fake seats
-    //     const loadedSeats: SeatMapModel[] = [];
-    //     let count: number = 0;
-    //     for (let i = 0; i < seatRows; i++) {
-    //         for (let j = 0; j < seatColumns; j++) {
-    //             loadedSeats.push({
-    //                 seatId: count,
-    //                 seatNumber: `A${count}`,
-    //                 seatClass: "Standard",
-    //                 available: true,
-    //                 price: 100
-    //             });
-    //             count++;
-    //         }
-    //     }
-    //     //Set some seats as unavailable
-    //     loadedSeats[2].available = false;
-    //     loadedSeats[9].available = false;
-    //     loadedSeats[10].available = false;
-    //     loadedSeats[15].available = false;
-    //     loadedSeats[17].available = false;
-    //
-    //     setSeats(loadedSeats);
-    //     setIsLoading(false);
-    //
-    // //
-    // //     const fetchSeats =  () => {
-    // //
-    // //
-    // //     };
-    // //     fetchSeats().catch((error: any) => {
-    // //         setIsLoading(false);
-    // //         setHttpError(error.message);
-    // //     })
-    // //
-    // //
-    // }, []);
 
     if (isLoading) {
         return (
