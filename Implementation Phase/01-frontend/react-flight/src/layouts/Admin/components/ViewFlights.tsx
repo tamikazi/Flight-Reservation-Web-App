@@ -127,7 +127,7 @@ export const ViewFlights = () => {
                                 </div>
                                 <div className='list-group'>
                                     {flights.map(flight => (
-                                        <Flight flight={flight} onClick={() => {}} key={flight.flightId}/>
+                                        <Flight flight={flight} setCheckoutFlightId={() => {}} key={flight.flightId}/>
                                     ))}
                                 </div>
                             </>

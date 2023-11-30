@@ -7,6 +7,7 @@ import {SpinnerLoading} from "../Utils/SpinnerLoading";
 import checkoutSeatModel from "../../models/CheckoutSeatModel";
 
 export const SeatPage: React.FC<{
+    checkoutFlightId: string,
     numGuests: number,
     setCheckoutCost: any,
     setCheckoutSeats: any,
@@ -23,91 +24,95 @@ export const SeatPage: React.FC<{
     const seatColumns: number = 4;
     const seatRows: number = 5;
 
-    // Get flight
-    // useEffect(() => {
-    //
-    //     const fetchFlight = async () => {
-    //         const url: string = `http://localhost:8080/api/flights/id/1`;
-    //         // const url: string = `http://localhost:8080/api/flights/id/${props.flightId}`;
-    //
-    //         const response = await fetch(url);
-    //
-    //         if (!response.ok) {
-    //             throw new Error('Something went wrong!');
-    //         }
-    //
-    //         const responseData = await response.json();
-    //
-    //         const loadedFlight: FlightModel = {
-    //             flightId: responseData.flightId,
-    //             code: responseData.code,
-    //             origin: responseData.origin,
-    //             destination: responseData.destination,
-    //             date: responseData.date,
-    //             time: responseData.time,
-    //             aircraft: responseData.aircraft,
-    //         };
-    //
-    //         // //  Fake data
-    //         // const mockFlight: FlightModel = ({
-    //         //     flightID: 1,
-    //         //     code: 'AB100',
-    //         //     origin: 'Calgary',
-    //         //     destination: 'Vancouver',
-    //         //     date: '2023-11-30',
-    //         //     time: '1350',
-    //         //     aircraft: 1
-    //         // });
-    //
-    //         setFlight(loadedFlight);
-    //         setIsLoading(false);
-    //     };
-    //     fetchFlight().catch((error: any) => {
-    //         setIsLoading(false);
-    //         setHttpError(error.message);
-    //     })
-    // }, []);
+    const flightId: string = props.checkoutFlightId;
 
-    // Get seats
+    // Get flight
     useEffect(() => {
 
-        // Make up fake seats
-        const loadedSeats: SeatMapModel[] = [];
-        let count: number = 0;
-        for (let i = 0; i < seatRows; i++) {
-            for (let j = 0; j < seatColumns; j++) {
-                loadedSeats.push({
-                    seatId: count,
-                    seatNumber: `A${count}`,
-                    seatClass: "Standard",
-                    available: true,
-                    price: 100
-                });
-                count++;
+        const fetchFlight = async () => {
+            const url: string = `http://localhost:8080/api/seats/flightid/${flightId}`;
+            // const url: string = `http://localhost:8080/api/seats/flightid/1`;
+
+            const response = await fetch(url);
+
+            if (!response.ok) {
+                throw new Error('Something went wrong!');
             }
-        }
-        //Set some seats as unavailable
-        loadedSeats[2].available = false;
-        loadedSeats[9].available = false;
-        loadedSeats[10].available = false;
-        loadedSeats[15].available = false;
-        loadedSeats[17].available = false;
 
-        setSeats(loadedSeats);
-        setIsLoading(false);
+            const responseData = await response.json();
 
-    //
-    //     const fetchSeats =  () => {
-    //
-    //
-    //     };
-    //     fetchSeats().catch((error: any) => {
-    //         setIsLoading(false);
-    //         setHttpError(error.message);
-    //     })
-    //
-    //
+            const loadedSeats: SeatMapModel[] = [];
+
+            for (const key in responseData) {
+                loadedSeats.push({
+                    seatId: responseData[key].seatId,
+                    seatNumber: responseData[key].seatNumber,
+                    seatClass: responseData[key].seatClass,
+                    available: responseData[key].available,
+                    price: responseData[key].price
+                });
+            }
+
+            // //  Fake data
+            // const mockFlight: FlightModel = ({
+            //     flightID: 1,
+            //     code: 'AB100',
+            //     origin: 'Calgary',
+            //     destination: 'Vancouver',
+            //     date: '2023-11-30',
+            //     time: '1350',
+            //     aircraft: 1
+            // });
+
+            setSeats(loadedSeats);
+            setIsLoading(false);
+        };
+        fetchFlight().catch((error: any) => {
+            setIsLoading(false);
+            setHttpError(error.message);
+        })
     }, []);
+
+    // Get seats
+    // useEffect(() => {
+    //
+    //     // Make up fake seats
+    //     const loadedSeats: SeatMapModel[] = [];
+    //     let count: number = 0;
+    //     for (let i = 0; i < seatRows; i++) {
+    //         for (let j = 0; j < seatColumns; j++) {
+    //             loadedSeats.push({
+    //                 seatId: count,
+    //                 seatNumber: `A${count}`,
+    //                 seatClass: "Standard",
+    //                 available: true,
+    //                 price: 100
+    //             });
+    //             count++;
+    //         }
+    //     }
+    //     //Set some seats as unavailable
+    //     loadedSeats[2].available = false;
+    //     loadedSeats[9].available = false;
+    //     loadedSeats[10].available = false;
+    //     loadedSeats[15].available = false;
+    //     loadedSeats[17].available = false;
+    //
+    //     setSeats(loadedSeats);
+    //     setIsLoading(false);
+    //
+    // //
+    // //     const fetchSeats =  () => {
+    // //
+    // //
+    // //     };
+    // //     fetchSeats().catch((error: any) => {
+    // //         setIsLoading(false);
+    // //         setHttpError(error.message);
+    // //     })
+    // //
+    // //
+    // }, []);
 
     if (isLoading) {
         return (

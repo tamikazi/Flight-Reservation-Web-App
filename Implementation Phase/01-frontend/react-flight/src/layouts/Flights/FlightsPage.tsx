@@ -14,7 +14,6 @@ export const FlightsPage: React.FC<{
     const [flights, setFlights] = useState<FlightModel[]>([]);
     const [isLoading, setIsLoading] = useState(true);
     const [httpError, setHttpError] = useState(null);
-    const [searchUrl, setSearchUrl] = useState('');
 
 
     useEffect(() => {
@@ -35,7 +34,7 @@ export const FlightsPage: React.FC<{
 
             for (const key in responseData) {
                 loadedFlights.push({
-                    flightId: responseData[key].flightId,
+                    flightId: responseData[key].flightID,
                     code: responseData[key].code,
                     origin: responseData[key].origin,
                     destination: responseData[key].destination,
@@ -53,7 +52,7 @@ export const FlightsPage: React.FC<{
             setIsLoading(false);
             setHttpError(error.message);
         })
-    }, [searchUrl]);
+    }, []);
 
     if (isLoading) {
         return (
@@ -69,6 +68,11 @@ export const FlightsPage: React.FC<{
         )
     }
 
+    // const clickHandle = (flightId: string) => {
+    //     props.setCheckoutFlightId(flightId);
+    //     history.push()
+    // }
+
     return (
         <div className='d-flex flex-column flex-md-row p-4 gap-4 py-md-5 align-items-center justify-content-center'>
             <div className='container'>
@@ -79,7 +83,7 @@ export const FlightsPage: React.FC<{
                         </div>
                         <div className='list-group'>
                             {flights.map((flight, index) => (
-                                <Flight flight={flight} onClick={() => props.setCheckoutFlightId(flight.flightId)} key={index}/>
+                                <Flight flight={flight} setCheckoutFlightId={props.setCheckoutFlightId} key={index}/>
                             ))}
                         </div>
                     </>
