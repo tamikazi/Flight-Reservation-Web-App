@@ -1,11 +1,10 @@
 import {createContext, PropsWithChildren, useContext, useState} from "react";
 
 export enum Roles {
-    Guest = 'guest',
-    Admin = 'admin',
-    Agent = 'agent',
-    Crew = 'crew',
-    Passenger = 'passenger'
+    Guest,
+    Admin,
+    Agent,
+    Crew
 }
 
 export interface CurrentUserContextType {
@@ -16,16 +15,10 @@ export interface CurrentUserContextType {
 export const defaultUser = {
     userId: -1,
     // role: Roles.Guest
-    role: 0
+    role: Roles.Guest
 }
 
-const CurrentUserContext = createContext<{
-    currentUser: CurrentUserContextType;
-    setCurrentUser: React.Dispatch<any>;
-}>({
-    currentUser: defaultUser,
-    setCurrentUser: () => null
-});
+const CurrentUserContext = createContext(defaultUser);
 
 // export const CurrentUserProvider = ({ children }: PropsWithChildren<{}>) => {
 //     const [currentUser, setCurrentUser] = useState<CurrentUserContextType>(defaultUser);
