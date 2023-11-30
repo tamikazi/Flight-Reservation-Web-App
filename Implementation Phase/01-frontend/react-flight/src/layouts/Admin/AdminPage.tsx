@@ -7,7 +7,7 @@ import {ManageUsers} from "./components/ManageUsers";
 import CurrentUserContext, {Roles} from "../../contexts/CurrentUserContext";
 
 export const AdminPage = () => {
-    const {currentUser, setCurrentUser} = useContext(CurrentUserContext);
+    const currentUser = useContext(CurrentUserContext);
 
     const [manageFlights, setManageFlights] = useState(false);
     const [manageCrew, setManageCrew] = useState(false);
@@ -51,7 +51,7 @@ export const AdminPage = () => {
 
     return (
         <div className='container'>
-            {currentUser.role == 1 ?
+            {currentUser.role == Roles.Admin ?
                 <div className='mt-5'>
                     <h3>Manage Data</h3>
                     <nav>
@@ -107,7 +107,7 @@ export const AdminPage = () => {
                     </div>
                 </div>
             :
-                <h3>Admin access only</h3>
+                <h3>Authorized access only</h3>
             }
 
         </div>
