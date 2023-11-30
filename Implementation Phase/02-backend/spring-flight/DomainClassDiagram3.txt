@@ -55,6 +55,7 @@ class TicketView {
 - userID: number
 - name: string
 - insurance: boolean
+- price: number
 }
 class PaymentView {
 - userID: number
