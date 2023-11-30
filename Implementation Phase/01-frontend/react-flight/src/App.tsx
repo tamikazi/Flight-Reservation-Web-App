@@ -13,6 +13,7 @@ import CheckoutSeatModel from "./models/CheckoutSeatModel";
 import {NamesPage} from "./layouts/Names/NamesPage";
 import CurrentUserContext, {CurrentUserContextType, defaultUser, Roles} from "./contexts/CurrentUserContext";
 import {UserPage} from "./layouts/User/UserPage";
+import {ManageBookingPage} from "./layouts/Bookings/ManageBookingPage";
 
 function App() {
     // User login state, default to Guest
@@ -71,6 +72,12 @@ function App() {
                     </Route>
                     <Route path='/user'>
                         <UserPage/>
+                    </Route>
+                    <Route path='/bookings'>
+                        <ManageBookingPage/>
+                    </Route>
+                    <Route path='/history'>
+
                     </Route>
                 </Switch>
             </div>
