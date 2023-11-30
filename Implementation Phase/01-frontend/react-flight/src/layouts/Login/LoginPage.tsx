@@ -1,11 +1,13 @@
 import {useContext, useState} from "react";
 import LoginRequestView from "../../models/LoginRequestView";
 import CurrentUserContext, {CurrentUserContextType} from "../../contexts/CurrentUserContext";
+import {useHistory} from 'react-router-dom'
 
-export const LoginPage: React.FC<{  }> = (props) => {
-    const {currentUser, setCurrentUser} = useContext(CurrentUserContext);
+export const LoginPage: React.FC<{ setUser: any }> = (props) => {
+    const currentUser = useContext(CurrentUserContext);
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
+    const history = useHistory();
 
     // Displays
     const [displayWarning, setDisplayWarning] = useState(false);
@@ -37,9 +39,12 @@ export const LoginPage: React.FC<{  }> = (props) => {
                 userId: loginResponseJson.userID,
                 role: loginResponseJson.roleID
             })
-            setCurrentUser(loadedLogin);
+            props.setUser(loadedLogin);
             setDisplayWarning(false);
             setDisplaySuccess(true);
+
+            // Delay some time then redirect
+            setTimeout(() => {history.push('/')}, 1000);
 
         } else {
             setDisplayWarning(true);
@@ -66,7 +71,8 @@ export const LoginPage: React.FC<{  }> = (props) => {
                 </button>
                 {displaySuccess &&
                     <div className='alert alert-success' role='alert'>
-                        Logged in, role is {currentUser.role}
+                        <h5>Logged in, role is {currentUser.role}</h5>
+                        <h5>Redirecting...</h5>
                     </div>
                 }
                 {displayWarning &&
