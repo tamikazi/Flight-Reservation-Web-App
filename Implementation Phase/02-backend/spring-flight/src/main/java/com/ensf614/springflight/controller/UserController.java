@@ -2,10 +2,9 @@ package com.ensf614.springflight.controller;
 
 import com.ensf614.springflight.model.User;
 import com.ensf614.springflight.repository.UserRepository;
+import com.ensf614.springflight.viewmodels.UserView;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 //@CrossOrigin("http://localhost:3000")
 @CrossOrigin(origins = "*")
@@ -21,8 +20,18 @@ public class UserController {
     }
 
     @GetMapping("/id/{id}")
-    public User getUserById(@PathVariable int id) {
-        return userRepository.findByUserID(id);
+    public UserView getUserById(@PathVariable int id) {
+        User user = userRepository.findByUserID(id);
+
+        UserView userView = new UserView();
+
+        userView.setUserID(user.getUserID());
+        userView.setUsername(user.getUsername());
+        userView.setFname(user.getFname());
+        userView.setLname(user.getLname());
+        userView.setCard(user.isCard());
+
+        return userView;
     }
 
 }
