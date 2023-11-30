@@ -17,7 +17,7 @@ export const LoginPage: React.FC<{  }> = (props) => {
         if(username !== '' && password !== '') {
             const loginRequest = new LoginRequestView(username, password);
             const requestOptions = {
-                method: 'GET',
+                method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
                 },
@@ -25,15 +25,21 @@ export const LoginPage: React.FC<{  }> = (props) => {
             };
 
             const loginResponse = await fetch(url, requestOptions);
-            if(!loginResponse.ok) {
+            if(loginResponse.status === 401) {
+                setDisplayWarning(true);
+                setDisplaySuccess(false);
+                return
+            } else if (!loginResponse.ok) {
                 throw new Error('Something went wrong');
             }
             const loginResponseJson = await loginResponse.json();
             const loadedLogin: CurrentUserContextType = ({
-                userId: loginResponseJson.userId,
-                role: loginResponseJson.role
+                userId: loginResponseJson.userID,
+                role: loginResponseJson.roleID
             })
             setCurrentUser(loadedLogin);
+            setDisplayWarning(false);
+            setDisplaySuccess(true);
 
         } else {
             setDisplayWarning(true);
@@ -55,8 +61,21 @@ export const LoginPage: React.FC<{  }> = (props) => {
                            onChange={(e) => setPassword(e.target.value)}/>
                     <label htmlFor='passwordInput'>Password</label>
                 </div>
-                <button className='btn btn-primary w-100 py-2 mt-3' type='submit'>Sign in</button>
+                <button type='button' className='btn btn-primary w-100 py-2 mt-3 mb-3' onClick={attemptLogin}>
+                    Sign in
+                </button>
+                {displaySuccess &&
+                    <div className='alert alert-success' role='alert'>
+                        Logged in, role is {currentUser.role}
+                    </div>
+                }
+                {displayWarning &&
+                    <div className='alert alert-danger' role='alert'>
+                        Login failed
+                    </div>
+                }
             </form>
+
         </div>
     );
 };

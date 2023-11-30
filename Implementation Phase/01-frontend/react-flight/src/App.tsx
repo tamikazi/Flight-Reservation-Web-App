@@ -50,7 +50,8 @@ function App() {
                                      setCheckoutFlightId={setCheckoutFlightId}/>
                     </Route>
                     <Route path='/seats'>
-                        <SeatPage numGuests={numGuests}
+                        <SeatPage checkoutFlightId={checkoutFlightId}
+                                  numGuests={numGuests}
                                   setCheckoutCost={setCheckoutCost}
                                   setCheckoutSeats={setCheckoutSeats}
                                   setCheckoutInsurance={setCheckoutInsurance}/>

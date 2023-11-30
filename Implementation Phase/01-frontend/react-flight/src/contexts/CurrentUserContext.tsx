@@ -10,11 +10,13 @@ export enum Roles {
 
 export interface CurrentUserContextType {
     userId: number;
-    role: Roles;
+    // role: Roles;
+    role: number;
 }
 export const defaultUser = {
     userId: -1,
-    role: Roles.Guest
+    // role: Roles.Guest
+    role: 0
 }
 
 const CurrentUserContext = createContext<{
