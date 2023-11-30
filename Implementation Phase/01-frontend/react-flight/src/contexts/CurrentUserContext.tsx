@@ -1,4 +1,4 @@
-import {createContext, useContext} from "react";
+import {createContext, PropsWithChildren, useContext, useState} from "react";
 
 export enum Roles {
     Guest = 'guest',
@@ -17,20 +17,22 @@ export const defaultUser = {
     role: Roles.Guest
 }
 
-const CurrentUserContext = createContext<CurrentUserContextType>(defaultUser);
+const CurrentUserContext = createContext<{
+    currentUser: CurrentUserContextType;
+    setCurrentUser: React.Dispatch<any>;
+}>({
+    currentUser: defaultUser,
+    setCurrentUser: () => null
+});
 
-// export const useCurrentUser = () => {
-//     const currentUserContext = useContext(CurrentUserContext);
+// export const CurrentUserProvider = ({ children }: PropsWithChildren<{}>) => {
+//     const [currentUser, setCurrentUser] = useState<CurrentUserContextType>(defaultUser);
 //
-//     if (!currentUserContext) {
-//         throw new Error(
-//             "currentUserContext has to be used within <CurrentUserContext.Provider>"
-//         );
-//     }
-//
-//     return currentUserContext;
+//     return(
+//         <CurrentUserContext.Provider value={{ currentUser, setCurrentUser }}>
+//             {children}
+//         </CurrentUserContext.Provider>
+//     )
 // }
-
-
 
 export default CurrentUserContext;

@@ -14,7 +14,6 @@ import {NamesPage} from "./layouts/Names/NamesPage";
 import CurrentUserContext, {CurrentUserContextType, defaultUser, Roles} from "./contexts/CurrentUserContext";
 
 function App() {
-
     // User login state, default to Guest
     const [currentUser, setCurrentUser] = useState<CurrentUserContextType>(defaultUser);
 
@@ -32,7 +31,7 @@ function App() {
 
 
     return (
-        <CurrentUserContext.Provider value={currentUser}>
+        <CurrentUserContext.Provider value={{currentUser, setCurrentUser}}>
             <div>
                 <Navbar/>
                 <Switch>
@@ -40,7 +39,7 @@ function App() {
                         <Redirect to='/search'/>
                     </Route>
                     <Route path='/login'>
-                        <LoginPage setCurrentUser={setCurrentUser}/>
+                        <LoginPage />
                     </Route>
                     <Route path='/search'>
                         <SearchPage setOrigin={setOrigin} setDestination={setDestination}
