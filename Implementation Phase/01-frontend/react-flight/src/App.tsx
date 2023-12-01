@@ -14,6 +14,7 @@ import {NamesPage} from "./layouts/Names/NamesPage";
 import CurrentUserContext, {CurrentUserContextType, defaultUser, Roles} from "./contexts/CurrentUserContext";
 import {UserPage} from "./layouts/User/UserPage";
 import {ManageBookingPage} from "./layouts/Bookings/ManageBookingPage";
+import {PaymentHistoryPage} from "./layouts/PaymentHistory/PaymentHistoryPage";
 
 function App() {
     // User login state, default to Guest
@@ -77,7 +78,7 @@ function App() {
                         <ManageBookingPage/>
                     </Route>
                     <Route path='/history'>
-
+                        <PaymentHistoryPage/>
                     </Route>
                 </Switch>
             </div>
