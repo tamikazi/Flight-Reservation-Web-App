@@ -26,8 +26,6 @@ function App() {
     const [date, setDate] = useState('2023-12-20');
     const [checkoutFlightId, setCheckoutFlightId] = useState('');
     const [numGuests, setNumGuests] = useState(3);
-    const [guestNames, setGuestNames] = useState<string[]>([]);
-    const [checkoutSeatIds, setCheckoutSeatIds] = useState<string[]>([]);
     const [checkoutSeats, setCheckoutSeats] = useState<CheckoutSeatModel[]>([]);
     const [checkoutCost, setCheckoutCost] = useState(0);
     const [checkoutInsurance, setCheckoutInsurance] = useState(false);
