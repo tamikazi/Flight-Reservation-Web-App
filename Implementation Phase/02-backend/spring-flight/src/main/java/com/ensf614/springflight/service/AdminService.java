@@ -1,16 +1,13 @@
 package com.ensf614.springflight.service;
 
-import com.ensf614.springflight.model.User;
+import com.ensf614.springflight.model.*;
 import com.ensf614.springflight.repository.UserRepository;
-import com.ensf614.springflight.model.Aircraft;
 import com.ensf614.springflight.repository.AircraftRepository;
-import com.ensf614.springflight.model.CrewFlights;
 import com.ensf614.springflight.viewmodels.CrewView;
 import com.ensf614.springflight.repository.CrewFlightsRepository;
-import com.ensf614.springflight.model.Flight;
 import com.ensf614.springflight.repository.FlightRepository;
-import com.ensf614.springflight.model.Seat;
 import com.ensf614.springflight.repository.SeatRepository;
+import com.ensf614.springflight.repository.TicketRepository;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
@@ -27,15 +24,17 @@ public class AdminService {
     private CrewFlightsRepository crewFlightsRepository;
     private FlightRepository flightRepository;
     private SeatRepository seatRepository;
+    private TicketRepository ticketRepository;
 
     public AdminService(UserRepository userRepository, AircraftRepository aircraftRepository,
                         CrewFlightsRepository crewFlightsRepository, FlightRepository flightRepository,
-                        SeatRepository seatRepository) {
+                        SeatRepository seatRepository, TicketRepository ticketRepository) {
         this.userRepository = userRepository;
         this.aircraftRepository = aircraftRepository;
         this.crewFlightsRepository = crewFlightsRepository;
         this.flightRepository = flightRepository;
         this.seatRepository = seatRepository;
+        this.ticketRepository = ticketRepository;
     }
 
     public List<User> allUsers() {
@@ -191,5 +190,8 @@ public class AdminService {
         flightRepository.deleteByFlightID(flightID);
     }
 
+    public List<Ticket> allTicketsOnFlight(int flightID) {
+        return ticketRepository.findByFlightID(flightID);
+    }
 
 }

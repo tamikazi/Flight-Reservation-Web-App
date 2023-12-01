@@ -3,9 +3,10 @@ package com.ensf614.springflight.controller;
 import com.ensf614.springflight.service.AdminService;
 import com.ensf614.springflight.model.User;
 import com.ensf614.springflight.model.Aircraft;
-import com.ensf614.springflight.model.CrewFlights;
+import com.ensf614.springflight.model.Ticket;
 import com.ensf614.springflight.viewmodels.CrewView;
 import com.ensf614.springflight.model.Flight;
+import com.ensf614.springflight.service.EmailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
@@ -19,10 +20,12 @@ import java.util.Optional;
 public class AdminController {
 
     private AdminService adminService;
+    private EmailService emailService;
 
     @Autowired
-    public AdminController(AdminService adminService) {
+    public AdminController(AdminService adminService, EmailService emailService) {
         this.adminService = adminService;
+        this.emailService = emailService;
     }
 
     @GetMapping("/users/all")
@@ -113,6 +116,12 @@ public class AdminController {
     @Transactional
     @DeleteMapping("/flights/delete/{flightID}")
     public void deleteFlight(@PathVariable int flightID) {
+        List<Ticket> deletedTickets = adminService.allTicketsOnFlight(flightID);
+        
+        for (Ticket ticket : deletedTickets) {
+            emailService.ticketCancellationEmail(ticket);
+        }
+
         adminService.deleteFlight(flightID);
     }
 
