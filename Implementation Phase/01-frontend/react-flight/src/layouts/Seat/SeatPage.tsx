@@ -22,10 +22,6 @@ export const SeatPage: React.FC<{
     const [seatColumns, setSeatColumns] = useState(4);
     const [insuranceChecked, setInsuranceChecked] = useState(false);
 
-    // Make up row/column
-    // const seatColumns: number = 4;
-    // const seatRows: number = 5;
-
     const insuranceCost = 50;
 
     const flightId: string = props.checkoutFlightId;
@@ -59,6 +55,8 @@ export const SeatPage: React.FC<{
 
             setSeats(loadedSeats);
             setIsLoading(false);
+            // Reset insurance
+            props.setCheckoutInsurance(false);
         };
         fetchFlight().catch((error: any) => {
             setIsLoading(false);
@@ -70,7 +68,7 @@ export const SeatPage: React.FC<{
     useEffect(() => {
 
         const fetchSeatColumns = async () => {
-            const url: string = `http://localhost:8080/api/seats/flightid/${flightId}`;
+            const url: string = `http://localhost:8080/api/aircraft/${flightId}`;
 
             const response = await fetch(url);
 
@@ -127,6 +125,7 @@ export const SeatPage: React.FC<{
 
         // Update local state list
         setSelectedSeats(seatList);
+
     }
 
     // Set hoisted state variables when next button is clicked
@@ -168,7 +167,7 @@ export const SeatPage: React.FC<{
                                 <input className='form-check-input' type='checkbox' name='insurance' id='insurance'
                                         onChange={insuranceHandleChange}/>
                                 <label className='form-check-label' htmlFor='insurance'>
-                                    Purchase cancellation insurance
+                                    Purchase cancellation insurance - $50
                                 </label>
                             </div>
                         </div>
@@ -184,10 +183,9 @@ export const SeatPage: React.FC<{
                             </div>
                             <div className='col'>
                                 <Link type='button' className='btn btn-primary' to='/names'
-                                      onClick={() => nextButtonHandleChange}>Next</Link>
+                                      onClick={nextButtonHandleChange}>Next</Link>
                             </div>
                         </div>
-
                     </div>
                 </div>
             </div>
