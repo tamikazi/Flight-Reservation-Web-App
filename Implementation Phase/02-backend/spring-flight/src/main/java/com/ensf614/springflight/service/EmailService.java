@@ -41,26 +41,26 @@ public class EmailService {
         emailSender.send(message);
     }
 
-    public void ticketEmail(List<Ticket> tickets) {
+    public void ticketEmail(Ticket ticket) {
         StringBuilder emailBody = new StringBuilder();
-        emailBody.append("Dear User,\n\n");
+        emailBody.append("Dear " + ticket.getName() + ",\n\n");
         emailBody.append("Thank you for purchasing flight tickets!\n\n");
         emailBody.append("Here are your booking details:\n");
 
-        for (Ticket ticket : tickets) {
-            emailBody.append("-------------------------------------------\n");
-            emailBody.append("Ticket ID: " + ticket.getTicketID() + "\n");
-            emailBody.append("Seat: " + seatRepository.getById(ticket.getSeatID()).getSeatNumber() + "\n");
-            emailBody.append("Flight: " + flightRepository.findByFlightID(ticket.getFlightID()).getCode() + "\n");
-            emailBody.append("Origin: " + flightRepository.findByFlightID(ticket.getFlightID()).getOrigin() + "\n");
-            emailBody.append("Destination: " + flightRepository.findByFlightID(ticket.getFlightID()).getDestination() + "\n");
-            emailBody.append("Date: " + flightRepository.findByFlightID(ticket.getFlightID()).getDate() + "\n");
-            emailBody.append("Time: " + flightRepository.findByFlightID(ticket.getFlightID()).getTime() + "\n");
-            emailBody.append("-------------------------------------------\n");
-        }
+
+        emailBody.append("-------------------------------------------\n");
+        emailBody.append("Ticket ID: " + ticket.getTicketID() + "\n");
+        emailBody.append("Seat: " + seatRepository.getById(ticket.getSeatID()).getSeatNumber() + "\n");
+        emailBody.append("Flight: " + flightRepository.findByFlightID(ticket.getFlightID()).getCode() + "\n");
+        emailBody.append("Origin: " + flightRepository.findByFlightID(ticket.getFlightID()).getOrigin() + "\n");
+        emailBody.append("Destination: " + flightRepository.findByFlightID(ticket.getFlightID()).getDestination() + "\n");
+        emailBody.append("Date: " + flightRepository.findByFlightID(ticket.getFlightID()).getDate() + "\n");
+        emailBody.append("Time: " + flightRepository.findByFlightID(ticket.getFlightID()).getTime() + "\n");
+        emailBody.append("-------------------------------------------\n");
+
 
         SimpleMailMessage message = new SimpleMailMessage();
-        message.setTo(userRepository.findByUserID(tickets.get(0).getUserID()).getUsername()); // Assume all tickets have the same user email
+        message.setTo(userRepository.findByUserID(ticket.getUserID()).getUsername()); // Assume all tickets have the same user email
         message.setSubject("Flight Ticket Purchase Confirmation");
         message.setText(emailBody.toString());
         emailSender.send(message);

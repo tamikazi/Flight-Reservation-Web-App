@@ -71,7 +71,8 @@ INSERT INTO USER (username, password, roleID, card, Fname, Lname) VALUES
 ('admin@example.com', 'adminpass', 1, FALSE, 'Ava', 'Lane'),
 ('agent@example.com', 'agentpass', 2, TRUE, 'Max', 'Stone'),
 ('crew@example.com', 'crewpass', 3, FALSE, 'Mia', 'Cruz'),
-('passenger@example.com', 'pasengerpass',  4, TRUE, 'Leo', 'Brooks');
+('passenger@example.com', 'pasengerpass',  4, TRUE, 'Leo', 'Brooks'),
+('tahmidkazi829@gmail.com', 'password',  4, TRUE, 'Tahmid', 'Kazi');
 
 CREATE TABLE CREW_FLIGHTS (
 	crewID		INT			   NOT NULL AUTO_INCREMENT,
@@ -563,17 +564,11 @@ CREATE TABLE PAYMENT (
     userID		INT				NOT NULL,
     payDate		DATE			NOT NULL,
     amount		DECIMAL(10,2)	NOT NULL,
-    ticketID	INT				DEFAULT NULL,
     PRIMARY KEY (paymentID),
-    FOREIGN KEY (userID) REFERENCES USER(userID) ON DELETE CASCADE,
-    FOREIGN KEY (ticketID) REFERENCES TICKET(ticketID) ON DELETE CASCADE
+    FOREIGN KEY (userID) REFERENCES USER(userID) ON DELETE CASCADE
 );
 
-INSERT INTO PAYMENT (userID, payDate, amount, ticketID) VALUES
-	(4, '2023-11-24', 1300.00, 1),
-    (4, '2023-11-24', 1600.00, 2),
-    (2, '2023-11-25', 1100.00, 3);
-
-#SELECT * FROM FLIGHT
-#LEFT JOIN SEAT ON aircraftID
-#LEFT JOIN TICKET ON seatID;
+INSERT INTO PAYMENT (userID, payDate, amount) VALUES
+	(4, '2023-11-24', 1300.00),
+    (4, '2023-11-24', 1600.00),
+    (2, '2023-11-25', 1100.00);
