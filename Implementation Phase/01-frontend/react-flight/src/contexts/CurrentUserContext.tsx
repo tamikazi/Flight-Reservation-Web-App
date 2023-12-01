@@ -1,4 +1,4 @@
-import {createContext, PropsWithChildren, useContext, useState} from "react";
+import {createContext} from "react";
 
 export enum Roles {
     Guest,
@@ -21,14 +21,5 @@ export const defaultUser = {
 
 const CurrentUserContext = createContext(defaultUser);
 
-// export const CurrentUserProvider = ({ children }: PropsWithChildren<{}>) => {
-//     const [currentUser, setCurrentUser] = useState<CurrentUserContextType>(defaultUser);
-//
-//     return(
-//         <CurrentUserContext.Provider value={{ currentUser, setCurrentUser }}>
-//             {children}
-//         </CurrentUserContext.Provider>
-//     )
-// }
 
 export default CurrentUserContext;

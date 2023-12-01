@@ -14,6 +14,7 @@ import {NamesPage} from "./layouts/Names/NamesPage";
 import CurrentUserContext, {CurrentUserContextType, defaultUser, Roles} from "./contexts/CurrentUserContext";
 import {UserPage} from "./layouts/User/UserPage";
 import {ManageBookingPage} from "./layouts/Bookings/ManageBookingPage";
+import {PaymentHistoryPage} from "./layouts/PaymentHistory/PaymentHistoryPage";
 
 function App() {
     // User login state, default to Guest
@@ -25,8 +26,6 @@ function App() {
     const [date, setDate] = useState('2023-12-20');
     const [checkoutFlightId, setCheckoutFlightId] = useState('');
     const [numGuests, setNumGuests] = useState(3);
-    const [guestNames, setGuestNames] = useState<string[]>([]);
-    const [checkoutSeatIds, setCheckoutSeatIds] = useState<string[]>([]);
     const [checkoutSeats, setCheckoutSeats] = useState<CheckoutSeatModel[]>([]);
     const [checkoutCost, setCheckoutCost] = useState(0);
     const [checkoutInsurance, setCheckoutInsurance] = useState(false);
@@ -77,7 +76,7 @@ function App() {
                         <ManageBookingPage/>
                     </Route>
                     <Route path='/history'>
-
+                        <PaymentHistoryPage/>
                     </Route>
                 </Switch>
             </div>

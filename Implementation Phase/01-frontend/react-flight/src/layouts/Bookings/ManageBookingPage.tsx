@@ -11,7 +11,7 @@ export const ManageBookingPage = () => {
     const currentUser = useContext(CurrentUserContext);
 
     const [bookings, setBookings] = useState<BookingModel[]>([]);
-    const [selectedBooking, setSelectedBooking] = useState<BookingModel>();
+    const [selectedBooking, setSelectedBooking] = useState<BookingModel|null>(null);
     const [isLoading, setIsLoading] = useState(true);
     const [httpError, setHttpError] = useState(null);
 
@@ -55,21 +55,25 @@ export const ManageBookingPage = () => {
     }, [bookingDeleted]);
 
     async function deleteBooking() {
-        const url = `http://localhost:8080/api/tickets/delete/${selectedBooking?.ticketId}`;
-        const requestOptions = {
-            method: 'DELETE',
-            headers: {
-                'Content-Type': 'application/json'
+        if(selectedBooking) {
+            const url = `http://localhost:8080/api/tickets/delete/${selectedBooking?.ticketId}`;
+            const requestOptions = {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            };
+
+            const updateResponse = await fetch(url, requestOptions);
+            if (!updateResponse.ok) {
+                throw new Error('Something went wrong!');
             }
-        };
 
-        const updateResponse = await fetch(url, requestOptions);
-        if(!updateResponse.ok) {
-            throw new Error('Something went wrong!');
+            setSelectedBooking(null);
+
+            // Trigger fetching all bookings
+            setBookingDeleted(!bookingDeleted)
         }
-
-        // Trigger fetching all bookings
-        setBookingDeleted(!bookingDeleted)
     }
 
     if (isLoading) {

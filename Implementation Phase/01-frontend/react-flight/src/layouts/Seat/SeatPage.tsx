@@ -1,5 +1,5 @@
 import FlightModel from "../../models/FlightModel";
-import React, {useEffect, useState} from "react";
+import React, {ChangeEvent, useEffect, useState} from "react";
 import SeatMapModel from "../../models/SeatMapModel";
 import {Seat} from "./components/Seat";
 import {Link} from "react-router-dom";
@@ -19,10 +19,10 @@ export const SeatPage: React.FC<{
     const [cost, setCost] = useState(0);
     const [isLoading, setIsLoading] = useState(true);
     const [httpError, setHttpError] = useState(null);
+    const [seatColumns, setSeatColumns] = useState(4);
+    const [insuranceChecked, setInsuranceChecked] = useState(false);
 
-    // Make up row/column
-    const seatColumns: number = 4;
-    const seatRows: number = 5;
+    const insuranceCost = 50;
 
     const flightId: string = props.checkoutFlightId;
 
@@ -55,8 +55,35 @@ export const SeatPage: React.FC<{
 
             setSeats(loadedSeats);
             setIsLoading(false);
+            // Reset insurance
+            props.setCheckoutInsurance(false);
         };
         fetchFlight().catch((error: any) => {
+            setIsLoading(false);
+            setHttpError(error.message);
+        })
+    }, [seatColumns]);
+
+    // Get seat columns
+    useEffect(() => {
+
+        const fetchSeatColumns = async () => {
+            const url: string = `http://localhost:8080/api/aircraft/${flightId}`;
+
+            const response = await fetch(url);
+
+            if (!response.ok) {
+                throw new Error('Something went wrong!');
+            }
+
+            const responseData = await response.json();
+
+            const loadedSeatColumns: number = responseData.numCols;
+
+            setSeatColumns(loadedSeatColumns);
+            setIsLoading(false);
+        };
+        fetchSeatColumns().catch((error: any) => {
             setIsLoading(false);
             setHttpError(error.message);
         })
@@ -98,13 +125,27 @@ export const SeatPage: React.FC<{
 
         // Update local state list
         setSelectedSeats(seatList);
+
     }
 
     // Set hoisted state variables when next button is clicked
-    const nextButtonHandleChange = (seatList: checkoutSeatModel[], cost: number) => {
-        props.setCheckoutSeats(seatList);
+    const nextButtonHandleChange = () => {
+        props.setCheckoutSeats(selectedSeats);
         props.setCheckoutCost(cost);
+        props.setCheckoutInsurance(insuranceChecked);
     }
+
+    const insuranceHandleChange = () => {
+        if(insuranceChecked) {
+            // if already checked
+            setCost(cost - insuranceCost);
+        } else {
+            // if not checked
+            setCost(cost + insuranceCost);
+        }
+        setInsuranceChecked(!insuranceChecked);
+    }
+
 
     return (
         <div className='container text-center'>
@@ -124,9 +165,9 @@ export const SeatPage: React.FC<{
                             <h2>Insurance</h2>
                             <div className='form-check'>
                                 <input className='form-check-input' type='checkbox' name='insurance' id='insurance'
-                                        onChange={e => props.setCheckoutInsurance(e.target.checked)}/>
+                                        onChange={insuranceHandleChange}/>
                                 <label className='form-check-label' htmlFor='insurance'>
-                                    Purchase cancellation insurance
+                                    Purchase cancellation insurance - $50
                                 </label>
                             </div>
                         </div>
@@ -142,10 +183,9 @@ export const SeatPage: React.FC<{
                             </div>
                             <div className='col'>
                                 <Link type='button' className='btn btn-primary' to='/names'
-                                      onClick={() => nextButtonHandleChange(selectedSeats, cost)}>Next</Link>
+                                      onClick={nextButtonHandleChange}>Next</Link>
                             </div>
                         </div>
-
                     </div>
                 </div>
             </div>

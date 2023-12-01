@@ -1,11 +1,13 @@
 class PaymentModel {
-    userId: number;
-    date: string;
+    paymentID?: number;
+    userID: number;
+    payDate: string;
     amount: number;
 
-    constructor(userId: number, date: string, amount: number) {
-        this.userId = userId;
-        this.date = date;
+    constructor(paymentID: number, userID: number, payDate: string, amount: number) {
+        this.paymentID = paymentID;
+        this.userID = userID;
+        this.payDate = payDate;
         this.amount = amount;
     }
 }
