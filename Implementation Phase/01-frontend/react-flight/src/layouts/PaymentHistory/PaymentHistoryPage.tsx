@@ -71,7 +71,11 @@ export const PaymentHistoryPage = () => {
                             ))}
                         </div>
                         :
-                        <></>
+                        <>
+                            <div className='m-5'>
+                                <h5>No receipts</h5>
+                            </div>
+                        </>
                     }
                 </div>
                 :
