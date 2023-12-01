@@ -4,6 +4,7 @@ import com.ensf614.springflight.service.AdminService;
 import com.ensf614.springflight.model.User;
 import com.ensf614.springflight.model.Aircraft;
 import com.ensf614.springflight.model.CrewFlights;
+import com.ensf614.springflight.viewmodels.CrewView;
 import com.ensf614.springflight.model.Flight;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
@@ -58,14 +59,20 @@ public class AdminController {
         return adminService.allCrewFlights();
     }
 
-    @GetMapping("/crewflights/crew/{crewID}")
-    public Optional<CrewFlights> getCrewFlightsByCrewID(@PathVariable int crewID) {
-        return adminService.findByCrewID(crewID);
+    @GetMapping("/crewflights/flight/{flightID}")
+    public List<CrewView> getCrewFlightsByFlightID(@PathVariable int flightID) {
+        return adminService.allCrewFlightsOnFlight(flightID);
     }
 
     @PostMapping("/crewflights/add")
-    public CrewFlights addCrewFlights(@RequestBody CrewFlights crewFlights) {
-        return adminService.addCrewFlights(crewFlights);
+    public void addCrewFlights(@RequestBody CrewView crewFlights) {
+        adminService.addCrewFlights(crewFlights);
+    }
+
+    @Transactional
+    @DeleteMapping("/crewflights/delete/{userID}/{flightID}")
+    public void deleteCrewFlights(@PathVariable int userID, @PathVariable int flightID) {
+        adminService.deleteByUserIDAndFlightID(userID, flightID);
     }
 
     @GetMapping("/flights/id/{id}")

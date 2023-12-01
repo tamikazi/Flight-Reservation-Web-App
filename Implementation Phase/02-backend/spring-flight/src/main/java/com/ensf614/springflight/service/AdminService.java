@@ -5,6 +5,7 @@ import com.ensf614.springflight.repository.UserRepository;
 import com.ensf614.springflight.model.Aircraft;
 import com.ensf614.springflight.repository.AircraftRepository;
 import com.ensf614.springflight.model.CrewFlights;
+import com.ensf614.springflight.viewmodels.CrewView;
 import com.ensf614.springflight.repository.CrewFlightsRepository;
 import com.ensf614.springflight.model.Flight;
 import com.ensf614.springflight.repository.FlightRepository;
@@ -103,16 +104,45 @@ public class AdminService {
         aircraftRepository.deleteByAircraftID(aircraftID);
     }
 
-    public List<CrewFlights> allCrewFlights() {
-        return crewFlightsRepository.findAll();
+    public List<CrewView> allCrewFlights() {
+        List<CrewFlights> allCrewFlights = crewFlightsRepository.findAll();
+        List<CrewView> allCrew = new ArrayList<>();
+        for (CrewFlights crew : allCrewFlights) {
+            CrewView crewView = new CrewView();
+            crewView.setUserID(crew.getUserID());
+            crewView.setFlightID(crew.getFlightID());
+            crewView.setName(userRepository.findByUserID(crew.getCrewID()).getFname() + " " + userRepository.findByUserID(crew.getCrewID()).getLname());
+            allCrew.add(crewView);
+        }
+
+        return allCrew;
     }
 
-    public CrewFlights addCrewFlights(CrewFlights crewFlights) {
-        return crewFlightsRepository.save(crewFlights);
+    public void addCrewFlights(CrewView crewFlights) {
+        CrewFlights newCrew = new CrewFlights();
+        newCrew.setUserID(crewFlights.getUserID());
+        newCrew.setFlightID(crewFlights.getFlightID());
+        crewFlightsRepository.save(newCrew);
     }
 
-    public Optional<CrewFlights> findByCrewID(int crewID) {
-        return crewFlightsRepository.findByCrewID(crewID);
+    public List<CrewView> allCrewFlightsOnFlight(int flightID) {
+        List<CrewFlights> flightCrews = crewFlightsRepository.findByFlightID(flightID);
+
+        List<CrewView> crewViews = new ArrayList<>();
+
+        for (CrewFlights crew : flightCrews) {
+            CrewView crewView = new CrewView();
+            crewView.setUserID(crew.getUserID());
+            crewView.setFlightID(crew.getFlightID());
+            crewView.setName(userRepository.findByUserID(crew.getCrewID()).getFname() + " " + userRepository.findByUserID(crew.getCrewID()).getLname());
+            crewViews.add(crewView);
+        }
+
+        return crewViews;
+    }
+
+    public void deleteByUserIDAndFlightID(int userID, int flightID) {
+        crewFlightsRepository.deleteByUserIDAndFlightID(userID, flightID);
     }
 
     public Optional<Flight> findByFlightID(int id) {
