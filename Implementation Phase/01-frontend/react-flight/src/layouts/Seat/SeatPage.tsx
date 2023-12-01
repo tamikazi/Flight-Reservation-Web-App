@@ -165,7 +165,7 @@ export const SeatPage: React.FC<{
             <div className='row mt-5 justify-content-evenly'>
                 <div className='col-4'>
                     <h4>Airplane Front</h4>
-                    <div className={`row row-cols-${seatColumns} g-1`}>
+                    <div className={`row row-cols-${seatColumns} gy-1`}>
                         {seats.map(seat => (
                             <Seat seat={seat} onClick={() => seatHandleChange(seat)} key={seat.seatId}/>
                         ))}
@@ -187,7 +187,7 @@ export const SeatPage: React.FC<{
                         <div className='row mt-3'>
                         <h2>Cost</h2>
                         <div className='form-check'>
-                            <span>{`Total Cost: $${cost}`}</span>
+                            <span>{`Total Cost: $${cost.toFixed(2)}`}</span>
                         </div>
                     </div>
                         <div className='row mt-3 mb-3'>

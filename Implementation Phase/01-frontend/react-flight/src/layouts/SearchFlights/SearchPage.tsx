@@ -173,95 +173,93 @@ export const SearchPage: React.FC<{
     }
 
     return (
-        <div className='container mt-5 mb-5'>
-            <div className='row'>
-                <form>
-                    <div className='row g-3'>
-                        <div className='col-12'>
-                            <label htmlFor='from' className='form-label'>From</label>
-                            <input type='text' list='from' className='form-control'
-                                onChange={e => setOrigin(e.target.value)}/>
-                        </div>
-                        {/*<div className='p-2 flex-fill'>*/}
-                        {/*    <p>From</p>*/}
-                        {/*    <div className='dropdown'>*/}
-                        {/*        <button className='btn btn-secondary-outline dropdown-toggle' type='button'*/}
-                        {/*                data-bs-toggle='dropdown' aria-expanded='false' onClick={originHandleDropdown}>*/}
-                        {/*            {originSelection}*/}
-                        {/*        </button>*/}
-                        {/*        <ul className='dropdown-menu'>*/}
-                        {/*            {Array.from(originOptions.values()).map((origin, index) => (*/}
-                        {/*                <li onClick={() => originField(origin)} key={index}>*/}
-                        {/*                    <a className='dropdown-item' href='#' >*/}
-                        {/*                        {origin}*/}
-                        {/*                    </a>*/}
-                        {/*                </li>*/}
-                        {/*            ))}*/}
-                        {/*        </ul>*/}
-                        {/*    </div>*/}
-                        {/*</div>*/}
-                        <div className='col-12'>
-                            <label htmlFor='to' className='form-label'>Going to</label>
-                            <input type='text' className='form-control' id='to'
-                                   onChange={e => setDestination(e.target.value)}/>
-                        </div>
-                        {/*<div className='p-2 flex-fill'>*/}
-                        {/*    <p>Going to</p>*/}
-                        {/*    <div className='dropdown'>*/}
-                        {/*        <button className='btn btn-secondary-outline dropdown-toggle' type='button'*/}
-                        {/*                data-bs-toggle='dropdown' aria-expanded='false' onClick={destinationHandleDropdown}>*/}
-                        {/*            {destinationSelection}*/}
-                        {/*        </button>*/}
-                        {/*        <ul className='dropdown-menu'>*/}
-                        {/*            {Array.from(destinationOptions.values()).map((dest, index) => (*/}
-                        {/*                <li onClick={() => destinationField(dest)} key={index}>*/}
-                        {/*                    <a className='dropdown-item' href='#' >*/}
-                        {/*                        {dest}*/}
-                        {/*                    </a>*/}
-                        {/*                </li>*/}
-                        {/*            ))}*/}
-                        {/*        </ul>*/}
-                        {/*    </div>*/}
-                        {/*</div>*/}
-                        <div className='col-12'>
-                            <label htmlFor='date' className='form-label'>Departure Date</label>
-                            <input type='date' className='form-control' id='date'
-                                onChange={e => setDate(e.target.value)}/>
-                        </div>
-                        {/*<div className='p-2 flex-fill'>*/}
-                        {/*    <p>Departure Date</p>*/}
-                        {/*    <div className='dropdown'>*/}
-                        {/*        <button className='btn btn-secondary-outline dropdown-toggle' type='button'*/}
-                        {/*                data-bs-toggle='dropdown' aria-expanded='false' onClick={dateHandleDropdown}>*/}
-                        {/*            {dateSelection}*/}
-                        {/*        </button>*/}
-                        {/*        <ul className='dropdown-menu'>*/}
-                        {/*            {Array.from(dateOptions.values()).map((date, index) => (*/}
-                        {/*                <li onClick={() => dateField(date)} key={index}>*/}
-                        {/*                    <a className='dropdown-item' href='#' >*/}
-                        {/*                        {date}*/}
-                        {/*                    </a>*/}
-                        {/*                </li>*/}
-                        {/*            ))}*/}
-                        {/*        </ul>*/}
-                        {/*    </div>*/}
-                        {/*</div>*/}
-                        <div className='col-12'>
-                            <label htmlFor='guests' className='form-label'>Number of Guests</label>
-                            <input type='number' className='form-control' id='guests'
-                                    onChange={e => setGuests(Number(e.target.value))}/>
-                        </div>
+        <div className='container mt-5'>
+            <form className='w-50 mx-auto'>
+                <div className='row g-3'>
+                    <div className='col-12'>
+                        <label htmlFor='from' className='form-label'>From</label>
+                        <input type='text' list='from' className='form-control'
+                            onChange={e => setOrigin(e.target.value)}/>
                     </div>
-                    <button type='button' className='btn btn-primary mt-5 mb-3' onClick={searchHandleChange}>
-                        Search for Flights
-                    </button>
-                    {displayWarning &&
-                        <div className='alert alert-danger' role='alert'>
-                            All fields must be filled in
-                        </div>
-                    }
-                </form>
-            </div>
+                    {/*<div className='p-2 flex-fill'>*/}
+                    {/*    <p>From</p>*/}
+                    {/*    <div className='dropdown'>*/}
+                    {/*        <button className='btn btn-secondary-outline dropdown-toggle' type='button'*/}
+                    {/*                data-bs-toggle='dropdown' aria-expanded='false' onClick={originHandleDropdown}>*/}
+                    {/*            {originSelection}*/}
+                    {/*        </button>*/}
+                    {/*        <ul className='dropdown-menu'>*/}
+                    {/*            {Array.from(originOptions.values()).map((origin, index) => (*/}
+                    {/*                <li onClick={() => originField(origin)} key={index}>*/}
+                    {/*                    <a className='dropdown-item' href='#' >*/}
+                    {/*                        {origin}*/}
+                    {/*                    </a>*/}
+                    {/*                </li>*/}
+                    {/*            ))}*/}
+                    {/*        </ul>*/}
+                    {/*    </div>*/}
+                    {/*</div>*/}
+                    <div className='col-12'>
+                        <label htmlFor='to' className='form-label'>Going to</label>
+                        <input type='text' className='form-control' id='to'
+                               onChange={e => setDestination(e.target.value)}/>
+                    </div>
+                    {/*<div className='p-2 flex-fill'>*/}
+                    {/*    <p>Going to</p>*/}
+                    {/*    <div className='dropdown'>*/}
+                    {/*        <button className='btn btn-secondary-outline dropdown-toggle' type='button'*/}
+                    {/*                data-bs-toggle='dropdown' aria-expanded='false' onClick={destinationHandleDropdown}>*/}
+                    {/*            {destinationSelection}*/}
+                    {/*        </button>*/}
+                    {/*        <ul className='dropdown-menu'>*/}
+                    {/*            {Array.from(destinationOptions.values()).map((dest, index) => (*/}
+                    {/*                <li onClick={() => destinationField(dest)} key={index}>*/}
+                    {/*                    <a className='dropdown-item' href='#' >*/}
+                    {/*                        {dest}*/}
+                    {/*                    </a>*/}
+                    {/*                </li>*/}
+                    {/*            ))}*/}
+                    {/*        </ul>*/}
+                    {/*    </div>*/}
+                    {/*</div>*/}
+                    <div className='col-12'>
+                        <label htmlFor='date' className='form-label'>Departure Date</label>
+                        <input type='date' className='form-control' id='date'
+                            onChange={e => setDate(e.target.value)}/>
+                    </div>
+                    {/*<div className='p-2 flex-fill'>*/}
+                    {/*    <p>Departure Date</p>*/}
+                    {/*    <div className='dropdown'>*/}
+                    {/*        <button className='btn btn-secondary-outline dropdown-toggle' type='button'*/}
+                    {/*                data-bs-toggle='dropdown' aria-expanded='false' onClick={dateHandleDropdown}>*/}
+                    {/*            {dateSelection}*/}
+                    {/*        </button>*/}
+                    {/*        <ul className='dropdown-menu'>*/}
+                    {/*            {Array.from(dateOptions.values()).map((date, index) => (*/}
+                    {/*                <li onClick={() => dateField(date)} key={index}>*/}
+                    {/*                    <a className='dropdown-item' href='#' >*/}
+                    {/*                        {date}*/}
+                    {/*                    </a>*/}
+                    {/*                </li>*/}
+                    {/*            ))}*/}
+                    {/*        </ul>*/}
+                    {/*    </div>*/}
+                    {/*</div>*/}
+                    <div className='col-12'>
+                        <label htmlFor='guests' className='form-label'>Number of Guests</label>
+                        <input type='number' className='form-control' id='guests'
+                                onChange={e => setGuests(Number(e.target.value))}/>
+                    </div>
+                </div>
+                <button type='button' className='btn btn-primary mt-5 mb-3' onClick={searchHandleChange}>
+                    Search for Flights
+                </button>
+                {displayWarning &&
+                    <div className='alert alert-danger' role='alert'>
+                        All fields must be filled in
+                    </div>
+                }
+            </form>
         </div>
     );
 };

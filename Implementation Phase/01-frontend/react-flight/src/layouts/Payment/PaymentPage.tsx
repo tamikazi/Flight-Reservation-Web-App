@@ -111,7 +111,7 @@ export const PaymentPage:React.FC<{
 
     return (
         <div className='container mt-5'>
-            <div className='form-payment w-100 mx-auto'>
+            <div className='form-payment mx-auto'>
                 <form className='row g-3'>
                     <div className='col-12'>
                         <label htmlFor='cardNumber' className='form-label'>Card Number</label>

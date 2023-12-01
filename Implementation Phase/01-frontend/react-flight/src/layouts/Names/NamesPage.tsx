@@ -36,28 +36,32 @@ export const NamesPage: React.FC<{
     }
 
     return(
-        <div className='container mt-5 mb-5'>
-            <h3>Please enter the passenger name(s)</h3>
-            {props.checkoutSeats.length > 0 ?
-                <>
-                    {props.checkoutSeats.map((seat) => (
-                        <SeatName seat={seat} onChange={nameHandleChange} key={seat.seatId}/>
-                    ))}
-                </>
-            :
-                <h5>No seats selected</h5>
-            }
-            <div className='row mb-3'>
-                <Link type='button' className='btn btn-primary col-6' to='/seats'>Back</Link>
-                <button type='button' className='btn btn-primary col-6' onClick={checkoutHandleChange}>
-                    Checkout
-                </button>
-            </div>
-            {displayWarning &&
-                <div className='alert alert-danger' role='alert'>
-                    All passengers must be named
+        <div className='container mt-5'>
+            <form className='w-50 mx-auto row'>
+                <h3>Enter Passenger name(s)</h3>
+                {props.checkoutSeats.length > 0 ?
+                    <>
+                        {props.checkoutSeats.map((seat) => (
+                            <SeatName seat={seat} onChange={nameHandleChange} key={seat.seatId}/>
+                        ))}
+                    </>
+                :
+                    <h5>No seats selected</h5>
+                }
+                <div className='col-6'>
+                    <Link type='button' className='btn btn-primary' to='/seats'>Back</Link>
                 </div>
-            }
+                <div className='col-6'>
+                    <button type='button' className='btn btn-primary' onClick={checkoutHandleChange}>
+                        Checkout
+                    </button>
+                </div>
+                {displayWarning &&
+                    <div className='alert alert-danger' role='alert'>
+                        All passengers must be named
+                    </div>
+                }
+            </form>
         </div>
     )
 }

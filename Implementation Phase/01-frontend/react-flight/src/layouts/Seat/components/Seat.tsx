@@ -8,9 +8,11 @@ export const Seat: React.FC<{ seat: SeatMapModel, onClick: any }> = (props) => {
             {/*<label className='btn btn-primary' htmlFor={`${props.seat.seatId}`}>{props.seat.seatNumber}</label>*/}
             <button type='button' className='btn btn-primary' data-bs-toggle='button' disabled={!props.seat.available}
                     onClick={props.onClick}>
-                {props.seat.seatNumber}<br/>
-                {props.seat.seatClass}<br/>
-                {`$${props.seat.price}`}
+                <div className='row'>
+                    <span className='col'>{props.seat.seatNumber}</span>
+                    <span className='col' style={{fontSize: 12}}>{props.seat.seatClass}</span>
+                    <span className='col' style={{fontSize: 12}}>{`$${props.seat.price.toFixed(2)}`}</span>
+                </div>
             </button>
         </>
     );

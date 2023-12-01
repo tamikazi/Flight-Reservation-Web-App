@@ -40,8 +40,8 @@ export const FlightsPage: React.FC<{
                     destination: responseData[key].destination,
                     date: responseData[key].date,
                     time: responseData[key].time,
-                    aircraft: responseData[key].aircraft,
-                    price: Number(responseData[key].price)
+                    aircraft: responseData[key].aircraftID,
+                    price: Number(responseData[key].basePrice)
                 });
             }
 
@@ -74,27 +74,25 @@ export const FlightsPage: React.FC<{
     // }
 
     return (
-        <div className='d-flex flex-column flex-md-row p-4 gap-4 py-md-5 align-items-center justify-content-center'>
-            <div className='container'>
-                {flights.length > 0 ?
-                    <>
-                        <div className='mt-3 mb-3'>
-                            <h5>Number of flights: {flights.length}</h5>
-                        </div>
-                        <div className='list-group'>
-                            {flights.map((flight, index) => (
-                                <Flight flight={flight} setCheckoutFlightId={props.setCheckoutFlightId} key={index}/>
-                            ))}
-                        </div>
-                    </>
-                    :
-                    <>
-                        <div className='m-5'>
-                            <h5>No flights available</h5>
-                        </div>
-                    </>
-                }
-            </div>
+        <div className='container mt-5'>
+            {flights.length > 0 ?
+                <>
+                    <div className='mt-3 mb-3'>
+                        <h5>Number of flights: {flights.length}</h5>
+                    </div>
+                    <div className='list-group'>
+                        {flights.map((flight, index) => (
+                            <Flight flight={flight} setCheckoutFlightId={props.setCheckoutFlightId} key={index}/>
+                        ))}
+                    </div>
+                </>
+                :
+                <>
+                    <div className='m-5'>
+                        <h5>No flights available</h5>
+                    </div>
+                </>
+            }
         </div>
     );
 };
