@@ -46,7 +46,8 @@ class FlightView {
 class SeatView {
 - seatID: number
 - seatNumber: string
-- class: string
+- seatClass: string
+- price: number
 - available: boolean
 }
 class TicketView {
@@ -59,11 +60,12 @@ class TicketView {
 }
 class PaymentView {
 - userID: number
-- date: string
+- payDate: string
 - amount: number
 }
 class CrewView {
 - userID: number
+- flightID: number
 - name: string
 }
 class PassengerView {
@@ -82,26 +84,27 @@ class LoginRequestView {
 }
 class LoginResponseView {
 - userID: number
-- role: string
+- roleID: string
 }
 class UserView {
 - userID: number
 - username: string
-- fName: string
-- lName: string
-- member: boolean
+- Fname: string
+- Lname: string
+- card: boolean
 }
 class MenuViewMaybe {
 - menuItems: string[]
 }
 class BookingView {
-- ticketId: number
+- ticketID: number
 - code: string
 - origin: string
 - destination: string
 - date: string
-- seatName: string
-- passengerName: string
+- time: string
+- seatNumber: string
+- name: string
 - insurance: boolean
 }
 
