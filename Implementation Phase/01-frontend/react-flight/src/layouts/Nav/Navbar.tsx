@@ -30,7 +30,7 @@ export const Navbar: React.FC<{ setUser: any }> = (props) => {
                             <NavLink className='nav-link' to='/manifest'>Manifest</NavLink>
                         </li>
                         <li className='nav-item'>
-                            <NavLink className='nav-link' to='/user'>User</NavLink>
+                            <NavLink className='nav-link' to='/bookings'>Bookings</NavLink>
                         </li>
                         <li className='nav-item'>
                             <NavLink className='nav-link' to='/admin'>Admin</NavLink>
