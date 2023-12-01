@@ -113,6 +113,7 @@ public class TicketService {
     }
 
     public void deleteTicket(int ticketID) {
+
         ticketRepository.deleteByTicketID(ticketID);
     }
 
