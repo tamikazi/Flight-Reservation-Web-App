@@ -60,7 +60,7 @@ export const PaymentHistoryPage = () => {
     }
 
     return(
-        <div className='container'>
+        <div className='container mt-5'>
             {currentUser.role !== 0 ?
                 <div>
                     {receipts.length > 0 ?
