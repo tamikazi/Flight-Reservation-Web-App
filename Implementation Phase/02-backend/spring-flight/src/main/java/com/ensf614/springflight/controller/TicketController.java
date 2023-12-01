@@ -50,10 +50,12 @@ public class TicketController {
 
 
     @PostMapping("/add")
-    public Ticket addTicket(@RequestBody TicketView ticket) {
-        Ticket newTicket = ticketService.addTicket(ticket);
-        emailService.ticketEmail(newTicket);
-        return newTicket;
+    public void addTicket(@RequestBody List<TicketView> tickets) {
+
+        for (TicketView ticket : tickets) {
+            Ticket newTicket = ticketService.addTicket(ticket);
+            emailService.ticketEmail(newTicket);
+        }
     }
 
     @Transactional

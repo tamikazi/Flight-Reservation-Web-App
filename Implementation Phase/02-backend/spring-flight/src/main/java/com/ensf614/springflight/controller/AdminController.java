@@ -117,7 +117,7 @@ public class AdminController {
     @DeleteMapping("/flights/delete/{flightID}")
     public void deleteFlight(@PathVariable int flightID) {
         List<Ticket> deletedTickets = adminService.allTicketsOnFlight(flightID);
-        
+
         for (Ticket ticket : deletedTickets) {
             emailService.ticketCancellationEmail(ticket);
         }

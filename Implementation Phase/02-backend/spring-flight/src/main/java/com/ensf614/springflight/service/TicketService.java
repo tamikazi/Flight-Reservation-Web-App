@@ -109,8 +109,6 @@ public class TicketService {
         newTicket.setCost(ticketView.getPrice());
         newTicket.setInsurance(ticketView.isInsurance());
         ticketRepository.save(newTicket);
-
-
         return newTicket;
     }
 
