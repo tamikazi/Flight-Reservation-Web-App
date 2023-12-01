@@ -20,7 +20,7 @@ export const FlightsPage: React.FC<{
         const fetchFlights = async () => {
             const baseUrl: string = "http://localhost:8080/api/flights";
 
-            let url: string = `${baseUrl}/dateorigindestination/${props.date}/${props.origin}/${props.destination}`;
+            let url: string = `${baseUrl}/${props.date}/${props.origin}/${props.destination}`;
 
             const response = await fetch(url);
 
