@@ -13,12 +13,16 @@ export const Booking: React.FC<{
                 <div>
                     <h6 className='mb-0'>From: {props.booking.origin}</h6>
                     <h6 className='mb-0'>To: {props.booking.destination}</h6>
-                    <p className='mb-0 opacity-75'>Departing: {props.booking.date}</p>
+                    <p className='mb-0'>Departing: {props.booking.date}</p>
                 </div>
                 <div>
                     <h6 className='mb-0'>Passenger: {props.booking.name}</h6>
-                    <p className='mb-0 opacity-75'>Seat: {props.booking.seatNumber}</p>
-                    <p className='mb-0 opacity-75'>Insurance: {props.booking.insurance}</p>
+                    <p className='mb-0'>Seat: {props.booking.seatNumber}</p>
+                    {props.booking.insurance ?
+                        <p className='mb-0'>Insurance: Yes</p>
+                        :
+                        <p className='mb-0'>Insurance: No</p>
+                    }
                 </div>
             </div>
         </button>
