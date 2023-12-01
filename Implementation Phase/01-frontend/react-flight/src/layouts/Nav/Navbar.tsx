@@ -33,6 +33,9 @@ export const Navbar: React.FC<{ setUser: any }> = (props) => {
                             <NavLink className='nav-link' to='/bookings'>Bookings</NavLink>
                         </li>
                         <li className='nav-item'>
+                            <NavLink className='nav-link' to='/history'>Receipts</NavLink>
+                        </li>
+                        <li className='nav-item'>
                             <NavLink className='nav-link' to='/admin'>Admin</NavLink>
                         </li>
                     </ul>
