@@ -1,5 +1,5 @@
 class PaymentModel {
-    paymentID: number;
+    paymentID?: number;
     userID: number;
     payDate: string;
     amount: number;
