@@ -73,7 +73,7 @@ export const PaymentPage:React.FC<{
                     flightID: props.checkoutFlightId,
                     userID: currentUser.userId,
                     name: props.checkoutSeats[i].name,
-                    price: props.checkoutCost,
+                    price: props.checkoutSeats[i].price,
                     insurance: props.checkoutInsurance
                 })
             }
