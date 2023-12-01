@@ -61,7 +61,8 @@ function App() {
                         <NamesPage checkoutSeats={checkoutSeats} setCheckoutSeats={setCheckoutSeats}/>
                     </Route>
                     <Route path='/payment'>
-                        <PaymentPage/>
+                        <PaymentPage checkoutFlightId={checkoutFlightId} checkoutSeats={checkoutSeats}
+                                     checkoutCost={checkoutCost} checkoutInsurance={checkoutInsurance}/>
                     </Route>
                     <Route path='/manifest'>
                         <ManifestPage/>

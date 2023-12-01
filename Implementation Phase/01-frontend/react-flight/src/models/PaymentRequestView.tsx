@@ -1,5 +1,4 @@
-class PaymentModel {
-    paymentID?: number;
+class PaymentRequestView {
     userID: number;
     payDate: string;
     amount: number;
@@ -11,4 +10,4 @@ class PaymentModel {
     }
 }
 
-export default PaymentModel;
+export default PaymentRequestView;
