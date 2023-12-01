@@ -10,4 +10,6 @@ public interface CrewFlightsRepository extends JpaRepository<CrewFlights, String
     List<CrewFlights> findByFlightID(int flightID);
     CrewFlights save(CrewFlights crewFlights);
 
+    void deleteByUserIDAndFlightID(int userID, int flightID);
+
 }
