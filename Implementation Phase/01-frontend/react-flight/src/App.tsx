@@ -15,6 +15,7 @@ import CurrentUserContext, {CurrentUserContextType, defaultUser, Roles} from "./
 import {UserPage} from "./layouts/User/UserPage";
 import {ManageBookingPage} from "./layouts/Bookings/ManageBookingPage";
 import {PaymentHistoryPage} from "./layouts/PaymentHistory/PaymentHistoryPage";
+import {ConfirmationPage} from "./layouts/PaymentConfirmation/ConfirmationPage";
 
 function App() {
     // User login state, default to Guest
@@ -63,6 +64,9 @@ function App() {
                     <Route path='/payment'>
                         <PaymentPage checkoutFlightId={checkoutFlightId} checkoutSeats={checkoutSeats}
                                      checkoutCost={checkoutCost} checkoutInsurance={checkoutInsurance}/>
+                    </Route>
+                    <Route path='/confirm'>
+                        <ConfirmationPage/>
                     </Route>
                     <Route path='/manifest'>
                         <ManifestPage/>

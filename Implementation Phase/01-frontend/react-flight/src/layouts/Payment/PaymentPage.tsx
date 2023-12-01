@@ -89,11 +89,11 @@ export const PaymentPage:React.FC<{
             if(!ticketResponse.ok) {
                 setTicketWarning(true);
                 return;
+            } else {
+                setTicketWarning(false);
+                // Redirect to payment success page
+                history.push('/confirm')
             }
-
-            // Redirect to payment success page
-            // history.push('/success')
-
         } catch (error) {
             setTicketWarning(true);
         }
