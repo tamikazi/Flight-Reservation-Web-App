@@ -4,7 +4,8 @@ export enum Roles {
     Guest,
     Admin,
     Agent,
-    Crew
+    Crew,
+    Passenger
 }
 
 export interface CurrentUserContextType {
