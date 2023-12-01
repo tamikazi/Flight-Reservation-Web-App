@@ -5,6 +5,7 @@ import com.ensf614.springflight.service.TicketService;
 import com.ensf614.springflight.viewmodels.BookingView;
 import com.ensf614.springflight.viewmodels.TicketView;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -50,6 +51,7 @@ public class TicketController {
         return ticketService.addTicket(ticket);
     }
 
+    @Transactional
     @DeleteMapping("/delete/{ticketID}")
     public void deleteTicket(@PathVariable int ticketID) {
         ticketService.deleteTicket(ticketID);
