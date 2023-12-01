@@ -14,19 +14,19 @@ export const LoginPage: React.FC<{ setUser: any }> = (props) => {
     const [displaySuccess, setDisplaySuccess] = useState(false);
 
     async function attemptLogin() {
-        const url = `http://localhost:8080/api/login/authenticate`;
         // Check fields are filled in
         if(username !== '' && password !== '') {
-            const loginRequest = new LoginRequestView(username, password);
-            const requestOptions = {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(loginRequest)
-            };
+        const url = `http://localhost:8080/api/login/${username}/${password}`;
+            // const loginRequest = new LoginRequestView(username, password);
+            // const requestOptions = {
+            //     method: 'POST',
+            //     headers: {
+            //         'Content-Type': 'application/json'
+            //     },
+            //     body: JSON.stringify(loginRequest)
+            // };
 
-            const loginResponse = await fetch(url, requestOptions);
+            const loginResponse = await fetch(url);
             if(loginResponse.status === 401) {
                 setDisplayWarning(true);
                 setDisplaySuccess(false);
