@@ -25,6 +25,7 @@ export const PaymentPage:React.FC<{
     const [paymentSuccess, setPaymentSuccess] = useState(false);
 
     // Displays
+    const [fieldsWarning, setFieldsWarning] = useState(false);
     const [paymentWarning, setPaymentWarning] = useState(false);
     const [ticketWarning, setTicketWarning] = useState(false);
 
@@ -103,6 +104,8 @@ export const PaymentPage:React.FC<{
     const payHandleChange = () => {
         if(cardNumber !== '' && cardName !== '' && cardExpiry !== '' && cardCVV !== '') {
             void sendPayment();
+        } else {
+            setFieldsWarning(true);
         }
     }
 
@@ -138,6 +141,11 @@ export const PaymentPage:React.FC<{
                     </div>
                 </form>
             </div>
+            {fieldsWarning &&
+                <div className='alert alert-danger' role='alert'>
+                    All fields must be filled
+                </div>
+            }
             {paymentWarning &&
                 <div className='alert alert-danger' role='alert'>
                     Payment failed

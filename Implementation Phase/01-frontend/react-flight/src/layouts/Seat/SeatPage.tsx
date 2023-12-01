@@ -2,7 +2,7 @@ import FlightModel from "../../models/FlightModel";
 import React, {ChangeEvent, useEffect, useState} from "react";
 import SeatMapModel from "../../models/SeatMapModel";
 import {Seat} from "./components/Seat";
-import {Link} from "react-router-dom";
+import {Link, useHistory} from "react-router-dom";
 import {SpinnerLoading} from "../Utils/SpinnerLoading";
 import checkoutSeatModel from "../../models/CheckoutSeatModel";
 
@@ -13,6 +13,7 @@ export const SeatPage: React.FC<{
     setCheckoutSeats: any,
     setCheckoutInsurance: any
 }> = (props) => {
+    const history = useHistory();
 
     const [seats, setSeats] = useState<SeatMapModel[]>([]);
     const [selectedSeats, setSelectedSeats] = useState<checkoutSeatModel[]>([]);
@@ -22,6 +23,9 @@ export const SeatPage: React.FC<{
     const [seatColumns, setSeatColumns] = useState(4);
     const [insuranceChecked, setInsuranceChecked] = useState(false);
 
+    const [displayWarning, setDisplayWarning] = useState(false);
+
+    // Set insurance cost
     const insuranceCost = 50;
 
     const flightId: string = props.checkoutFlightId;
@@ -131,9 +135,17 @@ export const SeatPage: React.FC<{
 
     // Set hoisted state variables when next button is clicked
     const nextButtonHandleChange = () => {
+        // Set global state
         props.setCheckoutSeats(selectedSeats);
         props.setCheckoutCost(cost);
         props.setCheckoutInsurance(insuranceChecked);
+        // Check number of seats matches number of guests
+        if(selectedSeats.length == props.numGuests) {
+            // Redirect to next page
+            history.push('/names')
+        } else {
+            setDisplayWarning(true);
+        }
     }
 
     const insuranceHandleChange = () => {
@@ -178,15 +190,21 @@ export const SeatPage: React.FC<{
                             <span>{`Total Cost: $${cost}`}</span>
                         </div>
                     </div>
-                        <div className='row mt-3'>
+                        <div className='row mt-3 mb-3'>
                             <div className='col'>
                                 <Link type='button' className='btn btn-primary' to='/flights'>Back</Link>
                             </div>
                             <div className='col'>
-                                <Link type='button' className='btn btn-primary' to='/names'
-                                      onClick={nextButtonHandleChange}>Next</Link>
+                                <button type='button' className='btn btn-primary' onClick={nextButtonHandleChange}>
+                                    Next
+                                </button>
                             </div>
                         </div>
+                        {displayWarning &&
+                            <div className='alert alert-danger' role='alert'>
+                                Must select {props.numGuests} seats
+                            </div>
+                        }
                     </div>
                 </div>
             </div>

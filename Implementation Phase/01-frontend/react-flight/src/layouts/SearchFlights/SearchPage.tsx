@@ -3,7 +3,7 @@ import FlightModel from "../../models/FlightModel";
 import {SpinnerLoading} from "../Utils/SpinnerLoading";
 import {Flight} from "../Flights/components/Flight";
 import SearchModel from "../../models/SearchModel";
-import {Link} from "react-router-dom";
+import {Link, useHistory} from "react-router-dom";
 
 export const SearchPage: React.FC<{
     setOrigin: any,
@@ -11,12 +11,19 @@ export const SearchPage: React.FC<{
     setDate: any,
     setGuests: any
 }> = (props) => {
+    const history = useHistory();
+
+    const [origin, setOrigin] = useState('');
+    const [destination, setDestination] = useState('');
+    const [date, setDate] = useState('');
+    const [guests, setGuests] = useState(0);
+
+    const [displayWarning, setDisplayWarning] = useState(false);
 
     const [flights, setFlights] = useState<FlightModel[]>([]);
     const [isLoading, setIsLoading] = useState(true);
     const [httpError, setHttpError] = useState(null);
     const [searchUrl, setSearchUrl] = useState('');
-
 
 
     // Dropdown menus
@@ -126,14 +133,6 @@ export const SearchPage: React.FC<{
     //     }
     // }
 
-    const searchHandleChange = () => {
-        // if (dateSelected && originSelected && destinationSelected) {
-        //     setSearchUrl(`/dateorigindestination/${dateSelection}/${originSelection}/${destinationSelection}`);
-        // }
-
-
-    }
-
     // const resetHandleChange = () => {
     //     setDateSelection('Select a Date');
     //     setDateSelected(false);
@@ -159,6 +158,20 @@ export const SearchPage: React.FC<{
     //     setDestinationSelected(true);
     // }
 
+    const searchHandleChange = () => {
+        if(origin !== '' && destination !== '' && date !== '' && guests !== 0) {
+            // Set global states
+            props.setOrigin(origin);
+            props.setDestination(destination);
+            props.setDate(date);
+            props.setGuests(guests);
+            // Redirect to next page
+            history.push('/flights')
+        } else {
+            setDisplayWarning(true);
+        }
+    }
+
     return (
         <div className='container mt-5 mb-5'>
             <div className='row'>
@@ -167,7 +180,7 @@ export const SearchPage: React.FC<{
                         <div className='col-12'>
                             <label htmlFor='from' className='form-label'>From</label>
                             <input type='text' list='from' className='form-control'
-                                onChange={e => props.setOrigin(e.target.value)}/>
+                                onChange={e => setOrigin(e.target.value)}/>
                         </div>
                         {/*<div className='p-2 flex-fill'>*/}
                         {/*    <p>From</p>*/}
@@ -190,7 +203,7 @@ export const SearchPage: React.FC<{
                         <div className='col-12'>
                             <label htmlFor='to' className='form-label'>Going to</label>
                             <input type='text' className='form-control' id='to'
-                                   onChange={e => props.setDestination(e.target.value)}/>
+                                   onChange={e => setDestination(e.target.value)}/>
                         </div>
                         {/*<div className='p-2 flex-fill'>*/}
                         {/*    <p>Going to</p>*/}
@@ -213,7 +226,7 @@ export const SearchPage: React.FC<{
                         <div className='col-12'>
                             <label htmlFor='date' className='form-label'>Departure Date</label>
                             <input type='date' className='form-control' id='date'
-                                onChange={e => props.setDate(e.target.value)}/>
+                                onChange={e => setDate(e.target.value)}/>
                         </div>
                         {/*<div className='p-2 flex-fill'>*/}
                         {/*    <p>Departure Date</p>*/}
@@ -236,24 +249,17 @@ export const SearchPage: React.FC<{
                         <div className='col-12'>
                             <label htmlFor='guests' className='form-label'>Number of Guests</label>
                             <input type='number' className='form-control' id='guests'
-                                    onChange={e => props.setGuests(e.target.value)}/>
+                                    onChange={e => setGuests(Number(e.target.value))}/>
                         </div>
                     </div>
-                        <Link type='button' className='btn btn-primary mt-5' to='/flights'>Search for Flights</Link>
-                        {/*<button className='btn btn-primary mt-5' type='button' onClick={() => searchHandleChange()}>*/}
-                        {/*    Search Flights*/}
-                        {/*</button>*/}
-                        {/*<div className='col d-flex'>*/}
-                        {/*    <button className='btn btn-primary flex-fill mx-5' type='button'>*/}
-                        {/*        Add*/}
-                        {/*    </button>*/}
-                        {/*    <button className='btn btn-primary flex-fill mx-5' type='button'>*/}
-                        {/*        Update*/}
-                        {/*    </button>*/}
-                        {/*    <button className='btn btn-primary flex-fill mx-5' type='button'>*/}
-                        {/*        Delete Flight*/}
-                        {/*    </button>*/}
-                        {/*</div>*/}
+                    <button type='button' className='btn btn-primary mt-5 mb-3' onClick={searchHandleChange}>
+                        Search for Flights
+                    </button>
+                    {displayWarning &&
+                        <div className='alert alert-danger' role='alert'>
+                            All fields must be filled in
+                        </div>
+                    }
                 </form>
             </div>
         </div>
