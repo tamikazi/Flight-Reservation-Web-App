@@ -8,6 +8,7 @@ import com.ensf614.springflight.viewmodels.TicketView;
 import com.ensf614.springflight.viewmodels.BookingView;
 import com.ensf614.springflight.repository.UserRepository;
 import com.ensf614.springflight.repository.FlightRepository;
+import com.ensf614.springflight.service.EmailService;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -22,14 +23,17 @@ public class TicketService {
     private SeatRepository seatRepository;
 
     private FlightRepository flightRepository;
+    private EmailService emailService;
 
 
     public TicketService(TicketRepository ticketRepository, UserRepository userRepository,
-                         SeatRepository seatRepository, FlightRepository flightRepository) {
+                         SeatRepository seatRepository, FlightRepository flightRepository,
+                         EmailService emailService) {
         this.ticketRepository = ticketRepository;
         this.userRepository = userRepository;
         this.seatRepository = seatRepository;
         this.flightRepository = flightRepository;
+        this.emailService = emailService;
     }
 
     public List<Ticket> allTickets() {
@@ -97,15 +101,25 @@ public class TicketService {
         return ticketRepository.findByFlightIDAndUserID(flightID, userID);
     }
 
-    public Ticket addTicket(TicketView ticket) {
-        Ticket newTicket = new Ticket();
-        newTicket.setFlightID(ticket.getFlightID());
-        newTicket.setUserID(ticket.getUserID());
-        newTicket.setSeatID(ticket.getSeatID());
-        newTicket.setName(ticket.getName());
-        newTicket.setCost(ticket.getPrice());
-        newTicket.setInsurance(ticket.isInsurance());
-        return ticketRepository.save(newTicket);
+    public List<Ticket> addTicket(List<TicketView> ticketView) {
+
+        List<Ticket> addedTickets = new ArrayList<Ticket>();
+
+        for (TicketView ticket : ticketView) {
+            Ticket newTicket = new Ticket();
+            newTicket.setFlightID(ticket.getFlightID());
+            newTicket.setUserID(ticket.getUserID());
+            newTicket.setSeatID(ticket.getSeatID());
+            newTicket.setName(ticket.getName());
+            newTicket.setCost(ticket.getPrice());
+            newTicket.setInsurance(ticket.isInsurance());
+            ticketRepository.save(newTicket);
+            addedTickets.add(newTicket);
+        }
+
+        emailService.ticketEmail(addedTickets);
+
+        return addedTickets;
     }
 
     public void deleteTicket(int ticketID) {
