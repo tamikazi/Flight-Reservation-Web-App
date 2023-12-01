@@ -55,7 +55,7 @@ public class AdminController {
     }
 
     @GetMapping("/crewflights/all")
-    public List<CrewFlights> getAllCrewFlights() {
+    public List<CrewView> getAllCrewFlights() {
         return adminService.allCrewFlights();
     }
 
