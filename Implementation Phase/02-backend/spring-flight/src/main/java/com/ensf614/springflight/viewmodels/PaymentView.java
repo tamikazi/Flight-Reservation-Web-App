@@ -6,6 +6,7 @@ import lombok.Data;
 @Data
 public class PaymentView {
     private int userID;
+    private String email;
     private String payDate;
     private float amount;
 }

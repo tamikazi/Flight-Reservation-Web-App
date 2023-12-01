@@ -63,16 +63,17 @@ CREATE TABLE USER (
   card		   BOOL			  NOT NULL DEFAULT FALSE,
   Fname		   VARCHAR(50)	  NOT NULL,
   Lname		   VARCHAR(50)	  NOT NULL,
+  address	   VARCHAR(100)   NOT NULL,
   PRIMARY KEY (userID),
   FOREIGN KEY (roleID) REFERENCES ROLES(roleID)
 );
 
-INSERT INTO USER (username, password, roleID, card, Fname, Lname) VALUES
-('admin@example.com', 'adminpass', 1, FALSE, 'Ava', 'Lane'),
-('agent@example.com', 'agentpass', 2, TRUE, 'Max', 'Stone'),
-('crew@example.com', 'crewpass', 3, FALSE, 'Mia', 'Cruz'),
-('passenger@example.com', 'pasengerpass',  4, TRUE, 'Leo', 'Brooks'),
-('tahmidkazi829@gmail.com', 'password',  4, TRUE, 'Tahmid', 'Kazi');
+INSERT INTO USER (username, password, roleID, card, Fname, Lname, address) VALUES
+('admin@example.com', 'adminpass', 1, FALSE, 'Ava', 'Lane', 'tempaddress'),
+('agent@example.com', 'agentpass', 2, TRUE, 'Max', 'Stone', 'tempaddress'),
+('crew@example.com', 'crewpass', 3, FALSE, 'Mia', 'Cruz', 'tempaddress'),
+('passenger@example.com', 'pasengerpass',  4, TRUE, 'Leo', 'Brooks', 'tempaddress'),
+('tahmidkazi829@gmail.com', 'password',  4, TRUE, 'Tahmid', 'Kazi', 'tempaddress');
 
 CREATE TABLE CREW_FLIGHTS (
 	crewID		INT			   NOT NULL AUTO_INCREMENT,
@@ -562,13 +563,14 @@ INSERT INTO TICKET (seatID, flightID, userID, name, cost, insurance) VALUES
 CREATE TABLE PAYMENT (
 	paymentID	INT				NOT NULL AUTO_INCREMENT,
     userID		INT				NOT NULL,
+    email		VARCHAR(50)		NOT NULL,
     payDate		DATE			NOT NULL,
     amount		DECIMAL(10,2)	NOT NULL,
     PRIMARY KEY (paymentID),
     FOREIGN KEY (userID) REFERENCES USER(userID) ON DELETE CASCADE
 );
 
-INSERT INTO PAYMENT (userID, payDate, amount) VALUES
-	(4, '2023-11-24', 1300.00),
-    (4, '2023-11-24', 1600.00),
-    (2, '2023-11-25', 1100.00);
+INSERT INTO PAYMENT (userID, email, payDate, amount) VALUES
+	(4, 'tahmidkazi829@gmail.com', '2023-11-24', 1300.00),
+    (4, 'example@example.com','2023-11-24', 1600.00),
+    (2, 'example@example.com','2023-11-25', 1100.00);

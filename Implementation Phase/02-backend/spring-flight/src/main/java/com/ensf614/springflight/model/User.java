@@ -17,6 +17,7 @@ public class User {
     @Column(name = "userID")
     private int userID;
 
+    // check if user exists
     @Getter
     @Column(name = "username")
     private String username;
@@ -38,5 +39,9 @@ public class User {
     @Getter
     @Column(name = "Lname")
     private String Lname;
+
+    @Column(name = "address")
+    private String address;
+    //add address field
 
 }

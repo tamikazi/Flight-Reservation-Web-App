@@ -7,7 +7,6 @@ import com.ensf614.springflight.repository.UserRepository;
 import com.ensf614.springflight.repository.TicketRepository;
 import com.ensf614.springflight.repository.SeatRepository;
 import com.ensf614.springflight.repository.FlightRepository;
-import java.util.List;
 
 import org.springframework.stereotype.Service;
 
