@@ -82,7 +82,7 @@ export const FlightsPage: React.FC<{
                     </div>
                     <div className='list-group'>
                         {flights.map((flight, index) => (
-                            <Flight flight={flight} setCheckoutFlightId={props.setCheckoutFlightId} key={index}/>
+                            <Flight flight={flight} onClick={() => props.setCheckoutFlightId(flight.flightId)} key={index}/>
                         ))}
                     </div>
                 </>

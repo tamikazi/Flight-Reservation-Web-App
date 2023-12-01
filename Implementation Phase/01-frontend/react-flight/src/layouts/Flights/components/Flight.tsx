@@ -1,11 +1,10 @@
 import FlightModel from "../../../models/FlightModel";
 import {Link} from "react-router-dom";
 
-export const Flight: React.FC<{ flight: FlightModel, setCheckoutFlightId: any }> = (props) => {
-    console.log(props.flight)
+export const Flight: React.FC<{ flight: FlightModel, onClick: any }> = (props) => {
     return (
         <Link className='list-group-item list-group-item-action d-flex gap-5 py-3'
-              onClick={props.setCheckoutFlightId(props.flight.flightId)}
+              onClick={props.onClick}
               to={`/seats`} aria-current='true'>
             <h4 className='mb-0'>{props.flight.code}</h4>
             <div className='d-flex flex-row '>
