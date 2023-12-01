@@ -17,7 +17,13 @@ public class PaymentService {
         this.paymentRepository = paymentRepository;
     }
 
-    public Payment addPayment(Payment payment) {
+    public Payment addPayment(PaymentView paymentView) {
+        Payment payment = new Payment();
+
+        payment.setUserID(paymentView.getUserID());
+        payment.setPayDate(paymentView.getPayDate());
+        payment.setAmount(paymentView.getAmount());
+
         return paymentRepository.save(payment);
     }
 
@@ -31,7 +37,6 @@ public class PaymentService {
 
         for (Payment pay : userPays) {
             PaymentView payView = new PaymentView();
-            payView.setPaymentID(pay.getPaymentID());
             payView.setUserID(pay.getUserID());
             payView.setPayDate(pay.getPayDate());
             payView.setAmount(pay.getAmount());

@@ -33,7 +33,7 @@ public class PaymentController {
         }
 
         @PostMapping("/add")
-        public Payment addPayment(@RequestBody Payment payment) {
+        public Payment addPayment(@RequestBody PaymentView payment) {
             return paymentService.addPayment(payment);
         }
 

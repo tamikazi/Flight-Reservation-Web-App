@@ -23,7 +23,4 @@ public class Payment {
 
     @Column(name = "amount")
     private float amount;
-
-    @Column(name = "ticketID")
-    private int ticketID;
 }

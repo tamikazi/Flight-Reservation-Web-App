@@ -1,6 +1,5 @@
 package com.ensf614.springflight.service;
 
-import com.ensf614.springflight.model.Seat;
 import com.ensf614.springflight.model.Ticket;
 import com.ensf614.springflight.repository.SeatRepository;
 import com.ensf614.springflight.repository.TicketRepository;
@@ -8,7 +7,6 @@ import com.ensf614.springflight.viewmodels.TicketView;
 import com.ensf614.springflight.viewmodels.BookingView;
 import com.ensf614.springflight.repository.UserRepository;
 import com.ensf614.springflight.repository.FlightRepository;
-import com.ensf614.springflight.service.EmailService;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -101,25 +99,19 @@ public class TicketService {
         return ticketRepository.findByFlightIDAndUserID(flightID, userID);
     }
 
-    public List<Ticket> addTicket(List<TicketView> ticketView) {
+    public Ticket addTicket(TicketView ticketView) {
 
-        List<Ticket> addedTickets = new ArrayList<Ticket>();
+        Ticket newTicket = new Ticket();
+        newTicket.setFlightID(ticketView.getFlightID());
+        newTicket.setUserID(ticketView.getUserID());
+        newTicket.setSeatID(ticketView.getSeatID());
+        newTicket.setName(ticketView.getName());
+        newTicket.setCost(ticketView.getPrice());
+        newTicket.setInsurance(ticketView.isInsurance());
+        ticketRepository.save(newTicket);
 
-        for (TicketView ticket : ticketView) {
-            Ticket newTicket = new Ticket();
-            newTicket.setFlightID(ticket.getFlightID());
-            newTicket.setUserID(ticket.getUserID());
-            newTicket.setSeatID(ticket.getSeatID());
-            newTicket.setName(ticket.getName());
-            newTicket.setCost(ticket.getPrice());
-            newTicket.setInsurance(ticket.isInsurance());
-            ticketRepository.save(newTicket);
-            addedTickets.add(newTicket);
-        }
 
-        emailService.ticketEmail(addedTickets);
-
-        return addedTickets;
+        return newTicket;
     }
 
     public void deleteTicket(int ticketID) {
