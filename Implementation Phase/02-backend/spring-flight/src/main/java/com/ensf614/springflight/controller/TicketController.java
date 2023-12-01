@@ -59,6 +59,7 @@ public class TicketController {
     @Transactional
     @DeleteMapping("/delete/{ticketID}")
     public void deleteTicket(@PathVariable int ticketID) {
+        emailService.ticketCancellationEmail(ticketService.ticketByID(ticketID));
         ticketService.deleteTicket(ticketID);
     }
 }

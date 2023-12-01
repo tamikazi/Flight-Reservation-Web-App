@@ -23,7 +23,7 @@ public class PaymentService {
         payment.setUserID(paymentView.getUserID());
         payment.setPayDate(paymentView.getPayDate());
         payment.setAmount(paymentView.getAmount());
-        
+
         return paymentRepository.save(payment);
     }
 
