@@ -6,43 +6,38 @@ import {Flight} from "../../Flights/components/Flight";
 
 export const ViewFlights = () => {
 
+    const [date, setDate] = useState('');
+    const [triggerSearch, setTriggerSearch] = useState(false);
     const [flights, setFlights] = useState<FlightModel[]>([]);
-    const [isLoading, setIsLoading] = useState(true);
+    const [isLoading, setIsLoading] = useState(false);
     const [httpError, setHttpError] = useState(null);
-    const [searchUrl, setSearchUrl] = useState('');
 
-    useEffect(() => {
+    // useEffect(() => {
         const fetchFlights = async () => {
-            // const baseUrl: string = "http://localhost:8080/api/flights";
-            //
-            // let url: string;
-            //
-            // if (searchUrl === '') {
-            //     url = `${baseUrl}`;
-            // } else {
-            //     url = `${baseUrl}${searchUrl}`;
-            // }
-            //
-            // const response = await fetch(url);
-            //
-            // if (!response.ok) {
-            //     throw new Error('Something went wrong!');
-            // }
-            //
-            // const responseData = await response.json();
-            //
-            // const loadedFlights: FlightModel[] = [];
-            //
-            // for (const key in responseData) {
-            //     loadedFlights.push({
-            //         flightId: responseData[key].flightId,
-            //         code: responseData[key].code,
-            //         origin: responseData[key].origin,
-            //         destination: responseData[key].destination,
-            //         date: responseData[key].date,
-            //         aircraft: responseData[key].aircraft
-            //     });
-            // }
+            let url: string = `http://localhost:8080/api/admin/flights/date/${date}`;
+
+            const response = await fetch(url);
+
+            if (!response.ok) {
+                throw new Error('Something went wrong!');
+            }
+
+            const responseData = await response.json();
+
+            const loadedFlights: FlightModel[] = [];
+
+            for (const key in responseData) {
+                loadedFlights.push({
+                    flightId: responseData[key].flightID,
+                    code: responseData[key].code,
+                    origin: responseData[key].origin,
+                    destination: responseData[key].destination,
+                    date: responseData[key].date,
+                    time: responseData[key].time,
+                    aircraft: responseData[key].aircraftID,
+                    price: Number(responseData[key].basePrice)
+                });
+            }
 
             // Fake data
             const mockFlights: FlightModel[] = [];
@@ -77,14 +72,14 @@ export const ViewFlights = () => {
                 price: 100
             });
 
-            setFlights(mockFlights);
+            setFlights(loadedFlights);
             setIsLoading(false);
         };
-        fetchFlights().catch((error: any) => {
-            setIsLoading(false);
-            setHttpError(error.message);
-        })
-    }, [searchUrl]);
+    //     fetchFlights().catch((error: any) => {
+    //         setIsLoading(false);
+    //         setHttpError(error.message);
+    //     })
+    // }, [triggerSearch]);
 
     if (isLoading) {
         return (
@@ -100,6 +95,13 @@ export const ViewFlights = () => {
         )
     }
 
+    const searchHandle = () => {
+        if(date !== '') {
+            setIsLoading(true);
+            void fetchFlights();
+        }
+    }
+
     return (
         <div className='container mt-5 mb-5'>
             <div className='card'>
@@ -111,9 +113,9 @@ export const ViewFlights = () => {
                         <div className='col-6'>
                             <div className='d-flex'>
                                 <input className='form-control me-2' type='date' id='date'
-                                       onChange={() => {}}/>
+                                       onChange={(e) => {setDate(e.target.value)}}/>
                                 <button className='btn btn-primary'
-                                        onClick={() => {}}>
+                                        onClick={searchHandle}>
                                     Search
                                 </button>
                             </div>

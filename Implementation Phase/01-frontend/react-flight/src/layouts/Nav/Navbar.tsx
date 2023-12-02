@@ -38,6 +38,9 @@ export const Navbar: React.FC<{ setUser: any }> = (props) => {
                         <li className='nav-item'>
                             <NavLink className='nav-link' to='/admin'>Admin</NavLink>
                         </li>
+                        <li className='nav-item'>
+                            <NavLink className='nav-link' to='/cancel'>Cancel Ticket</NavLink>
+                        </li>
                     </ul>
                     <ul className='navbar-nav ms-auto'>
                         {currentUser.role === Roles.Guest ?

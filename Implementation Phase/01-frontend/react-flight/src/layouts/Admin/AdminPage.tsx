@@ -50,7 +50,7 @@ export const AdminPage = () => {
     }
 
     return (
-        <div className='container'>
+        <div className='container mt-5'>
             {currentUser.role == Roles.Admin ?
                 <div className='mt-5'>
                     <h3>Manage Data</h3>

@@ -14,7 +14,7 @@ export interface CurrentUserContextType {
     role: number;
 }
 export const defaultUser = {
-    userId: -1,
+    userId: 1,
     // role: Roles.Guest
     role: Roles.Guest
 }

@@ -122,7 +122,8 @@ export const SeatPage: React.FC<{
             seatList.push({
                 seatId: seat.seatId,
                 seatNumber: seat.seatNumber,
-                name: ''
+                name: '',
+                price: seat.price
             })
             setCost(cost + seat.price);
 

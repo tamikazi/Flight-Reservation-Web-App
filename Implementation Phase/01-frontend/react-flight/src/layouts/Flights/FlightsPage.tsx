@@ -3,6 +3,7 @@ import FlightModel from "../../models/FlightModel";
 import {SpinnerLoading} from "../Utils/SpinnerLoading";
 import {Flight} from "./components/Flight";
 import SearchModel from "../../models/SearchModel";
+import {useHistory} from "react-router-dom";
 
 export const FlightsPage: React.FC<{
     origin: string,
@@ -10,6 +11,7 @@ export const FlightsPage: React.FC<{
     date: string
     setCheckoutFlightId: any
 }> = (props) => {
+    const history = useHistory();
 
     const [flights, setFlights] = useState<FlightModel[]>([]);
     const [isLoading, setIsLoading] = useState(true);
@@ -68,10 +70,10 @@ export const FlightsPage: React.FC<{
         )
     }
 
-    // const clickHandle = (flightId: string) => {
-    //     props.setCheckoutFlightId(flightId);
-    //     history.push()
-    // }
+    const clickHandle = (flightId: string) => {
+        props.setCheckoutFlightId(flightId);
+        history.push('/seats')
+    }
 
     return (
         <div className='container mt-5'>
@@ -82,7 +84,7 @@ export const FlightsPage: React.FC<{
                     </div>
                     <div className='list-group'>
                         {flights.map((flight, index) => (
-                            <Flight flight={flight} onClick={() => props.setCheckoutFlightId(flight.flightId)} key={index}/>
+                            <Flight flight={flight} onClick={() => clickHandle(flight.flightId)} key={index}/>
                         ))}
                     </div>
                 </>
