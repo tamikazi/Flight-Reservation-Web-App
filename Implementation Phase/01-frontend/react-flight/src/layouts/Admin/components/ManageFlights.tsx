@@ -1,4 +1,6 @@
 import React, {useState} from "react";
+import FlightView from "../../../models/FlightView";
+import FlightRequestView from "../../../models/FlightRequestView";
 
 export const ManageFlights = () => {
 
@@ -12,12 +14,14 @@ export const ManageFlights = () => {
     const [price, setPrice] = useState(0);
 
     // Displays
+    const [displayGetWarning, setDisplayGetWarning] = useState(false);
+    const [displayDeleteWarning, setDisplayDeleteWarning] = useState(false);
     const [displayWarning, setDisplayWarning] = useState(false);
     const [displayFailure, setDisplayFailure] = useState(false);
     const [displaySuccess, setDisplaySuccess] = useState(false);
 
     const fetchFlight = async () => {
-        const url: string = "http://localhost:8080/api/admin/flights/id/1";
+        const url: string = `http://localhost:8080/api/admin/flights/${code}/${date}`;
 
         const response = await fetch(url);
 
@@ -27,6 +31,11 @@ export const ManageFlights = () => {
         }
 
         const responseData = await response.json();
+
+        if (!responseData) {
+            setDisplayFailure(true);
+            return;
+        }
 
         setFlightId(responseData.flightID);
         setCode(responseData.code);
@@ -39,18 +48,155 @@ export const ManageFlights = () => {
 
     };
 
-    const addFlight = async () => {
+    async function addFlight() {
+        try {
+            const url = `http://localhost:8080/api/admin/flights/add`;
 
+            const userRequest = new FlightRequestView(
+                code,
+                origin,
+                destination,
+                date,
+                time,
+                aircraftId,
+                price
+            );
+
+            const requestOptions = {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(userRequest)
+            };
+
+            const updateResponse = await fetch(url, requestOptions);
+
+            if(!updateResponse.ok) {
+                setDisplayFailure(true);
+                return;
+            } else {
+                setDisplayFailure(false);
+                setDisplaySuccess(true);
+            }
+        } catch (error) {
+            setDisplayFailure(true);
+        }
+    }
+
+    async function updateFlight() {
+        try {
+            const url = `http://localhost:8080/api/admin/flights/update`;
+
+            const userRequest = new FlightView(
+                flightId,
+                code,
+                origin,
+                destination,
+                date,
+                time,
+                aircraftId,
+                price
+            );
+
+            const requestOptions = {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(userRequest)
+            };
+
+            const updateResponse = await fetch(url, requestOptions);
+
+            if(!updateResponse.ok) {
+                setDisplayFailure(true);
+                return;
+            } else {
+                setDisplayFailure(false);
+                setDisplaySuccess(true);
+            }
+        } catch (error) {
+            setDisplayFailure(true);
+        }
+    }
+
+    async function deleteFlight() {
+        const url = `http://localhost:8080/api/admin/flights/delete/${flightId}`;
+        const requestOptions = {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        };
+
+        const updateResponse = await fetch(url, requestOptions);
+
+        if(!updateResponse.ok) {
+            setDisplayFailure(true);
+            return;
+        } else {
+            setDisplayFailure(false);
+            setDisplaySuccess(true);
+        }
     }
 
     const getHandle = () => {
         setDisplayWarning(false);
         setDisplayFailure(false);
         setDisplaySuccess(false);
+        setDisplayGetWarning(false);
+
+        // Check fields filled in
         if(code !== '' && date !== '') {
             fetchFlight();
         } else {
-            setDisplayWarning(true);
+            setDisplayGetWarning(true);
+        }
+    }
+
+    const addHandle = async () => {
+        setDisplayWarning(false);
+        setDisplayFailure(false);
+        setDisplaySuccess(false);
+        setDisplayGetWarning(false);
+
+        // Check fields filled in
+        if (code !== '' && aircraftId !== '' && price !== 0 && origin !== '' && destination !== '' &&
+            date !== '' && time !== '') {
+            addFlight();
+        } else {
+            setDisplayGetWarning(true);
+        }
+    }
+
+    const updateHandle = async () => {
+        setDisplayWarning(false);
+        setDisplayFailure(false);
+        setDisplaySuccess(false);
+        setDisplayGetWarning(false);
+
+        // Check fields filled in
+        if (code !== '' && aircraftId !== '' && price !== 0 && origin !== '' && destination !== '' &&
+            date !== '' && time !== '' && flightId !== '') {
+            updateFlight();
+        } else {
+            setDisplayGetWarning(true);
+        }
+    }
+
+    const deleteHandle = () => {
+        setDisplayDeleteWarning(false);
+        setDisplayWarning(false);
+        setDisplayFailure(false);
+        setDisplaySuccess(false);
+        setDisplayGetWarning(false);
+
+        // Check flight has been pulled previously
+        if(flightId !== '') {
+            deleteFlight();
+        } else {
+            setDisplayDeleteWarning(false);
         }
     }
 
@@ -64,17 +210,22 @@ export const ManageFlights = () => {
                 <div className='card-body'>
                     <form>
                         <div className='row g-3'>
-                            <div className='col-4'>
+                            <div className='col-3'>
+                                <label htmlFor='id' className='form-label'>Flight ID</label>
+                                <input type='text' className='form-control' id='id' value={flightId}
+                                       onChange={(e) => setFlightId(e.target.value)}/>
+                            </div>
+                            <div className='col-3'>
                                 <label htmlFor='code' className='form-label'>Flight Code</label>
                                 <input type='text' className='form-control' id='code' value={code}
                                        onChange={(e) => setCode(e.target.value)}/>
                             </div>
-                            <div className='col-4'>
-                                <label htmlFor='aircraft' className='form-label'>Aircraft Model</label>
+                            <div className='col-3'>
+                                <label htmlFor='aircraft' className='form-label'>Aircraft ID</label>
                                 <input type='text' className='form-control' id='aircraft' value={aircraftId}
                                        onChange={(e) => setAircraftId(e.target.value)}/>
                             </div>
-                            <div className='col-4'>
+                            <div className='col-3'>
                                 <label htmlFor='price' className='form-label'>Base Price</label>
                                 <input type='number' className='form-control' id='price' value={price}
                                        onChange={(e) => setPrice(Number(e.target.value))}/>
@@ -103,24 +254,41 @@ export const ManageFlights = () => {
                                 <button className='btn btn-primary flex-fill mx-5' type='button' onClick={getHandle}>
                                     Get Flight
                                 </button>
-                                <button className='btn btn-primary flex-fill mx-5' type='button'>
+                                <button className='btn btn-primary flex-fill mx-5' type='button' onClick={addHandle}>
                                     Add
                                 </button>
-                                <button className='btn btn-primary flex-fill mx-5' type='button'>
+                                <button className='btn btn-primary flex-fill mx-5' type='button' onClick={updateHandle}>
                                     Update
                                 </button>
-                                <button className='btn btn-primary flex-fill mx-5' type='button'>
+                                <button className='btn btn-primary flex-fill mx-5' type='button' onClick={deleteHandle}>
                                     Delete Flight
                                 </button>
+                            </div>
+                            <div className='col-12'>
+
+                                <p>Get Flight searches by Flight Code and Departure Date</p>
+                                <p>Add will assign a Flight ID automatically. Fill in all other fields.</p>
+                                <p>Update will edit the flight with the specified Flight ID. Fill in all fields.</p>
+                                <p>Delete will remove the flight with the specified Flight ID.</p>
                             </div>
                             {displayWarning &&
                                 <div className='alert alert-danger' role='alert'>
                                     All fields must be filled in
                                 </div>
                             }
+                            {displayGetWarning &&
+                                <div className='alert alert-danger' role='alert'>
+                                    Flight code and Date must be specified
+                                </div>
+                            }
                             {displayFailure &&
                                 <div className='alert alert-danger' role='alert'>
-                                    Server transaction failed
+                                    Server transaction failed. Check fields.
+                                </div>
+                            }
+                            {displayDeleteWarning &&
+                                <div className='alert alert-danger' role='alert'>
+                                    Get flight first.
                                 </div>
                             }
                             {displaySuccess &&
