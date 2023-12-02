@@ -2,19 +2,17 @@ package com.ensf614.springflight.newsletter;
 
 import com.ensf614.springflight.service.EmailService;
 
-import org.springframework.beans.factory.annotation.Autowired;
+public class NewsletterSubscriber implements NewsletterObserver {
+    private final EmailService emailService;
+    private final String userEmail;
 
-import org.springframework.stereotype.Component;
-
-@Component
-public class NewsletterSubscriber implements NewsletterObserver{
-
-
-    @Autowired
-    private EmailService emailService;
+    public NewsletterSubscriber(EmailService emailService, String userEmail) {
+        this.emailService = emailService;
+        this.userEmail = userEmail;
+    }
 
     @Override
-    public void update(String newsletterContent) {}
-
-
+    public void update(String newsletterContent) {
+        emailService.sendNewsletterEmail(userEmail, newsletterContent);
+    }
 }
