@@ -11,50 +11,37 @@ export const ManifestPage = () => {
     const [passengers, setPassengers] = useState<PassengerModel[]>([]);
     const [code, setCode] = useState('');
     const [date, setDate] = useState('');
-    const [isLoading, setIsLoading] = useState(true);
+    const [isLoading, setIsLoading] = useState(false);
     const [httpError, setHttpError] = useState(null);
 
-    useEffect(() => {
+    // Alerts
+    const [displayFieldsWarning, setDisplayFieldsWarning] = useState(false);
+    const [displayFailureWarning, setDisplayFailureWarning] = useState(false);
 
-        // Generate random names
+    const fetchManifest = async () => {
+        const url: string = `http://localhost:8080/api/manifest/${code}/${date}`;
+
+        const response = await fetch(url);
+
+        if (!response.ok) {
+            setDisplayFailureWarning(true);
+            return;
+        }
+
+        const responseData = await response.json();
+
         const loadedPassengers: PassengerModel[] = [];
-        loadedPassengers.push({name:'Ann Smith', seat:'A1'});
-        loadedPassengers.push({name:'Bob Wong', seat:'A2'});
-        loadedPassengers.push({name:'Charlie Puck', seat:'B3'});
-        loadedPassengers.push({name:'Danny Bob', seat:'B4'});
-        loadedPassengers.push({name:'Erica Stevens', seat:'C1'});
+
+        for (const key in responseData) {
+            loadedPassengers.push({
+                name: responseData[key].name,
+                seat: responseData[key].seatNumber
+            });
+        }
+
         setPassengers(loadedPassengers);
-    }, []);
-
-    useEffect(() => {
-        const fetchManifest = async () => {
-            const url: string = `http://localhost:8080/api/manifest/${code}/${date}`;
-
-            const response = await fetch(url);
-
-            if (!response.ok) {
-                throw new Error('Something went wrong!');
-            }
-
-            const responseData = await response.json();
-
-            const loadedPassengers: PassengerModel[] = [];
-
-            for (const key in responseData) {
-                loadedPassengers.push({
-                    name: responseData[key].name,
-                    seat: responseData[key].seat
-                });
-            }
-
-            setPassengers(loadedPassengers);
-            setIsLoading(false);
-        };
-        fetchManifest().catch((error: any) => {
-            setIsLoading(false);
-            setHttpError(error.message);
-        })
-    }, []);
+        setIsLoading(false);
+    };
 
     if (isLoading) {
         return (
@@ -62,47 +49,60 @@ export const ManifestPage = () => {
         )
     }
 
-    if (httpError) {
-        return (
-            <div className='container m-5'>
-                <p>{httpError}...</p>
-            </div>
-        )
+    const searchHandle = () => {
+        setDisplayFailureWarning(false);
+        setDisplayFieldsWarning(false);
+        if (code !== '' && date !== '') {
+            fetchManifest()
+        } else {
+            setDisplayFieldsWarning(true);
+        }
     }
 
     return (
-        <div className='container'>
+        <div className='container mt-5'>
             {(currentUser.role == Roles.Admin || currentUser.role == Roles.Crew || currentUser.role == Roles.Agent) ?
                 <div>
-                    <div className='row mt-5'>
-                        <div className='col-6'>
-                            <div className='d-flex'>
-                                <input className='form-control me-2' type='text'
-                                       placeholder='Enter Flight Number (AB123)' id='code'
-                                       onChange={(e) => {setCode(e.target.value)}}/>
-                                <input className='form-control me-2' type='date' id='date'
-                                       onChange={(e) => {setDate(e.target.value)}}/>
-                                <button className='btn btn-outline-success'
-                                        onClick={() => {}}>
-                                    Search
-                                </button>
-                            </div>
+                    <div className='row d-flex mb-3'>
+                        <div className='col-4'>
+                            <input type='text' id='code' className='form-control' placeholder='Flight code'
+                                   onChange={e => setCode(e.target.value)}/>
+                        </div>
+                        <div className='col-4'>
+                            <input type='date' className='form-control' id='date'
+                                   onChange={e => setDate(e.target.value)}/>
+                        </div>
+                        <div className='col-4'>
+                            <button type='button' className='col btn btn-primary'
+                                    onClick={searchHandle}>
+                                Search
+                            </button>
                         </div>
                     </div>
-                    <div>
-                    {passengers.length > 0 ?
-
-                        <div className='list-group mt-5'>
-                            {passengers.map((passenger, index) => (
-                                <Passenger passenger={passenger} key={index}/>
-                            ))}
+                    {displayFieldsWarning &&
+                        <div className='alert alert-danger' role='alert'>
+                            All fields must be filled in
                         </div>
-                    :
-                        <></>
                     }
+                    {displayFailureWarning &&
+                        <div className='alert alert-danger' role='alert'>
+                            Failed to cancel ticket. Check inputs.
+                        </div>
+                    }
+                    <div>
+                        {passengers.length > 0 ?
+
+                            <div className='list-group mt-5'>
+                                {passengers.map((passenger, index) => (
+                                    <Passenger passenger={passenger} key={index}/>
+                                ))}
+                            </div>
+                            :
+                            <></>
+                        }
                     </div>
                 </div>
-            :
+                :
                 <h3>Authorized access only</h3>
             }
         </div>
