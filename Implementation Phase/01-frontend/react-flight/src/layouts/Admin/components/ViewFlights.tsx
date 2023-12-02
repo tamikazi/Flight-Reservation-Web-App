@@ -59,7 +59,7 @@ export const ViewFlights = () => {
                     View flights
                 </div>
                 <div className='card-body'>
-                    <div className='row mt-5 mb-5'>
+                    <div className='row'>
                         <div className='col-6'>
                             <div className='d-flex'>
                                 <input className='form-control me-2' type='date' id='date'
