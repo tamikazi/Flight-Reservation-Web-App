@@ -16,6 +16,7 @@ import {UserPage} from "./layouts/User/UserPage";
 import {ManageBookingPage} from "./layouts/Bookings/ManageBookingPage";
 import {PaymentHistoryPage} from "./layouts/PaymentHistory/PaymentHistoryPage";
 import {ConfirmationPage} from "./layouts/PaymentConfirmation/ConfirmationPage";
+import {CancelTicketPage} from "./layouts/CancelTicket/CancelTicketPage";
 
 function App() {
     // User login state, default to Guest
@@ -82,6 +83,9 @@ function App() {
                     </Route>
                     <Route path='/history'>
                         <PaymentHistoryPage/>
+                    </Route>
+                    <Route path='/cancel'>
+                        <CancelTicketPage/>
                     </Route>
                 </Switch>
             </div>
