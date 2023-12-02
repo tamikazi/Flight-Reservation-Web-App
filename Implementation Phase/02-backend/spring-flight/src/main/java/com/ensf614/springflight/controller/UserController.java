@@ -1,5 +1,6 @@
 package com.ensf614.springflight.controller;
 
+import com.ensf614.springflight.model.User;
 import com.ensf614.springflight.service.UserService;
 import com.ensf614.springflight.viewmodels.RegisterView;
 import com.ensf614.springflight.viewmodels.UserView;
@@ -25,8 +26,9 @@ public class UserController {
     }
 
     @PostMapping("/register")
-    public void newUser(@RequestBody RegisterView registerView) {
-        userService.addUser(registerView);
+    public User newUser(@RequestBody RegisterView registerView) {
+
+        return userService.addUser(registerView);
     }
 
 }
