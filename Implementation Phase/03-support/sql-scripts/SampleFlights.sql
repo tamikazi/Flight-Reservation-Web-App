@@ -63,16 +63,18 @@ CREATE TABLE USER (
   card		   BOOL			  NOT NULL DEFAULT FALSE,
   Fname		   VARCHAR(50)	  NOT NULL,
   Lname		   VARCHAR(50)	  NOT NULL,
+  address	   VARCHAR(100)   NOT NULL,
   PRIMARY KEY (userID),
   FOREIGN KEY (roleID) REFERENCES ROLES(roleID)
 );
 
-INSERT INTO USER (username, password, roleID, card, Fname, Lname) VALUES
-('admin@example.com', 'adminpass', 1, FALSE, 'Ava', 'Lane'),
-('agent@example.com', 'agentpass', 2, TRUE, 'Max', 'Stone'),
-('crew@example.com', 'crewpass', 3, FALSE, 'Mia', 'Cruz'),
-('passenger@example.com', 'pasengerpass',  4, TRUE, 'Leo', 'Brooks'),
-('tahmidkazi829@gmail.com', 'password',  4, TRUE, 'Tahmid', 'Kazi');
+INSERT INTO USER (username, password, roleID, card, Fname, Lname, address) VALUES
+('guest@example.com', 'guestpass', 4, FALSE, 'Guest', 'Users', 'tempaddress'),
+('admin@example.com', 'adminpass', 1, FALSE, 'Ava', 'Lane', 'tempaddress'),
+('agent@example.com', 'agentpass', 2, TRUE, 'Max', 'Stone', 'tempaddress'),
+('crew@example.com', 'crewpass', 3, FALSE, 'Mia', 'Cruz', 'tempaddress'),
+('passenger@example.com', 'pasengerpass',  4, TRUE, 'Leo', 'Brooks', 'tempaddress'),
+('tahmidkazi829@gmail.com', 'password',  4, TRUE, 'Tahmid', 'Kazi', 'tempaddress');
 
 CREATE TABLE CREW_FLIGHTS (
 	crewID		INT			   NOT NULL AUTO_INCREMENT,
@@ -543,6 +545,7 @@ CREATE TABLE TICKET (
   flightID     INT             NOT NULL,
   userID       INT			   DEFAULT NULL,
   name		   VARCHAR(50)	   NOT NULL,
+  email		   VARCHAR(50)	   DEFAULT NULL,
   cost		   DECIMAL(10,2)   NOT NULL,
   insurance	   BOOL			   NOT NULL DEFAULT FALSE,
   PRIMARY KEY (ticketID),
@@ -551,13 +554,13 @@ CREATE TABLE TICKET (
   FOREIGN KEY (flightID) REFERENCES FLIGHT(flightID) ON DELETE CASCADE
 );
 
-INSERT INTO TICKET (seatID, flightID, userID, name, cost, insurance) VALUES
-(1, 1, 4, 'Charlie Adams', 100.00, FALSE),
-(2, 1, 4, 'Quinn Cook', 200.00, FALSE),
-(1, 2, 2, 'Ava Smith',  300.00, FALSE),
-(7, 1, 1, 'Denise Williams', 400.00, FALSE),
-(12, 1, 2, 'James McNeil', 500.00, FALSE),
-(23, 1, 3, 'Sally Clip', 600.00, FALSE);
+INSERT INTO TICKET (seatID, flightID, userID, name, email, cost, insurance) VALUES
+(1, 1, 4, 'Charlie Adams', 'example@example.com', 100.00, FALSE),
+(2, 1, 4, 'Quinn Cook', 'example@example.com', 200.00, FALSE),
+(1, 2, 2, 'Ava Smith', 'example@example.com', 300.00, FALSE),
+(7, 1, 1, 'Denise Williams', 'example@example.com', 400.00, FALSE),
+(12, 1, 2, 'James McNeil', 'example@example.com', 500.00, FALSE),
+(23, 1, 3, 'Sally Clip', 'example@example.com', 600.00, FALSE);
 
 CREATE TABLE PAYMENT (
 	paymentID	INT				NOT NULL AUTO_INCREMENT,

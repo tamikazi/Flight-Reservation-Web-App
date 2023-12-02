@@ -70,9 +70,20 @@ public class TicketController {
     @DeleteMapping("/delete/{ticketID}")
     public void deleteTicket(@PathVariable int ticketID) {
         PaymentView refund = new PaymentView();
-        refund.setUserID(ticketService.ticketByID(ticketID).getUserID());
+
+        Ticket deletedTicket = ticketService.ticketByID(ticketID);
+
+        refund.setUserID(deletedTicket.getUserID());
         refund.setPayDate(java.time.LocalDate.now().toString());
-        refund.setAmount(ticketService.ticketByID(ticketID).getCost() * -1);
+
+        float refundAmount = deletedTicket.getCost() * -1;
+
+        if (ticketService.ticketByID(ticketID).isInsurance()) {
+            refundAmount -= 50;
+            deletedTicket.setCost(refundAmount);
+        }
+
+        refund.setAmount(refundAmount);
         paymentService.addPayment(refund);
         emailService.ticketCancellationEmail(ticketService.ticketByID(ticketID));
         ticketService.deleteTicket(ticketID);

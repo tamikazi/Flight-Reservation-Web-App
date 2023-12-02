@@ -7,7 +7,6 @@ import com.ensf614.springflight.repository.UserRepository;
 import com.ensf614.springflight.repository.TicketRepository;
 import com.ensf614.springflight.repository.SeatRepository;
 import com.ensf614.springflight.repository.FlightRepository;
-import java.util.List;
 
 import org.springframework.stereotype.Service;
 
@@ -56,12 +55,23 @@ public class EmailService {
         emailBody.append("Date: " + flightRepository.findByFlightID(ticket.getFlightID()).getDate() + "\n");
         emailBody.append("Time: " + flightRepository.findByFlightID(ticket.getFlightID()).getTime() + "\n");
         emailBody.append("-------------------------------------------\n");
-        emailBody.append("Total: $" + ticket.getCost() + "\n");
+        float cost = ticket.getCost();
+
+        if (ticket.isInsurance()) {
+            cost += 50;
+        }
+        emailBody.append("Total: $" + cost + "\n");
         emailBody.append("-------------------------------------------\n");
         emailBody.append("Thank you for flying with us!\n");
 
         SimpleMailMessage message = new SimpleMailMessage();
-        message.setTo(userRepository.findByUserID(ticket.getUserID()).getUsername()); // Assume all tickets have the same user email
+
+        if (ticket.getUserID() != 1) {
+            message.setTo(userRepository.findByUserID(ticket.getUserID()).getUsername()); // Assume all tickets have the same user email
+        } else {
+            message.setTo(ticket.getEmail());
+        }
+
         message.setSubject("Flight Ticket Purchase Confirmation");
         message.setText(emailBody.toString());
         emailSender.send(message);
@@ -86,7 +96,11 @@ public class EmailService {
         emailBody.append("-------------------------------------------\n");
 
         SimpleMailMessage message = new SimpleMailMessage();
-        message.setTo(userRepository.findByUserID(ticket.getUserID()).getUsername()); // Assume all tickets have the same user email
+        if (ticket.getUserID() != 1) {
+            message.setTo(userRepository.findByUserID(ticket.getUserID()).getUsername()); // Assume all tickets have the same user email
+        } else {
+            message.setTo(ticket.getEmail());
+        }
         message.setSubject("Flight Ticket Cancellation");
         message.setText(emailBody.toString());
         emailSender.send(message);
