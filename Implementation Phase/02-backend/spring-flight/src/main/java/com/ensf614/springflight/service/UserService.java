@@ -53,8 +53,6 @@ public class UserService {
         user.setRoleID(4);
         userRepository.save(user);
 
-        newsletterSender.attachNewUser(user);
-
         return user;
     }
 

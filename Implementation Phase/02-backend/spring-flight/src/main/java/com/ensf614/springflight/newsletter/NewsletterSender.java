@@ -32,14 +32,6 @@ public class NewsletterSender implements NewsletterSubject {
     @Override
     public void attach(NewsletterObserver subscriber) {
         subscribers.add(subscriber);
-        if (subscriber instanceof NewsletterSubscriber) {
-            String userEmail = ((NewsletterSubscriber) subscriber).getUserEmail();
-            // Fetch and attach the new user to the subscriber list
-            User user = userRepository.findByUsername(userEmail);
-            if (user != null) {
-                attachNewUser(user);
-            }
-        }
     }
 
     @Override
