@@ -64,7 +64,7 @@ public class EmailService {
     public void newsletterEmail(String userEmail, String newsletterContent) {
         SimpleMailMessage message = new SimpleMailMessage();
         message.setTo(userEmail);
-        message.setSubject("Monthly Newsletter");
+        message.setSubject("Message from SkyByte Airlines");
         message.setText(newsletterContent);
         emailSender.send(message);
     }
