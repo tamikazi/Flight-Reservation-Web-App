@@ -35,10 +35,10 @@ public class TicketController {
         return ticketService.allTickets();
     }
 
-    @GetMapping("/id/{id}")
-    public Ticket getTicketById(@PathVariable int id) {
-        return ticketService.ticketByID(id);
-    }
+//    @GetMapping("/id/{id}")
+//    public Ticket getTicketById(@PathVariable int id) {
+//        return ticketService.ticketByID(id);
+//    }
     @GetMapping("/flightid/{id}")
     public List<Ticket> getTicketByFlightID(@PathVariable int id) {
         return ticketService.allTicketsOnFlight(id);
@@ -76,10 +76,10 @@ public class TicketController {
 
         float refundAmount = deletedTicket.getCost() * -1;
 
-        if (ticketService.ticketByID(ticketID).isInsurance()) {
-            refundAmount -= 50;
-            deletedTicket.setCost(refundAmount);
-        }
+//        if (ticketService.ticketByID(ticketID).isInsurance()) {
+//            refundAmount -= 50;
+//            deletedTicket.setCost(refundAmount);
+//        }
 
         refund.setAmount(refundAmount);
         paymentService.addPayment(refund);

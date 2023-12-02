@@ -106,7 +106,7 @@ public class AdminService {
             CrewView crewView = new CrewView();
             crewView.setUserID(crew.getUserID());
             crewView.setFlightID(crew.getFlightID());
-            crewView.setName(userRepository.findByUserID(crew.getCrewID()).getFname() + " " + userRepository.findByUserID(crew.getCrewID()).getLname());
+            crewView.setName(userRepository.findByUserID(crew.getUserID()).getFname() + " " + userRepository.findByUserID(crew.getUserID()).getLname());
             allCrew.add(crewView);
         }
 
@@ -123,31 +123,42 @@ public class AdminService {
     public List<CrewView> allCrewFlightsOnFlight(int flightID) {
         List<CrewFlights> flightCrews = crewFlightsRepository.findByFlightID(flightID);
 
+        Optional<Flight> flight = flightRepository.findById(flightID);
         List<CrewView> crewViews = new ArrayList<>();
+        if (flight.isPresent()) {
 
-        for (CrewFlights crew : flightCrews) {
-            CrewView crewView = new CrewView();
-            crewView.setUserID(crew.getUserID());
-            crewView.setFlightID(crew.getFlightID());
-            crewView.setName(userRepository.findByUserID(crew.getCrewID()).getFname() + " " + userRepository.findByUserID(crew.getCrewID()).getLname());
-            crewViews.add(crewView);
+            for (CrewFlights crew : flightCrews) {
+                CrewView crewView = new CrewView();
+                crewView.setUserID(crew.getUserID());
+                crewView.setFlightID(crew.getFlightID());
+                crewView.setName(userRepository.findByUserID(crew.getUserID()).getFname() + " " + userRepository.findByUserID(crew.getUserID()).getLname());
+                crewViews.add(crewView);
+            }
         }
-
+        else {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Flight with ID: " + flightID + " not found.");
+        }
         return crewViews;
     }
 
     public List<CrewView> allCrewFlightsByCode(String code) {
-        Flight flight = flightRepository.findByCode(code).get();
-        List<CrewFlights> flightCrews = crewFlightsRepository.findByFlightID(flight.getFlightID());
-
+        Optional<Flight> flight = flightRepository.findByCode(code);
         List<CrewView> crewViews = new ArrayList<>();
 
-        for (CrewFlights crew : flightCrews) {
-            CrewView crewView = new CrewView();
-            crewView.setUserID(crew.getUserID());
-            crewView.setFlightID(crew.getFlightID());
-            crewView.setName(userRepository.findByUserID(crew.getCrewID()).getFname() + " " + userRepository.findByUserID(crew.getCrewID()).getLname());
-            crewViews.add(crewView);
+        if (flight.isPresent()) {
+            List<CrewFlights> flightCrews = crewFlightsRepository.findByFlightID(flightRepository.findByCode(code).get().getFlightID());
+
+            for (CrewFlights crew : flightCrews) {
+                CrewView crewView = new CrewView();
+                crewView.setUserID(crew.getUserID());
+                crewView.setFlightID(crew.getFlightID());
+                crewView.setName(userRepository.findByUserID(crew.getCrewID()).getFname() + " " + userRepository.findByUserID(crew.getCrewID()).getLname());
+                crewViews.add(crewView);
+            }
+
+        }
+        else {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Flight with code: " + code + " not found.");
         }
 
         return crewViews;
