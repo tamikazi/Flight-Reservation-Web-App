@@ -1,7 +1,7 @@
 import {Link, useHistory} from "react-router-dom";
 import React, {useContext, useEffect, useState} from "react";
 import PaymentModel from "../../models/PaymentModel";
-import CurrentUserContext from "../../contexts/CurrentUserContext";
+import CurrentUserContext, {Roles} from "../../contexts/CurrentUserContext";
 import CheckoutSeatModel from "../../models/CheckoutSeatModel";
 import {SpinnerLoading} from "../Utils/SpinnerLoading";
 import TicketModel from "../../models/TicketModel";
@@ -22,7 +22,7 @@ export const PaymentPage:React.FC<{
     const [cardName, setCardName] = useState('');
     const [cardExpiry, setCardExpiry] = useState('');
     const [cardCVV, setCardCVV] = useState('');
-    const [paymentSuccess, setPaymentSuccess] = useState(false);
+    const [email, setEmail] = useState('');
 
     // Displays
     const [fieldsWarning, setFieldsWarning] = useState(false);
@@ -35,7 +35,10 @@ export const PaymentPage:React.FC<{
 
             const today = new Date().toLocaleDateString('en-CA')
 
-            const paymentRequest = new PaymentRequestView(currentUser.userId, today, props.checkoutCost)
+            const paymentRequest = new PaymentRequestView(
+                currentUser.userId,
+                today,
+                props.checkoutCost)
 
             const requestOptions = {
                 method: 'POST',
@@ -74,7 +77,8 @@ export const PaymentPage:React.FC<{
                     userID: currentUser.userId,
                     name: props.checkoutSeats[i].name,
                     price: props.checkoutSeats[i].price,
-                    insurance: props.checkoutInsurance
+                    insurance: props.checkoutInsurance,
+                    email: email
                 })
             }
 
@@ -102,7 +106,10 @@ export const PaymentPage:React.FC<{
     }
 
     const payHandleChange = () => {
-        if(cardNumber !== '' && cardName !== '' && cardExpiry !== '' && cardCVV !== '') {
+        // If role is guest, all fields must be filled in. If role is not guest, all but email must be filled in.
+        if((currentUser.role == Roles.Guest && (cardNumber !== '' && cardName !== '' && cardExpiry !== '' && cardCVV !== '' && email !== '')) ||
+            (currentUser.role !== Roles.Guest && (cardNumber !== '' && cardName !== '' && cardExpiry !== '' && cardCVV !== ''))) {
+
             void sendPayment();
         } else {
             setFieldsWarning(true);
@@ -133,6 +140,15 @@ export const PaymentPage:React.FC<{
                         <input type='text' className='form-control' id='cardCVV'
                                onChange={e => setCardCVV(e.target.value)}/>
                     </div>
+                    {currentUser.role == Roles.Guest ?
+                        <div className='col-12'>
+                            <label htmlFor='email' className='form-label'>Confirmation Email Address</label>
+                            <input type='email' className='form-control' id='email'
+                                   onChange={e => setEmail(e.target.value)}/>
+                        </div>
+                    :
+                        <></>
+                    }
                     <div className='col-6'>
                         <Link type='button' className='btn btn-primary' to='/names'>Back</Link>
                     </div>
