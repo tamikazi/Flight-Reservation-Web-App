@@ -35,17 +35,21 @@ export const ManageCrew = () => {
 
             const responseData = await response.json();
 
-            const loadedCrew: CrewView[] = [];
+            const uniqueCrew: CrewView[] = []
 
             for (const key in responseData) {
-                loadedCrew.push({
-                    userID: responseData[key].userID,
-                    flightID: responseData[key].flightID,
-                    name: responseData[key].name,
-                });
+                const loadedCrew = new CrewView(
+                    responseData[key].userID,
+                    responseData[key].flightID,
+                    responseData[key].name,
+                );
+                // Add only if crew isn't already listed
+                if(!uniqueCrew.some(c => c.userID == loadedCrew.userID)) {
+                    uniqueCrew.push(loadedCrew);
+                }
             }
 
-            setAllCrew(loadedCrew);
+            setAllCrew(uniqueCrew);
             setIsLoading(false);
         };
         fetchAllCrew().catch((error: any) => {
@@ -94,53 +98,64 @@ export const ManageCrew = () => {
     };
 
     const assignCrew = async () => {
-        const url: string = `http://localhost:8080/api/admin/crewflights/`;
+        if(selectedAvailableCrew){
+            const url: string = `http://localhost:8080/api/admin/crewflights/add`;
 
-        const response = await fetch(url);
+            const assignedCrew = new CrewView(
+                selectedAvailableCrew.userID,
+                flightId,
+                selectedAvailableCrew.name);
 
-        if (!response.ok) {
-            setDisplayFailure(true);
-            return;
+            const requestOptions = {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(assignedCrew)
+            };
+
+            const updateResponse = await fetch(url, requestOptions);
+
+            if (!updateResponse.ok) {
+                setDisplayFailure(true);
+                return;
+            } else {
+                // Trigger crew lists update
+                await fetchCrew();
+                setCrewUpdate(!crewUpdate);
+
+                setSelectedFlightCrew(null);
+                setSelectedAvailableCrew(null);
+            }
         }
-
-        const responseData = await response.json();
-
-        if (!responseData) {
-            setDisplayFailure(true);
-            return;
-        }
-
-        setSelectedFlightCrew(null);
-        setSelectedAvailableCrew(null);
-
-        // Trigger crew lists update
-        fetchCrew();
-        setCrewUpdate(!crewUpdate);
     };
 
     const removeCrew = async () => {
-        const url: string = `http://localhost:8080/api/admin/crewflights/`;
+        if(selectedFlightCrew) {
+            const url: string = `http://localhost:8080/api/admin/crewflights/delete/
+            ${selectedFlightCrew.userID}/${selectedFlightCrew.flightID}`;
 
-        const response = await fetch(url);
+            const response = await fetch(url);
 
-        if (!response.ok) {
-            setDisplayFailure(true);
-            return;
+            if (!response.ok) {
+                setDisplayFailure(true);
+                return;
+            }
+
+            const responseData = await response.json();
+
+            if (!responseData) {
+                setDisplayFailure(true);
+                return;
+            } else {
+                // Trigger crew lists update
+                await fetchCrew();
+                setCrewUpdate(!crewUpdate);
+
+                setSelectedFlightCrew(null);
+                setSelectedAvailableCrew(null);
+            }
         }
-
-        const responseData = await response.json();
-
-        if (!responseData) {
-            setDisplayFailure(true);
-            return;
-        }
-
-        setSelectedFlightCrew(null);
-        setSelectedAvailableCrew(null);
-
-        // Trigger crew lists update
-        fetchCrew();
-        setCrewUpdate(!crewUpdate);
     };
 
     const searchHandle = () => {
@@ -166,7 +181,7 @@ export const ManageCrew = () => {
 
         // Check if crew selected
         if(selectedAvailableCrew) {
-
+            assignCrew();
         } else {
             setDisplaySelectWarning(true);
         }
@@ -180,7 +195,7 @@ export const ManageCrew = () => {
 
         // Check if crew selected
         if(selectedFlightCrew) {
-
+            removeCrew();
         } else {
             setDisplaySelectWarning(true);
         }
