@@ -1,5 +1,6 @@
 package com.ensf614.springflight.service;
 
+import com.ensf614.springflight.viewmodels.RegisterView;
 import org.springframework.stereotype.Service;
 import com.ensf614.springflight.model.User;
 import com.ensf614.springflight.viewmodels.UserView;
@@ -25,6 +26,20 @@ public class UserService {
         userView.setLname(user.getLname());
         userView.setCard(user.isCard());
 
+
         return userView;
     }
+
+    public void addUser(RegisterView registerView) {
+        User user = new User();
+        user.setUsername(registerView.getUsername());
+        user.setPassword(registerView.getPassword());
+        user.setFname(registerView.getFname());
+        user.setLname(registerView.getLname());
+        user.setAddress(registerView.getAddress());
+        user.setCard(registerView.isCard());
+        user.setRoleID(4);
+        userRepository.save(user);
+    }
+
 }

@@ -42,6 +42,5 @@ public class User {
 
     @Column(name = "address")
     private String address;
-    //add address field
 
 }

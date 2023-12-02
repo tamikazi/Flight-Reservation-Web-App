@@ -1,6 +1,5 @@
 package com.ensf614.springflight.controller;
 
-import com.ensf614.springflight.model.Payment;
 import com.ensf614.springflight.model.Ticket;
 import com.ensf614.springflight.service.TicketService;
 import com.ensf614.springflight.viewmodels.BookingView;
@@ -8,7 +7,6 @@ import com.ensf614.springflight.viewmodels.PaymentView;
 import com.ensf614.springflight.viewmodels.TicketView;
 import com.ensf614.springflight.service.EmailService;
 import com.ensf614.springflight.service.PaymentService;
-import com.ensf614.springflight.viewmodels.PassengerView;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;

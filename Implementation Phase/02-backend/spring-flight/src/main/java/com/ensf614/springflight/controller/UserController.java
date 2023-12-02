@@ -1,6 +1,7 @@
 package com.ensf614.springflight.controller;
 
 import com.ensf614.springflight.service.UserService;
+import com.ensf614.springflight.viewmodels.RegisterView;
 import com.ensf614.springflight.viewmodels.UserView;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -21,6 +22,11 @@ public class UserController {
     @GetMapping("/id/{id}")
     public UserView getUserById(@PathVariable int id) {
         return userService.userByID(id);
+    }
+
+    @PostMapping("/register")
+    public void newUser(@RequestBody RegisterView registerView) {
+        userService.addUser(registerView);
     }
 
 }
