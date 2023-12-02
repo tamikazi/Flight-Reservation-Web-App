@@ -26,21 +26,40 @@ export const Navbar: React.FC<{ setUser: any }> = (props) => {
                         <li className='nav-item'>
                             <NavLink className='nav-link' to='/search'>Flights</NavLink>
                         </li>
-                        <li className='nav-item'>
-                            <NavLink className='nav-link' to='/manifest'>Manifest</NavLink>
-                        </li>
-                        <li className='nav-item'>
-                            <NavLink className='nav-link' to='/bookings'>Bookings</NavLink>
-                        </li>
-                        <li className='nav-item'>
-                            <NavLink className='nav-link' to='/history'>Receipts</NavLink>
-                        </li>
-                        <li className='nav-item'>
-                            <NavLink className='nav-link' to='/admin'>Admin</NavLink>
-                        </li>
-                        <li className='nav-item'>
-                            <NavLink className='nav-link' to='/cancel'>Cancel Ticket</NavLink>
-                        </li>
+                        {currentUser.role == Roles.Crew || currentUser.role == Roles.Agent ||
+                            currentUser.role == Roles.Admin ?
+                            <li className='nav-item'>
+                                <NavLink className='nav-link' to='/manifest'>Manifest</NavLink>
+                            </li>
+                        :
+                            <></>
+                        }
+                        {currentUser.role !== Roles.Guest ?
+                            <>
+                                <li className='nav-item'>
+                                    <NavLink className='nav-link' to='/bookings'>Bookings</NavLink>
+                                </li>
+                                <li className='nav-item'>
+                                    <NavLink className='nav-link' to='/history'>Receipts</NavLink>
+                                </li>
+                            </>
+                        :
+                            <></>
+                        }
+                        {currentUser.role == Roles.Admin ?
+                            <li className='nav-item'>
+                                <NavLink className='nav-link' to='/admin'>Admin</NavLink>
+                            </li>
+                        :
+                            <></>
+                        }
+                        {currentUser.role == Roles.Guest ?
+                            <li className='nav-item'>
+                                <NavLink className='nav-link' to='/cancel'>Cancel Ticket</NavLink>
+                            </li>
+                        :
+                            <></>
+                        }
 
                     </ul>
                     <ul className='navbar-nav ms-auto'>

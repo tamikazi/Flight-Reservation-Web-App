@@ -86,7 +86,7 @@ export const ManifestPage = () => {
                     }
                     {displayFailureWarning &&
                         <div className='alert alert-danger' role='alert'>
-                            Failed to cancel ticket. Check inputs.
+                            Failed to find flight. Check inputs.
                         </div>
                     }
                     <div>

@@ -1,5 +1,5 @@
 import {Passenger} from "../../Manifest/components/Passenger";
-import {useEffect, useState} from "react";
+import React, {useEffect, useState} from "react";
 import FlightModel from "../../../models/FlightModel";
 import {SpinnerLoading} from "../../Utils/SpinnerLoading";
 import {Flight} from "../../Flights/components/Flight";
@@ -7,8 +7,8 @@ import AircraftModel from "../../../models/AircraftModel";
 
 export const ManageFlights = () => {
 
-    const [aircraft, setAircraft] = useState<AircraftModel>();
     const [flight, setFlight] = useState<FlightModel>();
+    const [flightId, setFlightId] = useState('');
     const [code, setCode] = useState('');
     const [date, setDate] = useState('');
     const [origin, setOrigin] = useState('');
@@ -17,7 +17,48 @@ export const ManageFlights = () => {
     const [time, setTime] = useState('');
     const [price, setPrice] = useState(0);
 
+    // Displays
+    const [displayWarning, setDisplayWarning] = useState(false);
+    const [displayFailure, setDisplayFailure] = useState(false);
+    const [displaySuccess, setDisplaySuccess] = useState(false);
 
+    const fetchFlight = async () => {
+        const url: string = "http://localhost:8080/api/admin/flights/id/1";
+
+        const response = await fetch(url);
+
+        if (!response.ok) {
+            setDisplayFailure(true);
+            return;
+        }
+
+        const responseData = await response.json();
+
+        setFlightId(responseData.flightID);
+        setCode(responseData.code);
+        setDate(responseData.date);
+        setTime(responseData.time);
+        setOrigin(responseData.origin);
+        setDestination(responseData.destination);
+        setAircraftId(responseData.aircraftID);
+        setPrice(responseData.basePrice);
+
+    };
+
+    const addFlight = async () => {
+
+    }
+
+    const getHandle = () => {
+        setDisplayWarning(false);
+        setDisplayFailure(false);
+        setDisplaySuccess(false);
+        if(code !== '' && date !== '') {
+            fetchFlight();
+        } else {
+            setDisplayWarning(true);
+        }
+    }
 
 
     return (
@@ -65,7 +106,7 @@ export const ManageFlights = () => {
                                        onChange={(e) => setTime(e.target.value)}/>
                             </div>
                             <div className='col d-flex'>
-                                <button className='btn btn-primary flex-fill mx-5' type='button'>
+                                <button className='btn btn-primary flex-fill mx-5' type='button' onClick={getHandle}>
                                     Get Flight
                                 </button>
                                 <button className='btn btn-primary flex-fill mx-5' type='button'>
@@ -78,6 +119,21 @@ export const ManageFlights = () => {
                                     Delete Flight
                                 </button>
                             </div>
+                            {displayWarning &&
+                                <div className='alert alert-danger' role='alert'>
+                                    All fields must be filled in
+                                </div>
+                            }
+                            {displayFailure &&
+                                <div className='alert alert-danger' role='alert'>
+                                    Server transaction failed
+                                </div>
+                            }
+                            {displaySuccess &&
+                                <div className='alert alert-success' role='alert'>
+                                    Success
+                                </div>
+                            }
                         </div>
                     </form>
                 </div>
