@@ -78,6 +78,16 @@ public class AdminController {
         adminService.deleteByUserIDAndFlightID(userID, flightID);
     }
 
+    @GetMapping("crewflights/code/{code}")
+    public List<CrewView> getCrewFlightsByCode(@PathVariable String code) {
+        return adminService.allCrewFlightsByCode(code);
+    }
+
+    @GetMapping("/flights/{code}/{date}")
+    public Optional<Flight> getFlightsByCodeAndDate(@PathVariable String code, @PathVariable String date) {
+        return adminService.findByCodeAndDate(code, date);
+    }
+
     @GetMapping("/flights/id/{id}")
     public Optional<Flight> getFlightById(@PathVariable int id) {
         return adminService.findByFlightID(id);

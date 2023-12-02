@@ -44,10 +44,6 @@ public class AdminService {
             return aircraftRepository.findAll();
     }
 
-    public User userByUsername(String username) {
-        return userRepository.findByUsername(username);
-    }
-
     public List<User> allUsersByRole(int roleID) {
         return userRepository.findByRoleID(roleID);
     }
@@ -140,6 +136,23 @@ public class AdminService {
         return crewViews;
     }
 
+    public List<CrewView> allCrewFlightsByCode(String code) {
+        Flight flight = flightRepository.findByCode(code).get();
+        List<CrewFlights> flightCrews = crewFlightsRepository.findByFlightID(flight.getFlightID());
+
+        List<CrewView> crewViews = new ArrayList<>();
+
+        for (CrewFlights crew : flightCrews) {
+            CrewView crewView = new CrewView();
+            crewView.setUserID(crew.getUserID());
+            crewView.setFlightID(crew.getFlightID());
+            crewView.setName(userRepository.findByUserID(crew.getCrewID()).getFname() + " " + userRepository.findByUserID(crew.getCrewID()).getLname());
+            crewViews.add(crewView);
+        }
+
+        return crewViews;
+    }
+
     public void deleteByUserIDAndFlightID(int userID, int flightID) {
         crewFlightsRepository.deleteByUserIDAndFlightID(userID, flightID);
     }
@@ -152,6 +165,10 @@ public class AdminService {
     }
     public List<Flight> findByDate(String date) {
         return flightRepository.findByDate(date);
+    }
+
+    public Optional<Flight> findByCodeAndDate(String code, String date) {
+        return flightRepository.findByCodeAndDate(code, date);
     }
 
     public List<Flight> findByDateAndOriginAndDestination(String date, String origin, String destination) {

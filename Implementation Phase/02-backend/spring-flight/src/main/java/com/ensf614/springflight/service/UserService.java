@@ -1,6 +1,7 @@
 package com.ensf614.springflight.service;
 
-import com.ensf614.springflight.newsletter.NewsletterSubscriber;
+
+import com.ensf614.springflight.newsletter.NewsletterObserver;
 import com.ensf614.springflight.viewmodels.RegisterView;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -12,7 +13,7 @@ import com.ensf614.springflight.newsletter.NewsletterSender;
 import org.springframework.web.server.ResponseStatusException;
 
 @Service
-public class UserService {
+public class UserService{
     private UserRepository userRepository;
     private NewsletterSender newsletterSender;
 
