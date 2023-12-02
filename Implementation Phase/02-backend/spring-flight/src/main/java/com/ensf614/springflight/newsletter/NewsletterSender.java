@@ -26,7 +26,7 @@ public class NewsletterSender implements NewsletterSubject {
     @PostConstruct
     public void initSubscribers() {
         List<User> users = userRepository.findAll();
-        users.forEach(user -> attach(new NewsletterSubscriber(emailService, user.getUsername())));
+        users.forEach(user -> attach(new NewsletterSubscriber(emailService, user)));
     }
 
     @Override
@@ -51,7 +51,7 @@ public class NewsletterSender implements NewsletterSubject {
     }
 
     public void attachNewUser(User user) {
-        attach(new NewsletterSubscriber(emailService, user.getUsername()));
+        attach(new NewsletterSubscriber(emailService, user));
     }
 
 }
