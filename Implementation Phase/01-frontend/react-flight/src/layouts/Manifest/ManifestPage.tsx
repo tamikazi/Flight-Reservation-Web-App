@@ -1,18 +1,16 @@
-import {useContext, useEffect, useState} from "react";
-import PassengerModel from "../../models/PassengerModel";
+import {useContext, useState} from "react";
+import PassengerView from "../../models/PassengerView";
 import {Passenger} from "./components/Passenger";
 import CurrentUserContext, {Roles} from "../../contexts/CurrentUserContext";
-import FlightModel from "../../models/FlightModel";
 import {SpinnerLoading} from "../Utils/SpinnerLoading";
 
 export const ManifestPage = () => {
     const currentUser = useContext(CurrentUserContext);
 
-    const [passengers, setPassengers] = useState<PassengerModel[]>([]);
+    const [passengers, setPassengers] = useState<PassengerView[]>([]);
     const [code, setCode] = useState('');
     const [date, setDate] = useState('');
     const [isLoading, setIsLoading] = useState(false);
-    const [httpError, setHttpError] = useState(null);
 
     // Alerts
     const [displayFieldsWarning, setDisplayFieldsWarning] = useState(false);
@@ -30,7 +28,7 @@ export const ManifestPage = () => {
 
         const responseData = await response.json();
 
-        const loadedPassengers: PassengerModel[] = [];
+        const loadedPassengers: PassengerView[] = [];
 
         for (const key in responseData) {
             loadedPassengers.push({

@@ -1,4 +1,4 @@
-class BookingModel {
+class BookingView {
     ticketId: number;
     code: string;
     origin: string;
@@ -20,4 +20,4 @@ class BookingModel {
     }
 }
 
-export default BookingModel;
+export default BookingView;

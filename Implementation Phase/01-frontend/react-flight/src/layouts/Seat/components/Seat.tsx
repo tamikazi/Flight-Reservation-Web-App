@@ -1,6 +1,6 @@
-import SeatMapModel from "../../../models/SeatMapModel";
+import SeatView from "../../../models/SeatView";
 
-export const Seat: React.FC<{ seat: SeatMapModel, onClick: any }> = (props) => {
+export const Seat: React.FC<{ seat: SeatView, onClick: any }> = (props) => {
     return (
         <>
             {/*<input type='checkbox' className='btn-check m-1' name='seatOptions' id={`${props.seat.seatId}`}*/}

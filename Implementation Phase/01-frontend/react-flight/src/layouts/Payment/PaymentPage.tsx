@@ -1,10 +1,7 @@
 import {Link, useHistory} from "react-router-dom";
-import React, {useContext, useEffect, useState} from "react";
-import PaymentModel from "../../models/PaymentModel";
+import React, {useContext, useState} from "react";
 import CurrentUserContext, {Roles} from "../../contexts/CurrentUserContext";
 import CheckoutSeatModel from "../../models/CheckoutSeatModel";
-import {SpinnerLoading} from "../Utils/SpinnerLoading";
-import TicketModel from "../../models/TicketModel";
 import TicketRequestView from "../../models/TicketRequestView";
 import PaymentRequestView from "../../models/PaymentRequestView";
 

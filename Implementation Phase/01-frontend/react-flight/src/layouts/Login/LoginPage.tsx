@@ -1,5 +1,4 @@
 import {useContext, useState} from "react";
-import LoginRequestView from "../../models/LoginRequestView";
 import CurrentUserContext, {CurrentUserContextType} from "../../contexts/CurrentUserContext";
 import {useHistory} from 'react-router-dom'
 

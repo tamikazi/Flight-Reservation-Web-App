@@ -1,5 +1,4 @@
 import React, {useState} from "react";
-import PaymentRequestView from "../../models/PaymentRequestView";
 import RegisterView from "../../models/RegisterView";
 
 export const SignupPage = () => {
@@ -11,6 +10,7 @@ export const SignupPage = () => {
     const [card, setCard] = useState(false);
 
     const [displayWarning, setDisplayWarning] = useState(false);
+    const [invalidWarning, setInvalidWarning] = useState(false);
     const [failureWarning, setFailureWarning] = useState(false);
     const [displaySuccess, setDisplaySuccess] = useState(false);
 
@@ -38,7 +38,10 @@ export const SignupPage = () => {
             const userResponse = await fetch(url, requestOptions);
 
             // Check if payment was successful
-            if (!userResponse.ok) {
+            if (userResponse.status === 400) {
+                setInvalidWarning(true);
+                return;
+            } else if(!userResponse.ok) {
                 setFailureWarning(true);
                 return;
             } else {
@@ -52,6 +55,7 @@ export const SignupPage = () => {
 
     const signupHandle = () => {
         setDisplayWarning(false);
+        setInvalidWarning(false);
         setFailureWarning(false);
         setDisplaySuccess(false);
         if(username !== '' && password !== '' && fname !== '' && lname !== '' && address !== '') {
@@ -104,6 +108,11 @@ export const SignupPage = () => {
                 {displayWarning &&
                     <div className='alert alert-danger' role='alert'>
                         All fields must be filled in
+                    </div>
+                }
+                {invalidWarning &&
+                    <div className='alert alert-danger' role='alert'>
+                        Username already used
                     </div>
                 }
                 {failureWarning &&

@@ -1,10 +1,8 @@
 import {useState} from "react";
-import BookingModel from "../../models/BookingModel";
 
 export const CancelTicketPage = () => {
     const [ticketId, setTicketId] = useState('');
     const [name, setName] = useState('');
-    const [error, setError] = useState(false);
 
     // Alerts
     const [displayFieldsWarning, setDisplayFieldsWarning] = useState(false);

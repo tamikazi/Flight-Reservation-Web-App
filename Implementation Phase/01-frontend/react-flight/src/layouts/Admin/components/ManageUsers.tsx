@@ -1,51 +1,43 @@
 import {useEffect, useState} from "react";
-import CrewModel from "../../../models/CrewModel";
 import {SpinnerLoading} from "../../Utils/SpinnerLoading";
-import UserModel from "../../../models/UserModel";
-import {CrewMember} from "./cards/CrewMember";
+import UserView from "../../../models/UserView";
 import {User} from "./cards/User";
 
 export const ManageUsers = () => {
 
-    const [users, setUsers] = useState<UserModel[]>([]);
+    const [users, setUsers] = useState<UserView[]>([]);
     const [isLoading, setIsLoading] = useState(true);
     const [httpError, setHttpError] = useState(null);
 
     useEffect(() => {
         const fetchUsers = async () => {
-            // const baseUrl: string = "http://localhost:8080/api/users"; // getMembers
-            //
-            // const response = await fetch(baseUrl);
-            //
-            // if (!response.ok) {
-            //     throw new Error('Something went wrong!');
-            // }
-            //
-            // const responseData = await response.json();
+            const baseUrl: string = "http://localhost:8080/api/admin/users/all";
 
-            const loadedUsers: UserModel[] = [];
+            const response = await fetch(baseUrl);
 
-            // for (const key in responseData) {
-            //     loadedUsers.push({
-            //         userID: responseData[key].userID,
-            //         username: responseData[key].username,
-            //         password: responseData[key].password,
-            //         roleID: responseData[key].roleID,
-            //         member: responseData[key].member,
-            //         Fname: responseData[key].Fname,
-            //         Lname: responseData[key].Lname
-            //     });
-            // }
+            if (!response.ok) {
+                throw new Error('Something went wrong!');
+            }
 
-            loadedUsers.push({
-                userID: 1,
-                username: 'user@email.com',
-                password: 'password1234',
-                roleID: 1,
-                member: true,
-                Fname: 'Jimmy',
-                Lname: 'Smith'
-            });
+            const responseData = await response.json();
+
+            const loadedUsers: UserView[] = [];
+
+            for (const key in responseData) {
+                loadedUsers.push({
+                    userID: responseData[key].userID,
+                    username: responseData[key].username,
+                    password: responseData[key].password,
+                    roleID: responseData[key].roleID,
+                    card: Boolean(responseData[key].card),
+                    fname: responseData[key].fname,
+                    lname: responseData[key].lname,
+                    address: responseData[key].address
+                });
+            }
+
+            // Remove first user (guest user profile)
+            loadedUsers.splice(0,1);
 
             setUsers(loadedUsers);
             setIsLoading(false);

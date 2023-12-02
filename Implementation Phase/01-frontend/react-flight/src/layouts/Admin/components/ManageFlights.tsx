@@ -1,13 +1,7 @@
-import {Passenger} from "../../Manifest/components/Passenger";
-import React, {useEffect, useState} from "react";
-import FlightModel from "../../../models/FlightModel";
-import {SpinnerLoading} from "../../Utils/SpinnerLoading";
-import {Flight} from "../../Flights/components/Flight";
-import AircraftModel from "../../../models/AircraftModel";
+import React, {useState} from "react";
 
 export const ManageFlights = () => {
 
-    const [flight, setFlight] = useState<FlightModel>();
     const [flightId, setFlightId] = useState('');
     const [code, setCode] = useState('');
     const [date, setDate] = useState('');
