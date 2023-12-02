@@ -106,7 +106,9 @@ export const ManageBookingPage = () => {
                                 ))}
                             </div>
                             :
-                            <></>
+                            <div className='m-5'>
+                                <h5>No bookings</h5>
+                            </div>
                         }
                     </div>
                 </>
