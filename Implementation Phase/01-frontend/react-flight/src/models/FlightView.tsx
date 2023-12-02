@@ -1,23 +1,23 @@
 class FlightView {
-    flightId: string;
+    flightID: string;
     code: string;
     origin: string;
     destination: string;
     date: string;
     time: string;
-    aircraft: string;
-    price: number;
+    aircraftID: string;
+    basePrice: number;
   
-    constructor(flightId: string, code: string, origin: string, destination: string,
-                date: string, time: string, aircraft: string, price: number) {
-        this.flightId = flightId;
+    constructor(flightID: string, code: string, origin: string, destination: string,
+                date: string, time: string, aircraftID: string, basePrice: number) {
+        this.flightID = flightID;
         this.code = code;
         this.origin = origin;
         this.destination = destination;
         this.date = date;
         this.time = time;
-        this.aircraft = aircraft;
-        this.price = price;
+        this.aircraftID = aircraftID;
+        this.basePrice = basePrice;
     }
 }
 
