@@ -4,7 +4,6 @@ import com.ensf614.springflight.model.User;
 import com.ensf614.springflight.repository.UserRepository;
 import com.ensf614.springflight.service.EmailService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 
@@ -49,9 +48,4 @@ public class NewsletterSender implements NewsletterSubject {
         notifySubscribers(newsletterContent);
     }
 
-    @Scheduled(cron = "0 0 0 1 * ?")
-    public void sendMonthlyNewsletter() {
-        String newsletterContent = "This is a sample monthly newsletter content.";
-        sendNewsletter(newsletterContent);
-    }
 }
