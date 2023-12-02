@@ -6,7 +6,6 @@ import {Flight} from "../../Flights/components/Flight";
 export const ViewFlights = () => {
 
     const [date, setDate] = useState('');
-    const [triggerSearch, setTriggerSearch] = useState(false);
     const [flights, setFlights] = useState<FlightView[]>([]);
     const [isLoading, setIsLoading] = useState(false);
     const [httpError, setHttpError] = useState(null);
