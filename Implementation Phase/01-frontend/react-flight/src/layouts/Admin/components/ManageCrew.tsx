@@ -2,7 +2,6 @@ import React, {useEffect, useState} from "react";
 import {SpinnerLoading} from "../../Utils/SpinnerLoading";
 import CrewView from "../../../models/CrewView";
 import {CrewMember} from "./cards/CrewMember";
-import FlightView from "../../../models/FlightView";
 import crewView from "../../../models/CrewView";
 
 export const ManageCrew = () => {
