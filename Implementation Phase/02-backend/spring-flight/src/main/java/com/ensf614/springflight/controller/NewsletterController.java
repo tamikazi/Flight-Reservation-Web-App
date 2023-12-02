@@ -29,7 +29,7 @@ public class NewsletterController {
         return "Newsletter sent successfully!";
     }
 
-    @Scheduled(cron = "0 0 0 1 * ?") // First dat of the month at midnight
+    @Scheduled(cron = "0 0 0 1 * ?") // First day of the month at midnight
     public void sendMonthlyNewsletter() {
         String newsletterContent = "This is a sample monthly newsletter content.";
         newsletterSender.sendNewsletter(newsletterContent);

@@ -3,6 +3,7 @@ package com.ensf614.springflight.newsletter;
 import com.ensf614.springflight.model.User;
 import com.ensf614.springflight.repository.UserRepository;
 import com.ensf614.springflight.service.EmailService;
+import lombok.Getter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,6 +19,7 @@ public class NewsletterSender implements NewsletterSubject {
     @Autowired
     private UserRepository userRepository;
 
+    @Getter
     @Autowired
     private EmailService emailService;
 
@@ -30,6 +32,14 @@ public class NewsletterSender implements NewsletterSubject {
     @Override
     public void attach(NewsletterObserver subscriber) {
         subscribers.add(subscriber);
+        if (subscriber instanceof NewsletterSubscriber) {
+            String userEmail = ((NewsletterSubscriber) subscriber).getUserEmail();
+            // Fetch and attach the new user to the subscriber list
+            User user = userRepository.findByUsername(userEmail);
+            if (user != null) {
+                attachNewUser(user);
+            }
+        }
     }
 
     @Override
@@ -46,6 +56,10 @@ public class NewsletterSender implements NewsletterSubject {
 
     public void sendNewsletter(String newsletterContent) {
         notifySubscribers(newsletterContent);
+    }
+
+    public void attachNewUser(User user) {
+        attach(new NewsletterSubscriber(emailService, user.getUsername()));
     }
 
 }
