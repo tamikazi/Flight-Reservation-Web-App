@@ -41,12 +41,18 @@ export const Navbar: React.FC<{ setUser: any }> = (props) => {
                         <li className='nav-item'>
                             <NavLink className='nav-link' to='/cancel'>Cancel Ticket</NavLink>
                         </li>
+
                     </ul>
                     <ul className='navbar-nav ms-auto'>
                         {currentUser.role === Roles.Guest ?
-                            <li className='nav-item m-1'>
-                                <NavLink type='button' className='btn btn-outline-light' to='/login'>Sign in</NavLink>
-                            </li>
+                            <>
+                                <li className='nav-item'>
+                                    <NavLink className='nav-link' to='/signup'>Sign Up</NavLink>
+                                </li>
+                                <li className='nav-item m-1'>
+                                    <NavLink type='button' className='btn btn-outline-light' to='/login'>Sign in</NavLink>
+                                </li>
+                            </>
                             :
                             <>
                                 <li className='nav-item m-1'>
