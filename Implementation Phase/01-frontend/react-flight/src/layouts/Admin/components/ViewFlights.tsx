@@ -24,14 +24,14 @@ export const ViewFlights = () => {
 
         for (const key in responseData) {
             loadedFlights.push({
-                flightId: responseData[key].flightID,
+                flightID: responseData[key].flightID,
                 code: responseData[key].code,
                 origin: responseData[key].origin,
                 destination: responseData[key].destination,
                 date: responseData[key].date,
                 time: responseData[key].time,
-                aircraft: responseData[key].aircraftID,
-                price: Number(responseData[key].basePrice)
+                aircraftID: responseData[key].aircraftID,
+                basePrice: Number(responseData[key].basePrice)
             });
         }
 
@@ -79,7 +79,7 @@ export const ViewFlights = () => {
                                 </div>
                                 <div className='list-group'>
                                     {flights.map(flight => (
-                                        <Flight flight={flight} onClick={() => {}} key={flight.flightId}/>
+                                        <Flight flight={flight} onClick={() => {}} key={flight.flightID}/>
                                     ))}
                                 </div>
                             </>

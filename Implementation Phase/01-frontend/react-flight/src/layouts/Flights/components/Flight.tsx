@@ -19,7 +19,7 @@ export const Flight: React.FC<{
                     <p className='mb-0 opacity-75'>Time: {props.flight.time}</p>
                 </div>
                 <div className='mx-3'>
-                    <p className='mb-0 opacity-75'>Base Price: ${props.flight.price.toFixed(2)}</p>
+                    <p className='mb-0 opacity-75'>Base Price: ${props.flight.basePrice.toFixed(2)}</p>
                 </div>
             </div>
         </button>

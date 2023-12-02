@@ -35,14 +35,14 @@ export const FlightsPage: React.FC<{
 
             for (const key in responseData) {
                 loadedFlights.push({
-                    flightId: responseData[key].flightID,
+                    flightID: responseData[key].flightID,
                     code: responseData[key].code,
                     origin: responseData[key].origin,
                     destination: responseData[key].destination,
                     date: responseData[key].date,
                     time: responseData[key].time,
-                    aircraft: responseData[key].aircraftID,
-                    price: Number(responseData[key].basePrice)
+                    aircraftID: responseData[key].aircraftID,
+                    basePrice: Number(responseData[key].basePrice)
                 });
             }
 
@@ -83,7 +83,7 @@ export const FlightsPage: React.FC<{
                     </div>
                     <div className='list-group'>
                         {flights.map((flight, index) => (
-                            <Flight flight={flight} onClick={() => clickHandle(flight.flightId)} key={index}/>
+                            <Flight flight={flight} onClick={() => clickHandle(flight.flightID)} key={index}/>
                         ))}
                     </div>
                 </>
