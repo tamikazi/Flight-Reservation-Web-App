@@ -3,7 +3,6 @@ import {useState} from "react";
 export const CancelTicketPage = () => {
     const [ticketId, setTicketId] = useState('');
     const [name, setName] = useState('');
-    const [error, setError] = useState(false);
 
     // Alerts
     const [displayFieldsWarning, setDisplayFieldsWarning] = useState(false);
