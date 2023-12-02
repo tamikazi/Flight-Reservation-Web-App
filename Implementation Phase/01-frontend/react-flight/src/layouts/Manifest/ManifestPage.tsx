@@ -11,7 +11,6 @@ export const ManifestPage = () => {
     const [code, setCode] = useState('');
     const [date, setDate] = useState('');
     const [isLoading, setIsLoading] = useState(false);
-    const [httpError, setHttpError] = useState(null);
 
     // Alerts
     const [displayFieldsWarning, setDisplayFieldsWarning] = useState(false);
