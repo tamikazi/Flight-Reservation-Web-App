@@ -34,6 +34,7 @@ public class UserService {
         userView.setCard(user.isCard());
 
 
+
         return userView;
     }
 
@@ -52,6 +53,8 @@ public class UserService {
         user.setCard(registerView.isCard());
         user.setRoleID(4);
         userRepository.save(user);
+
+        newsletterSender.attachNewUser(user);
 
         return user;
     }

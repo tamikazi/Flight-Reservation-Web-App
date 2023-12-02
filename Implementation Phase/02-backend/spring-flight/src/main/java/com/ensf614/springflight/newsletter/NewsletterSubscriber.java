@@ -1,6 +1,7 @@
 package com.ensf614.springflight.newsletter;
 
 import com.ensf614.springflight.service.EmailService;
+import com.ensf614.springflight.model.User;
 import lombok.Getter;
 
 public class NewsletterSubscriber implements NewsletterObserver {
@@ -9,9 +10,9 @@ public class NewsletterSubscriber implements NewsletterObserver {
     @Getter
     private final String userEmail;
 
-    public NewsletterSubscriber(EmailService emailService, String userEmail) {
+    public NewsletterSubscriber(EmailService emailService, User user) {
         this.emailService = emailService;
-        this.userEmail = userEmail;
+        this.userEmail = user.getUsername();
     }
 
     @Override
