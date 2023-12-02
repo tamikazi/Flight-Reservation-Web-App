@@ -1,65 +1,192 @@
-import {useEffect, useState} from "react";
+import React, {useEffect, useState} from "react";
 import {SpinnerLoading} from "../../Utils/SpinnerLoading";
 import CrewView from "../../../models/CrewView";
 import {CrewMember} from "./cards/CrewMember";
+import FlightView from "../../../models/FlightView";
+import crewView from "../../../models/CrewView";
 
 export const ManageCrew = () => {
 
-    const [crew, setCrew] = useState<CrewView[]>([]);
+    const [allCrew, setAllCrew] = useState<CrewView[]>([]);
+    const [flightCrew, setFlightCrew] = useState<CrewView[]>([]);
+    const [searchCode, setSearchCode] = useState('');
+    const [code, setCode] = useState('');
+    const [selectedAvailableCrew, setSelectedAvailableCrew] = useState<crewView|null>(null);
+    const [selectedFlightCrew, setSelectedFlightCrew] = useState<crewView|null>(null);
+    const [flightId, setFlightId] = useState(0);
+    const [crewUpdate, setCrewUpdate] = useState(false);
+
     const [isLoading, setIsLoading] = useState(true);
     const [httpError, setHttpError] = useState(null);
-    const [searchUrl, setSearchUrl] = useState('');
+
+    const [displayWarning, setDisplayWarning] = useState(false);
+    const [displayFailure, setDisplayFailure] = useState(false);
+    const [displaySelectWarning, setDisplaySelectWarning] = useState(false);
 
     useEffect(() => {
-        const fetchCrew = async () => {
-            // const baseUrl: string = "http://localhost:8080/api/flights";
-            //
-            // let url: string;
-            //
-            // if (searchUrl === '') {
-            //     url = `${baseUrl}`;
-            // } else {
-            //     url = `${baseUrl}${searchUrl}`;
-            // }
-            //
-            // const response = await fetch(url);
-            //
-            // if (!response.ok) {
-            //     throw new Error('Something went wrong!');
-            // }
-            //
-            // const responseData = await response.json();
-            //
-            // const loadedFlights: FlightView[] = [];
-            //
-            // for (const key in responseData) {
-            //     loadedFlights.push({
-            //         flightId: responseData[key].flightId,
-            //         code: responseData[key].code,
-            //         origin: responseData[key].origin,
-            //         destination: responseData[key].destination,
-            //         date: responseData[key].date,
-            //         aircraft: responseData[key].aircraft
-            //     });
-            // }
+        const fetchAllCrew = async () => {
 
-            // Generate random names
+            const url: string = "http://localhost:8080/api/admin/crewflights/all";
+
+            const response = await fetch(url);
+
+            if (!response.ok) {
+                throw new Error('Something went wrong!');
+            }
+
+            const responseData = await response.json();
+
             const loadedCrew: CrewView[] = [];
-            loadedCrew.push({name:'Ann Smith'});
-            loadedCrew.push({name:'Bob Wong'});
-            loadedCrew.push({name:'Charlie Puck'});
-            loadedCrew.push({name:'Danny Bob'});
-            loadedCrew.push({name:'Erica Stevens'});
 
+            for (const key in responseData) {
+                loadedCrew.push({
+                    userID: responseData[key].userID,
+                    flightID: responseData[key].flightID,
+                    name: responseData[key].name,
+                });
+            }
 
-            setCrew(loadedCrew);
+            setAllCrew(loadedCrew);
             setIsLoading(false);
         };
-        fetchCrew().catch((error: any) => {
+        fetchAllCrew().catch((error: any) => {
             setIsLoading(false);
             setHttpError(error.message);
         })
-    }, [searchUrl]);
+    }, [crewUpdate]);
+
+    const fetchCrew = async () => {
+        // Clear list of crew
+        setFlightCrew([]);
+
+        const url: string = `http://localhost:8080/api/admin/crewflights/code/${searchCode}`;
+
+        const response = await fetch(url);
+
+        if (!response.ok) {
+            setDisplayFailure(true);
+            return;
+        }
+
+        const responseData = await response.json();
+
+        if (!responseData) {
+            setDisplayFailure(true);
+            return;
+        }
+
+        const loadedCrew: CrewView[] = [];
+
+        for (const key in responseData) {
+            loadedCrew.push({
+                userID: responseData[key].userID,
+                flightID: responseData[key].flightID,
+                name: responseData[key].name,
+            });
+        }
+
+        // Get flight id if query was successful
+        if(loadedCrew.length > 0) {
+            setFlightId(loadedCrew[0].flightID)
+        }
+
+        setFlightCrew(loadedCrew);
+
+    };
+
+    const assignCrew = async () => {
+        const url: string = `http://localhost:8080/api/admin/crewflights/`;
+
+        const response = await fetch(url);
+
+        if (!response.ok) {
+            setDisplayFailure(true);
+            return;
+        }
+
+        const responseData = await response.json();
+
+        if (!responseData) {
+            setDisplayFailure(true);
+            return;
+        }
+
+        setSelectedFlightCrew(null);
+        setSelectedAvailableCrew(null);
+
+        // Trigger crew lists update
+        fetchCrew();
+        setCrewUpdate(!crewUpdate);
+    };
+
+    const removeCrew = async () => {
+        const url: string = `http://localhost:8080/api/admin/crewflights/`;
+
+        const response = await fetch(url);
+
+        if (!response.ok) {
+            setDisplayFailure(true);
+            return;
+        }
+
+        const responseData = await response.json();
+
+        if (!responseData) {
+            setDisplayFailure(true);
+            return;
+        }
+
+        setSelectedFlightCrew(null);
+        setSelectedAvailableCrew(null);
+
+        // Trigger crew lists update
+        fetchCrew();
+        setCrewUpdate(!crewUpdate);
+    };
+
+    const searchHandle = () => {
+        setDisplayFailure(false);
+        setDisplayWarning(false);
+        setDisplaySelectWarning(false);
+
+        // Check code field has entry
+        if(searchCode !== '') {
+            fetchCrew();
+
+            // Code to show above crew list
+            setCode(searchCode);
+        } else {
+            setDisplayWarning(true);
+        }
+    }
+
+    const addHandle = () => {
+        setDisplayFailure(false);
+        setDisplayWarning(false);
+        setDisplaySelectWarning(false);
+
+        // Check if crew selected
+        if(selectedAvailableCrew) {
+
+        } else {
+            setDisplaySelectWarning(true);
+        }
+
+    }
+
+    const removeHandle = () => {
+        setDisplayFailure(false);
+        setDisplayWarning(false);
+        setDisplaySelectWarning(false);
+
+        // Check if crew selected
+        if(selectedFlightCrew) {
+
+        } else {
+            setDisplaySelectWarning(true);
+        }
+
+    }
 
     if (isLoading) {
         return (
@@ -82,46 +209,86 @@ export const ManageCrew = () => {
                     Manage crew
                 </div>
                 <div className='card-body'>
-                    <div className='row mt-5 mb-5'>
+                    <div className='row mb-3'>
                         <div className='col-6'>
                             <div className='d-flex'>
-                                <input type='text' className='form-control me-2' id='code' placeholder='Flight code'/>
-                                <button className='btn btn-primary'
-                                        onClick={() => {}}>
+                                <input type='text' className='form-control me-2' id='code' placeholder='Flight code'
+                                       onChange={e => setSearchCode(e.target.value)}/>
+                                <button className='btn btn-primary' onClick={searchHandle}>
                                     Search
                                 </button>
                             </div>
                         </div>
                         <div className='col-6'>
                             <div className='d-flex'>
-                                <input type='text' className='form-control me-2' id='name' placeholder='Crew name'/>
-                                <button className='btn btn-primary'
-                                        onClick={() => {}}>
-                                    Add
+                                <button className='btn btn-primary flex-fill mx-5' onClick={addHandle}>
+                                    Assign
+                                </button>
+                                <button className='btn btn-primary flex-fill mx-5' onClick={removeHandle}>
+                                    Remove
                                 </button>
                             </div>
                         </div>
                     </div>
-                    <div>
-                        {crew.length > 0 ?
-                            <>
-                                <div className='list-group'>
-                                    {crew.map((person, index) => (
-                                        <CrewMember crewMember={person} key={index}/>
-                                    ))}
-                                </div>
-                            </>
-                            :
-                            <>
-                                <div className='m-5'>
-                                    <h5>No crew assigned</h5>
-                                </div>
-                            </>
-                        }
-                        <button className='btn btn-primary mt-3' onClick={() => {}}>
-                            Delete
-                        </button>
+                    <div className='row mb-3'>
+                        <div className='col-6'>
+                            <div className='mt-3 mb-3'>
+                                <h5>Crew on flight: {code}</h5>
+                            </div>
+                            {flightCrew.length > 0 ?
+                                <>
+                                    <div className='list-group'>
+                                        {allCrew.map((person, index) => (
+                                            <CrewMember crewMember={person} key={index}
+                                                        onClick={() => setSelectedFlightCrew(person)}/>
+                                        ))}
+                                    </div>
+                                </>
+                                :
+                                <>
+                                    <div className='m-5'>
+                                        <h5>No crew assigned</h5>
+                                    </div>
+                                </>
+                            }
+                        </div>
+                        <div className='col-6'>
+                            <div className='mt-3 mb-3'>
+                                <h5>All available crew</h5>
+                            </div>
+                            {allCrew.length > 0 ?
+                                <>
+                                    <div className='list-group'>
+                                        {allCrew.map((person, index) => (
+                                            <CrewMember crewMember={person} key={index}
+                                                        onClick={() => setSelectedAvailableCrew(person)}/>
+                                        ))}
+                                    </div>
+                                </>
+                                :
+                                <>
+                                    <div className='m-5'>
+                                        <h5>No crew available</h5>
+                                    </div>
+                                </>
+                            }
+                        </div>
                     </div>
+                    {displayWarning &&
+                        <div className='alert alert-danger' role='alert'>
+                            Flight code must be entered
+                        </div>
+                    }
+                    {displayFailure &&
+                        <div className='alert alert-danger' role='alert'>
+                            No flight with that code found
+                        </div>
+                    }
+                    {displaySelectWarning &&
+                        <div className='alert alert-danger' role='alert'>
+                            No crew selected
+                        </div>
+                    }
                 </div>
             </div>
         </div>
