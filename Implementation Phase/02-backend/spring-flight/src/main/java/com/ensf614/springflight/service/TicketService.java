@@ -106,6 +106,7 @@ public class TicketService {
         newTicket.setUserID(ticketView.getUserID());
         newTicket.setSeatID(ticketView.getSeatID());
         newTicket.setName(ticketView.getName());
+        newTicket.setEmail(ticketView.getEmail());
         newTicket.setCost(ticketView.getPrice());
         newTicket.setInsurance(ticketView.isInsurance());
         ticketRepository.save(newTicket);

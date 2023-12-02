@@ -30,6 +30,9 @@ public class Ticket {
     @Column(name = "name")
     private String name;
 
+    @Column(name = "email")
+    private String email;
+
     @Column(name = "cost")
     private float cost;
 

@@ -8,6 +8,7 @@ public class TicketView {
     private int userID;
     private int seatID;
     private String name;
+    private String email;
     private float price;
     private boolean insurance;
 }

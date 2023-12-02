@@ -18,9 +18,6 @@ public class Payment {
     @Column(name = "userID")
     private int userID;
 
-    @Column(name = "email")
-    private String email;
-
     @Column(name = "payDate")
     private String payDate;
 
