@@ -17,7 +17,7 @@ public class NewsletterSubscriber implements NewsletterObserver {
 
     @Override
     public void update(String newsletterContent) {
-        emailService.sendNewsletterEmail(userEmail, newsletterContent);
+        emailService.newsletterEmail(userEmail, newsletterContent);
     }
 
 }

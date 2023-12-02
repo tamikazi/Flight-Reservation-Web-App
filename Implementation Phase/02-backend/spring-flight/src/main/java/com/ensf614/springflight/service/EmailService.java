@@ -24,6 +24,7 @@ public class EmailService {
     private EmailTicket emailTicket;
     private EmailCancel emailCancel;
 
+
     public EmailService(JavaMailSender emailSender, UserRepository userRepository, TicketRepository ticketRepository,
                         SeatRepository seatRepository, FlightRepository flightRepository, EmailTicket emailTicket,
                         EmailCancel emailCancel) {
@@ -60,7 +61,7 @@ public class EmailService {
 
     }
 
-    public void sendNewsletterEmail(String userEmail, String newsletterContent) {
+    public void newsletterEmail(String userEmail, String newsletterContent) {
         SimpleMailMessage message = new SimpleMailMessage();
         message.setTo(userEmail);
         message.setSubject("Monthly Newsletter");
