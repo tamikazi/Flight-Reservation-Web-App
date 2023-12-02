@@ -1,16 +1,17 @@
 package com.ensf614.springflight.service;
 
 import com.ensf614.springflight.viewmodels.RegisterView;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.ensf614.springflight.model.User;
 import com.ensf614.springflight.viewmodels.UserView;
 import com.ensf614.springflight.repository.UserRepository;
 
-
 @Service
 public class UserService {
     private UserRepository userRepository;
 
+    @Autowired
     public UserService(UserRepository userRepository) {
         this.userRepository = userRepository;
     }

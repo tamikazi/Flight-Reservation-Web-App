@@ -20,7 +20,7 @@ public class NewsletterController {
     @PostMapping("/send")
     public String sendNewsletter() {
         // Retrieve newsletter content from a service or another source
-        String newsletterContent = "This is a sample newsletter content. Customize it as needed.";
+        String newsletterContent = "This is a sample newsletter content.";
 
         // Send the newsletter
         newsletterSender.sendNewsletter(newsletterContent);
