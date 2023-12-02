@@ -8,11 +8,10 @@ export const ManageCrew = () => {
 
     const [allCrew, setAllCrew] = useState<CrewView[]>([]);
     const [flightCrew, setFlightCrew] = useState<CrewView[]>([]);
-    const [searchCode, setSearchCode] = useState('');
-    const [code, setCode] = useState('');
+    const [searchId, setSearchId] = useState('');
+    const [flightId, setFlightId] = useState('');
     const [selectedAvailableCrew, setSelectedAvailableCrew] = useState<crewView|null>(null);
     const [selectedFlightCrew, setSelectedFlightCrew] = useState<crewView|null>(null);
-    const [flightId, setFlightId] = useState(0);
     const [crewUpdate, setCrewUpdate] = useState(false);
 
     const [isLoading, setIsLoading] = useState(true);
@@ -59,10 +58,8 @@ export const ManageCrew = () => {
     }, [crewUpdate]);
 
     const fetchCrew = async () => {
-        // Clear list of crew
-        setFlightCrew([]);
 
-        const url: string = `http://localhost:8080/api/admin/crewflights/code/${searchCode}`;
+        const url: string = `http://localhost:8080/api/admin/crewflights/flight/${searchId}`;
 
         const response = await fetch(url);
 
@@ -88,11 +85,6 @@ export const ManageCrew = () => {
             });
         }
 
-        // Get flight id if query was successful
-        if(loadedCrew.length > 0) {
-            setFlightId(loadedCrew[0].flightID)
-        }
-
         setFlightCrew(loadedCrew);
 
     };
@@ -103,7 +95,7 @@ export const ManageCrew = () => {
 
             const assignedCrew = new CrewView(
                 selectedAvailableCrew.userID,
-                flightId,
+                Number(flightId),
                 selectedAvailableCrew.name);
 
             const requestOptions = {
@@ -133,18 +125,19 @@ export const ManageCrew = () => {
     const removeCrew = async () => {
         if(selectedFlightCrew) {
             const url: string = `http://localhost:8080/api/admin/crewflights/delete/
-            ${selectedFlightCrew.userID}/${selectedFlightCrew.flightID}`;
+            ${selectedFlightCrew.userID}/${flightId}`;
 
-            const response = await fetch(url);
+            const requestOptions = {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            };
 
-            if (!response.ok) {
-                setDisplayFailure(true);
-                return;
-            }
+            const updateResponse = await fetch(url, requestOptions);
 
-            const responseData = await response.json();
 
-            if (!responseData) {
+            if (!updateResponse.ok) {
                 setDisplayFailure(true);
                 return;
             } else {
@@ -164,11 +157,11 @@ export const ManageCrew = () => {
         setDisplaySelectWarning(false);
 
         // Check code field has entry
-        if(searchCode !== '') {
+        if(searchId !== '') {
             fetchCrew();
 
             // Code to show above crew list
-            setCode(searchCode);
+            setFlightId(searchId);
         } else {
             setDisplayWarning(true);
         }
@@ -226,8 +219,8 @@ export const ManageCrew = () => {
                     <div className='row mb-3'>
                         <div className='col-6'>
                             <div className='d-flex'>
-                                <input type='text' className='form-control me-2' id='code' placeholder='Flight code'
-                                       onChange={e => setSearchCode(e.target.value)}/>
+                                <input type='text' className='form-control me-2' id='code' placeholder='Flight ID'
+                                       onChange={e => setSearchId(e.target.value)}/>
                                 <button className='btn btn-primary' onClick={searchHandle}>
                                     Search
                                 </button>
@@ -247,12 +240,12 @@ export const ManageCrew = () => {
                     <div className='row mb-3'>
                         <div className='col-6'>
                             <div className='mt-3 mb-3'>
-                                <h5>Crew on flight: {code}</h5>
+                                <h5>Crew on flight: {flightId}</h5>
                             </div>
                             {flightCrew.length > 0 ?
                                 <>
                                     <div className='list-group'>
-                                        {allCrew.map((person, index) => (
+                                        {flightCrew.map((person, index) => (
                                             <CrewMember crewMember={person} key={index}
                                                         onClick={() => setSelectedFlightCrew(person)}/>
                                         ))}
@@ -295,7 +288,7 @@ export const ManageCrew = () => {
                     }
                     {displayFailure &&
                         <div className='alert alert-danger' role='alert'>
-                            No flight with that code found
+                            Error with server
                         </div>
                     }
                     {displaySelectWarning &&
