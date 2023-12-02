@@ -1,4 +1,4 @@
-class CrewModel {
+class CrewView {
     name: string;
 
 
@@ -6,4 +6,4 @@ class CrewModel {
         this.name = name;
     }
 }
-export default CrewModel;
+export default CrewView;

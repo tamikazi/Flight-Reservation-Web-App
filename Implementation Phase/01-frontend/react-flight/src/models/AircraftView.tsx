@@ -1,4 +1,4 @@
-class AircraftModel {
+class AircraftView {
     aircraftID: number;
     model: string;
     numCols: number;
@@ -12,4 +12,4 @@ class AircraftModel {
     }
 }
 
-export default AircraftModel;
+export default AircraftView;

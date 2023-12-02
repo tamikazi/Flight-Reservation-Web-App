@@ -1,4 +1,4 @@
-class SeatMapModel {
+class SeatView {
     seatId: number;
     seatNumber: string;
     seatClass: string;
@@ -14,4 +14,4 @@ class SeatMapModel {
     }
 }
 
-export default SeatMapModel;
+export default SeatView;

@@ -1,4 +1,4 @@
-class TicketModel {
+class TicketView {
     ticketId: number;
     seatID: number;
     flightID: number;
@@ -19,4 +19,4 @@ class TicketModel {
     }
 }
 
-export default TicketModel;
+export default TicketView;

@@ -1,4 +1,4 @@
-class PaymentModel {
+class PaymentView {
     paymentID?: number;
     userID: number;
     payDate: string;
@@ -11,4 +11,4 @@ class PaymentModel {
     }
 }
 
-export default PaymentModel;
+export default PaymentView;

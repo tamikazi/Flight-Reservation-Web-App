@@ -1,4 +1,4 @@
-class PassengerModel {
+class PassengerView {
     name: string;
     seat: string;
 
@@ -8,4 +8,4 @@ class PassengerModel {
     }
 }
 
-export default PassengerModel;
+export default PassengerView;

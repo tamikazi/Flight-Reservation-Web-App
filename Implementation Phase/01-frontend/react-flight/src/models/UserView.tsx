@@ -1,4 +1,4 @@
-class UserModel {
+class UserView {
     userID: number;
     username: string;
     password: string;
@@ -18,4 +18,4 @@ class UserModel {
     }
 }
 
-export default UserModel;
+export default UserView;

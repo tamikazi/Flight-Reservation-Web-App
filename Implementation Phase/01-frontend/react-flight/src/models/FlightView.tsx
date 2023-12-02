@@ -1,4 +1,4 @@
-class FlightModel {
+class FlightView {
     flightId: string;
     code: string;
     origin: string;
@@ -21,4 +21,4 @@ class FlightModel {
     }
 }
 
-export default FlightModel;
+export default FlightView;
