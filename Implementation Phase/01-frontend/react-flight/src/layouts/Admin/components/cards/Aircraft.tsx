@@ -1,7 +1,7 @@
-import AircraftModel from "../../../../models/AircraftModel";
+import AircraftView from "../../../../models/AircraftView";
 import React from "react";
 
-export const Aircraft: React.FC<{ aircraft: AircraftModel }> = (props) => {
+export const Aircraft: React.FC<{ aircraft: AircraftView }> = (props) => {
     return (
         <button className='list-group-item list-group-item-action d-flex gap-5 py-3'>
             <h4>{props.aircraft.model}</h4>

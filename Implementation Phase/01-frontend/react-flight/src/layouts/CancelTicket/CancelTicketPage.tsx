@@ -1,5 +1,4 @@
 import {useState} from "react";
-import BookingModel from "../../models/BookingModel";
 
 export const CancelTicketPage = () => {
     const [ticketId, setTicketId] = useState('');

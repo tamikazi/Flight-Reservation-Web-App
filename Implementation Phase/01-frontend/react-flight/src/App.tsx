@@ -11,7 +11,7 @@ import {LoginPage} from "./layouts/Login/LoginPage";
 import {SearchPage} from "./layouts/SearchFlights/SearchPage";
 import CheckoutSeatModel from "./models/CheckoutSeatModel";
 import {NamesPage} from "./layouts/Names/NamesPage";
-import CurrentUserContext, {CurrentUserContextType, defaultUser, Roles} from "./contexts/CurrentUserContext";
+import CurrentUserContext, {CurrentUserContextType, defaultUser} from "./contexts/CurrentUserContext";
 import {ManageBookingPage} from "./layouts/Bookings/ManageBookingPage";
 import {PaymentHistoryPage} from "./layouts/PaymentHistory/PaymentHistoryPage";
 import {ConfirmationPage} from "./layouts/PaymentConfirmation/ConfirmationPage";

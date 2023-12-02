@@ -1,15 +1,13 @@
-import CurrentUserContext, {Roles} from "../../contexts/CurrentUserContext";
-import {Passenger} from "../Manifest/components/Passenger";
+import CurrentUserContext from "../../contexts/CurrentUserContext";
 import {useContext, useEffect, useState} from "react";
-import BookingModel from "../../models/BookingModel";
 import {SpinnerLoading} from "../Utils/SpinnerLoading";
-import PaymentModel from "../../models/PaymentModel";
+import PaymentView from "../../models/PaymentView";
 import {Receipt} from "./components/Receipt";
 
 export const PaymentHistoryPage = () => {
     const currentUser = useContext(CurrentUserContext);
 
-    const [receipts, setReceipts] = useState<PaymentModel[]>([])
+    const [receipts, setReceipts] = useState<PaymentView[]>([])
     const [isLoading, setIsLoading] = useState(true);
     const [httpError, setHttpError] = useState(null);
 
@@ -25,7 +23,7 @@ export const PaymentHistoryPage = () => {
 
             const responseData = await response.json();
 
-            const loadedReceipts: PaymentModel[] = [];
+            const loadedReceipts: PaymentView[] = [];
 
             for (const key in responseData) {
                 loadedReceipts.push({

@@ -1,9 +1,5 @@
-import {useEffect, useState} from "react";
-import FlightModel from "../../models/FlightModel";
-import {SpinnerLoading} from "../Utils/SpinnerLoading";
-import {Flight} from "../Flights/components/Flight";
-import SearchModel from "../../models/SearchModel";
-import {Link, useHistory} from "react-router-dom";
+import {useState} from "react";
+import {useHistory} from "react-router-dom";
 
 export const SearchPage: React.FC<{
     setOrigin: any,

@@ -1,6 +1,5 @@
-import FlightModel from "../../models/FlightModel";
-import React, {ChangeEvent, useEffect, useState} from "react";
-import SeatMapModel from "../../models/SeatMapModel";
+import React, {useEffect, useState} from "react";
+import SeatView from "../../models/SeatView";
 import {Seat} from "./components/Seat";
 import {Link, useHistory} from "react-router-dom";
 import {SpinnerLoading} from "../Utils/SpinnerLoading";
@@ -15,7 +14,7 @@ export const SeatPage: React.FC<{
 }> = (props) => {
     const history = useHistory();
 
-    const [seats, setSeats] = useState<SeatMapModel[]>([]);
+    const [seats, setSeats] = useState<SeatView[]>([]);
     const [selectedSeats, setSelectedSeats] = useState<checkoutSeatModel[]>([]);
     const [cost, setCost] = useState(0);
     const [isLoading, setIsLoading] = useState(true);
@@ -45,7 +44,7 @@ export const SeatPage: React.FC<{
 
             const responseData = await response.json();
 
-            const loadedSeats: SeatMapModel[] = [];
+            const loadedSeats: SeatView[] = [];
 
             for (const key in responseData) {
                 loadedSeats.push({
@@ -108,7 +107,7 @@ export const SeatPage: React.FC<{
     }
 
     // When seat is selected, adds the seat to local selection array and updates cost, removes if already there
-    const seatHandleChange = (seat: SeatMapModel) => {
+    const seatHandleChange = (seat: SeatView) => {
         const seatList = selectedSeats;
 
         // Check if already in list

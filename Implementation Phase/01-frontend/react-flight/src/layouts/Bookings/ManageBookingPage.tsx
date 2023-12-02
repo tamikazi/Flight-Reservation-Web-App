@@ -1,17 +1,14 @@
 import {useContext, useEffect, useState} from "react";
-import CurrentUserContext, {Roles} from "../../contexts/CurrentUserContext";
-import PassengerModel from "../../models/PassengerModel";
+import CurrentUserContext from "../../contexts/CurrentUserContext";
 import {SpinnerLoading} from "../Utils/SpinnerLoading";
-import BookingModel from "../../models/BookingModel";
-import {Passenger} from "../Manifest/components/Passenger";
+import BookingView from "../../models/BookingView";
 import {Booking} from "./components/Booking";
-import bookingModel from "../../models/BookingModel";
 
 export const ManageBookingPage = () => {
     const currentUser = useContext(CurrentUserContext);
 
-    const [bookings, setBookings] = useState<BookingModel[]>([]);
-    const [selectedBooking, setSelectedBooking] = useState<BookingModel|null>(null);
+    const [bookings, setBookings] = useState<BookingView[]>([]);
+    const [selectedBooking, setSelectedBooking] = useState<BookingView|null>(null);
     const [isLoading, setIsLoading] = useState(true);
     const [httpError, setHttpError] = useState(null);
 
@@ -30,7 +27,7 @@ export const ManageBookingPage = () => {
 
             const responseData = await response.json();
 
-            const loadedBookings: BookingModel[] = [];
+            const loadedBookings: BookingView[] = [];
 
             for (const key in responseData) {
                 loadedBookings.push({

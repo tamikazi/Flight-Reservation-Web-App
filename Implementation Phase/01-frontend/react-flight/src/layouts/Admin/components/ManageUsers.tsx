@@ -1,13 +1,11 @@
 import {useEffect, useState} from "react";
-import CrewModel from "../../../models/CrewModel";
 import {SpinnerLoading} from "../../Utils/SpinnerLoading";
-import UserModel from "../../../models/UserModel";
-import {CrewMember} from "./cards/CrewMember";
+import UserView from "../../../models/UserView";
 import {User} from "./cards/User";
 
 export const ManageUsers = () => {
 
-    const [users, setUsers] = useState<UserModel[]>([]);
+    const [users, setUsers] = useState<UserView[]>([]);
     const [isLoading, setIsLoading] = useState(true);
     const [httpError, setHttpError] = useState(null);
 
@@ -23,7 +21,7 @@ export const ManageUsers = () => {
             //
             // const responseData = await response.json();
 
-            const loadedUsers: UserModel[] = [];
+            const loadedUsers: UserView[] = [];
 
             // for (const key in responseData) {
             //     loadedUsers.push({

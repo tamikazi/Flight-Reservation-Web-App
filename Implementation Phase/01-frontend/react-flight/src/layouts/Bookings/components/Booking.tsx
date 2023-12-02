@@ -1,8 +1,8 @@
-import BookingModel from "../../../models/BookingModel";
+import BookingView from "../../../models/BookingView";
 import React from "react";
 
 export const Booking: React.FC<{
-    booking: BookingModel,
+    booking: BookingView,
     select: any
 }> = (props) => {
     return(

@@ -1,14 +1,11 @@
-import {Passenger} from "../../Manifest/components/Passenger";
 import {useEffect, useState} from "react";
 import {SpinnerLoading} from "../../Utils/SpinnerLoading";
-import CrewModel from "../../../models/CrewModel";
-import {CrewMember} from "./cards/CrewMember";
-import AircraftModel from "../../../models/AircraftModel";
+import AircraftView from "../../../models/AircraftView";
 import {Aircraft} from "./cards/Aircraft";
 
 export const ManageAircraft = () => {
 
-    const [aircraft, setAircraft] = useState<AircraftModel[]>([]);
+    const [aircraft, setAircraft] = useState<AircraftView[]>([]);
     const [isLoading, setIsLoading] = useState(true);
     const [httpError, setHttpError] = useState(null);
     const [searchUrl, setSearchUrl] = useState('');
@@ -33,7 +30,7 @@ export const ManageAircraft = () => {
             //
             // const responseData = await response.json();
             //
-            // const loadedFlights: FlightModel[] = [];
+            // const loadedFlights: FlightView[] = [];
             //
             // for (const key in responseData) {
             //     loadedFlights.push({
@@ -47,7 +44,7 @@ export const ManageAircraft = () => {
             // }
 
             // Generate random names
-            const loadedAircraft: AircraftModel[] = [];
+            const loadedAircraft: AircraftView[] = [];
             loadedAircraft.push({aircraftID: 0, model: 'B787', numCols: 4, numRows: 8});
             loadedAircraft.push({aircraftID: 1, model: 'A220', numCols: 6, numRows: 20});
 

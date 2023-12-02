@@ -1,6 +1,5 @@
-import {Passenger} from "../../Manifest/components/Passenger";
-import {useEffect, useState} from "react";
-import FlightModel from "../../../models/FlightModel";
+import {useState} from "react";
+import FlightView from "../../../models/FlightView";
 import {SpinnerLoading} from "../../Utils/SpinnerLoading";
 import {Flight} from "../../Flights/components/Flight";
 
@@ -8,7 +7,7 @@ export const ViewFlights = () => {
 
     const [date, setDate] = useState('');
     const [triggerSearch, setTriggerSearch] = useState(false);
-    const [flights, setFlights] = useState<FlightModel[]>([]);
+    const [flights, setFlights] = useState<FlightView[]>([]);
     const [isLoading, setIsLoading] = useState(false);
     const [httpError, setHttpError] = useState(null);
 
@@ -24,7 +23,7 @@ export const ViewFlights = () => {
 
             const responseData = await response.json();
 
-            const loadedFlights: FlightModel[] = [];
+            const loadedFlights: FlightView[] = [];
 
             for (const key in responseData) {
                 loadedFlights.push({
@@ -40,7 +39,7 @@ export const ViewFlights = () => {
             }
 
             // Fake data
-            const mockFlights: FlightModel[] = [];
+            const mockFlights: FlightView[] = [];
             mockFlights.push({
                 flightId: '1',
                 code: 'AB100',

@@ -1,8 +1,7 @@
-import FlightModel from "../../../models/FlightModel";
-import {Link} from "react-router-dom";
+import FlightView from "../../../models/FlightView";
 
 export const Flight: React.FC<{
-    flight: FlightModel,
+    flight: FlightView,
     onClick: any
 }> = (props) => {
     return (

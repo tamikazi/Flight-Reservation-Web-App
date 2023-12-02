@@ -1,8 +1,7 @@
 import {useEffect, useState} from "react";
-import FlightModel from "../../models/FlightModel";
+import FlightView from "../../models/FlightView";
 import {SpinnerLoading} from "../Utils/SpinnerLoading";
 import {Flight} from "./components/Flight";
-import SearchModel from "../../models/SearchModel";
 import {useHistory} from "react-router-dom";
 
 export const FlightsPage: React.FC<{
@@ -13,7 +12,7 @@ export const FlightsPage: React.FC<{
 }> = (props) => {
     const history = useHistory();
 
-    const [flights, setFlights] = useState<FlightModel[]>([]);
+    const [flights, setFlights] = useState<FlightView[]>([]);
     const [isLoading, setIsLoading] = useState(true);
     const [httpError, setHttpError] = useState(null);
 
@@ -32,7 +31,7 @@ export const FlightsPage: React.FC<{
 
             const responseData = await response.json();
 
-            const loadedFlights: FlightModel[] = [];
+            const loadedFlights: FlightView[] = [];
 
             for (const key in responseData) {
                 loadedFlights.push({

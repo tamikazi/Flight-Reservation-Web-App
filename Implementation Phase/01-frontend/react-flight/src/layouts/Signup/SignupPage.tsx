@@ -1,5 +1,4 @@
 import React, {useState} from "react";
-import PaymentRequestView from "../../models/PaymentRequestView";
 import RegisterView from "../../models/RegisterView";
 
 export const SignupPage = () => {

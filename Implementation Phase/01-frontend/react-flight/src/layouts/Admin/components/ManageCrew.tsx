@@ -1,12 +1,11 @@
-import {Passenger} from "../../Manifest/components/Passenger";
 import {useEffect, useState} from "react";
 import {SpinnerLoading} from "../../Utils/SpinnerLoading";
-import CrewModel from "../../../models/CrewModel";
+import CrewView from "../../../models/CrewView";
 import {CrewMember} from "./cards/CrewMember";
 
 export const ManageCrew = () => {
 
-    const [crew, setCrew] = useState<CrewModel[]>([]);
+    const [crew, setCrew] = useState<CrewView[]>([]);
     const [isLoading, setIsLoading] = useState(true);
     const [httpError, setHttpError] = useState(null);
     const [searchUrl, setSearchUrl] = useState('');
@@ -31,7 +30,7 @@ export const ManageCrew = () => {
             //
             // const responseData = await response.json();
             //
-            // const loadedFlights: FlightModel[] = [];
+            // const loadedFlights: FlightView[] = [];
             //
             // for (const key in responseData) {
             //     loadedFlights.push({
@@ -45,7 +44,7 @@ export const ManageCrew = () => {
             // }
 
             // Generate random names
-            const loadedCrew: CrewModel[] = [];
+            const loadedCrew: CrewView[] = [];
             loadedCrew.push({name:'Ann Smith'});
             loadedCrew.push({name:'Bob Wong'});
             loadedCrew.push({name:'Charlie Puck'});
