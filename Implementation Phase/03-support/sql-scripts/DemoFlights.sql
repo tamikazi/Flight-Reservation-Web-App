@@ -69,7 +69,7 @@ CREATE TABLE USER (
 );
 
 INSERT INTO USER (username, password, roleID, card, Fname, Lname, address) VALUES
-('guest@example.com', 'guestpass', 4, FALSE, 'Guest', 'Users', 'tempaddress'),
+('guest@example.com', 'guestpass', 4, FALSE, 'Guest', 'Users', 'address'),
 ('admin@example.com', 'adminpass', 1, FALSE, 'Ava', 'Lane', '123 Fake Street'),
 ('agent@example.com', 'agentpass', 2, TRUE, 'Max', 'Stone', '321 Real Ave'),
 ('crew@example.com', 'crewpass', 3, FALSE, 'Mia', 'Cruz', '222 Some Street'),
@@ -78,7 +78,8 @@ INSERT INTO USER (username, password, roleID, card, Fname, Lname, address) VALUE
 ('crewtime2@gmail.com', 'password',  3, TRUE, 'Bob', 'Koln', '11 1st Street'),
 ('crewtime3@gmail.com', 'password',  3, TRUE, 'Ralph', 'Smit', '11 2nd Street'),
 ('crewtime4@gmail.com', 'password',  3, TRUE, 'Anna', 'Shepard', '11 3rd Street'),
-('crewtime5@gmail.com', 'password',  3, TRUE, 'Sarah', 'Teagan', '11 4th Street');
+('crewtime5@gmail.com', 'password',  3, TRUE, 'Sarah', 'Teagan', '11 4th Street'),
+('tahmidkazi829@gmail.com', 'password',  4, TRUE, 'Tahmid', 'Kazi', 'tempaddress');
 
 CREATE TABLE CREW_FLIGHTS (
 	crewID		INT			   NOT NULL AUTO_INCREMENT,

@@ -5,6 +5,7 @@ import {ManageCrew} from "./components/ManageCrew";
 import {ManageAircraft} from "./components/ManageAircraft";
 import {ManageUsers} from "./components/ManageUsers";
 import CurrentUserContext, {Roles} from "../../contexts/CurrentUserContext";
+import {ManagePromos} from "./components/ManagePromos";
 
 export const AdminPage = () => {
     const currentUser = useContext(CurrentUserContext);
@@ -13,12 +14,14 @@ export const AdminPage = () => {
     const [manageCrew, setManageCrew] = useState(false);
     const [manageAircraft, setManageAircraft] = useState(false);
     const [manageUsers, setManageUsers] = useState(false);
+    const [managePromos, setManagePromos] = useState(false);
 
     function viewFlightsClickFunction() {
         setManageFlights(false);
         setManageCrew(false);
         setManageAircraft(false);
         setManageUsers(false);
+        setManagePromos(false);
     }
 
     function manageFlightClickFunction() {
@@ -26,6 +29,7 @@ export const AdminPage = () => {
         setManageCrew(false);
         setManageAircraft(false);
         setManageUsers(false);
+        setManagePromos(false);
     }
 
     function manageCrewClickFunction() {
@@ -33,6 +37,7 @@ export const AdminPage = () => {
         setManageCrew(true);
         setManageAircraft(false);
         setManageUsers(false);
+        setManagePromos(false);
     }
 
     function manageAircraftClickFunction() {
@@ -40,6 +45,7 @@ export const AdminPage = () => {
         setManageCrew(false);
         setManageAircraft(true);
         setManageUsers(false);
+        setManagePromos(false);
     }
 
     function manageUsersClickFunction() {
@@ -47,6 +53,15 @@ export const AdminPage = () => {
         setManageCrew(false);
         setManageAircraft(false);
         setManageUsers(true);
+        setManagePromos(false);
+    }
+
+    function managePromosClickFunction() {
+        setManageFlights(false);
+        setManageCrew(false);
+        setManageAircraft(false);
+        setManageUsers(false);
+        setManagePromos(true);
     }
 
     return (
@@ -81,6 +96,11 @@ export const AdminPage = () => {
                                     role='tab' aria-controls='nav-modify-users' aria-selected='false'>
                                 Manage users
                             </button>
+                            <button onClick={managePromosClickFunction} className='nav-link ' id='nav-promos-tab'
+                                    data-bs-toggle='tab' data-bs-target='#nav-promos' type='button'
+                                    role='tab' aria-controls='nav-promos' aria-selected='false'>
+                                Manage promos
+                            </button>
                         </div>
                     </nav>
                     <div className='tab-content' id='nav-tabContent'>
@@ -101,8 +121,12 @@ export const AdminPage = () => {
                             {manageAircraft ? <ManageAircraft/> : <></>}
                         </div>
                         <div className='tab-pane fade' id='nav-modify-users' role='tabpanel'
-                             aria-labelledby='nav-modify-aircraft-tab'>
+                             aria-labelledby='nav-manage-users-tab'>
                             {manageUsers ? <ManageUsers/> : <></>}
+                        </div>
+                        <div className='tab-pane fade' id='nav-promos' role='tabpanel'
+                             aria-labelledby='nav-promos-tab'>
+                            {managePromos ? <ManagePromos/> : <></>}
                         </div>
                     </div>
                 </div>
