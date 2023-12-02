@@ -60,4 +60,12 @@ public class EmailService {
 
     }
 
+    public void sendNewsletterEmail(String userEmail, String newsletterContent) {
+        SimpleMailMessage message = new SimpleMailMessage();
+        message.setTo(userEmail);
+        message.setSubject("Monthly Newsletter");
+        message.setText(newsletterContent);
+        emailSender.send(message);
+    }
+
 }

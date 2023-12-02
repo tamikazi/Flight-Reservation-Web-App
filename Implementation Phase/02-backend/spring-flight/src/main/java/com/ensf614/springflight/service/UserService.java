@@ -30,7 +30,7 @@ public class UserService {
         return userView;
     }
 
-    public void addUser(RegisterView registerView) {
+    public User addUser(RegisterView registerView) {
         User user = new User();
         user.setUsername(registerView.getUsername());
         user.setPassword(registerView.getPassword());
@@ -40,6 +40,8 @@ public class UserService {
         user.setCard(registerView.isCard());
         user.setRoleID(4);
         userRepository.save(user);
+
+        return user;
     }
 
 }

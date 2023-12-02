@@ -2,9 +2,9 @@ package com.ensf614.springflight.newsletter;
 
 public interface NewsletterSubject {
 
-        public void registerObserver(NewsletterObserver observer);
+        void attach(NewsletterObserver observer);
 
-        public void removeObserver(NewsletterObserver observer);
+        void detach(NewsletterObserver observer);
 
-        public void notifyObservers();
+        void notifySubscribers(String newsletterContent);
 }

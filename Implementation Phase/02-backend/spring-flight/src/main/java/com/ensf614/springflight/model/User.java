@@ -20,7 +20,7 @@ public class User {
     // check if user exists
     @Getter
     @Column(name = "username")
-    private String username;
+    private String username; // email
 
     @Getter
     @Column(name = "password")
@@ -32,12 +32,10 @@ public class User {
     @Column(name = "card")
     private boolean card;
 
-    @Getter
-    @Column(name = "Fname")
+    @Column(name = "fname")
     private String Fname;
 
-    @Getter
-    @Column(name = "Lname")
+    @Column(name = "lname")
     private String Lname;
 
     @Column(name = "address")
