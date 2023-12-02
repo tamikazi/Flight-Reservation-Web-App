@@ -31,6 +31,11 @@ public class UserService {
     }
 
     public User addUser(RegisterView registerView) {
+        User existingUser = userRepository.findByUsername(registerView.getUsername());
+        if (existingUser != null) {
+            throw new RuntimeException("Username already taken. Please choose a different username.");
+        }
+
         User user = new User();
         user.setUsername(registerView.getUsername());
         user.setPassword(registerView.getPassword());
