@@ -10,7 +10,7 @@ export const Aircraft: React.FC<{
             <h4>{props.aircraft.model}</h4>
             <div className='d-flex flex-row'>
                 <div className='mx-3'>
-                    <h6 className='mb-0'>ID number: {props.aircraft.aircraftID}</h6>
+                    <h6 className='mb-0'>Aircraft ID: {props.aircraft.aircraftID}</h6>
                 </div>
                 <div className='mx-3'>
                     <h6 className='mb-0'>Rows of seats: {props.aircraft.numRows}</h6>
