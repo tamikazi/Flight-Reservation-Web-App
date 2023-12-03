@@ -76,10 +76,9 @@ public class TicketController {
 
         float refundAmount = deletedTicket.getCost() * -1;
 
-//        if (ticketService.ticketByID(ticketID).isInsurance()) {
-//            refundAmount -= 50;
-//            deletedTicket.setCost(refundAmount);
-//        }
+        if (ticketService.ticketByID(ticketID).isInsurance()) {
+            refundAmount -= 50;
+        }
 
         refund.setAmount(refundAmount);
         paymentService.addPayment(refund);
