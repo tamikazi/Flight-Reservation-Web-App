@@ -5,7 +5,6 @@ import com.ensf614.springflight.repository.UserRepository;
 import com.ensf614.springflight.repository.TicketRepository;
 import com.ensf614.springflight.repository.SeatRepository;
 import com.ensf614.springflight.repository.FlightRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -34,11 +33,11 @@ public class EmailTicket implements EmailStrategy {
         emailBody.append("-------------------------------------------\n");
         emailBody.append("Ticket ID: " + ticket.getTicketID() + "\n");
         emailBody.append("Seat: " + seatRepository.getById(ticket.getSeatID()).getSeatNumber() + "\n");
-        emailBody.append("Flight: " + flightRepository.findByFlightID(ticket.getFlightID()).getCode() + "\n");
-        emailBody.append("Origin: " + flightRepository.findByFlightID(ticket.getFlightID()).getOrigin() + "\n");
-        emailBody.append("Destination: " + flightRepository.findByFlightID(ticket.getFlightID()).getDestination() + "\n");
-        emailBody.append("Date: " + flightRepository.findByFlightID(ticket.getFlightID()).getDate() + "\n");
-        emailBody.append("Time: " + flightRepository.findByFlightID(ticket.getFlightID()).getTime() + "\n");
+        emailBody.append("Flight: " + flightRepository.findByFlightID(ticket.getFlightID()).get().getCode() + "\n");
+        emailBody.append("Origin: " + flightRepository.findByFlightID(ticket.getFlightID()).get().getOrigin() + "\n");
+        emailBody.append("Destination: " + flightRepository.findByFlightID(ticket.getFlightID()).get().getDestination() + "\n");
+        emailBody.append("Date: " + flightRepository.findByFlightID(ticket.getFlightID()).get().getDate() + "\n");
+        emailBody.append("Time: " + flightRepository.findByFlightID(ticket.getFlightID()).get().getTime() + "\n");
         emailBody.append("-------------------------------------------\n");
         float cost = ticket.getCost();
 

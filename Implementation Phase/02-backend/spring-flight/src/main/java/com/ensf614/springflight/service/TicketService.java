@@ -51,11 +51,11 @@ public class TicketService {
         for (Ticket ticket : userTickets) {
             BookingView currentBooking = new BookingView();
             currentBooking.setTicketID(ticket.getTicketID());
-            currentBooking.setCode(flightRepository.findByFlightID(ticket.getFlightID()).getCode());
-            currentBooking.setOrigin(flightRepository.findByFlightID(ticket.getFlightID()).getOrigin());
-            currentBooking.setDestination(flightRepository.findByFlightID(ticket.getFlightID()).getDestination());
-            currentBooking.setDate(flightRepository.findByFlightID(ticket.getFlightID()).getDate());
-            currentBooking.setTime(flightRepository.findByFlightID(ticket.getFlightID()).getTime());
+            currentBooking.setCode(flightRepository.findByFlightID(ticket.getFlightID()).get().getCode());
+            currentBooking.setOrigin(flightRepository.findByFlightID(ticket.getFlightID()).get().getOrigin());
+            currentBooking.setDestination(flightRepository.findByFlightID(ticket.getFlightID()).get().getDestination());
+            currentBooking.setDate(flightRepository.findByFlightID(ticket.getFlightID()).get().getDate());
+            currentBooking.setTime(flightRepository.findByFlightID(ticket.getFlightID()).get().getTime());
             currentBooking.setSeatNumber(seatRepository.findBySeatID(ticket.getSeatID()).getSeatNumber());
             currentBooking.setName(ticket.getName());
             currentBooking.setInsurance(ticket.isInsurance());
@@ -79,11 +79,11 @@ public class TicketService {
             for (Ticket ticket : tickets) {
                 BookingView currentBooking = new BookingView();
                 currentBooking.setTicketID(ticket.getTicketID());
-                currentBooking.setCode(flightRepository.findByFlightID(ticket.getFlightID()).getCode());
-                currentBooking.setOrigin(flightRepository.findByFlightID(ticket.getFlightID()).getOrigin());
-                currentBooking.setDestination(flightRepository.findByFlightID(ticket.getFlightID()).getDestination());
-                currentBooking.setDate(flightRepository.findByFlightID(ticket.getFlightID()).getDate());
-                currentBooking.setTime(flightRepository.findByFlightID(ticket.getFlightID()).getTime());
+                currentBooking.setCode(flightRepository.findByFlightID(ticket.getFlightID()).get().getCode());
+                currentBooking.setOrigin(flightRepository.findByFlightID(ticket.getFlightID()).get().getOrigin());
+                currentBooking.setDestination(flightRepository.findByFlightID(ticket.getFlightID()).get().getDestination());
+                currentBooking.setDate(flightRepository.findByFlightID(ticket.getFlightID()).get().getDate());
+                currentBooking.setTime(flightRepository.findByFlightID(ticket.getFlightID()).get().getTime());
                 currentBooking.setSeatNumber(seatRepository.findBySeatID(ticket.getSeatID()).getSeatNumber());
                 currentBooking.setName(ticket.getName());
                 currentBooking.setInsurance(ticket.isInsurance());
@@ -93,10 +93,6 @@ public class TicketService {
             return bookings;
 
         }
-    }
-
-    public List<Ticket> ticketsOnFlightIDAndUserID(int flightID, int userID) {
-        return ticketRepository.findByFlightIDAndUserID(flightID, userID);
     }
 
     public Ticket addTicket(TicketView ticketView) {

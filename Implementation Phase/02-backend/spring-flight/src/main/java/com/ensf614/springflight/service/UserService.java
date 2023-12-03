@@ -33,9 +33,6 @@ public class UserService{
         userView.setFname(user.getFname());
         userView.setLname(user.getLname());
         userView.setCard(user.isCard());
-
-
-
         return userView;
     }
 

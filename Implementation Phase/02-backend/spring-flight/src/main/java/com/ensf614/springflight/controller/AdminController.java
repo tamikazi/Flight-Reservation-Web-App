@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.ArrayList;
 
 @CrossOrigin(origins = "*")
 @RestController // abstract controller
@@ -31,15 +32,6 @@ public class AdminController {
     @GetMapping("/users/all")
     public List<User> getAllUsers() {
         return adminService.allUsers();
-    }
-
-    @GetMapping("/users/role/{id}")
-    public List<User> getUserByUsername(@PathVariable int id) {
-        return adminService.allUsersByRole(id);
-    }
-    @GetMapping("/users/card/{card}")
-    public List<User> getUserByMember(@PathVariable boolean card) {
-        return adminService.allUsersByCard(card);
     }
 
     @GetMapping("/aircrafts/all")
@@ -81,6 +73,21 @@ public class AdminController {
     @GetMapping("crewflights/code/{code}")
     public List<CrewView> getCrewFlightsByCode(@PathVariable String code) {
         return adminService.allCrewFlightsByCode(code);
+    }
+
+    @GetMapping("creflights/all")
+    public List<CrewView> getAllCrew() {
+        List<User> allCrew = adminService.allUsersByRole(3);
+
+        List<CrewView> crewViews = new ArrayList<>();
+
+        for (User crew : allCrew) {
+            CrewView crewView = new CrewView();
+            crewView.setUserID(crew.getUserID());
+            crewView.setName(crew.getFname() + " " + crew.getLname());
+            crewViews.add(crewView);
+        }
+        return crewViews;
     }
 
     @GetMapping("/flights/{code}/{date}")
@@ -131,7 +138,6 @@ public class AdminController {
         for (Ticket ticket : deletedTickets) {
             emailService.ticketCancellationEmail(ticket);
         }
-
         adminService.deleteFlight(flightID);
     }
 

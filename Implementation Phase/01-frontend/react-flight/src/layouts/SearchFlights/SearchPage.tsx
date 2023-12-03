@@ -50,7 +50,7 @@ export const SearchPage: React.FC<{
                             onChange={e => setDate(e.target.value)}/>
                     </div>
                     <div className='col-12'>
-                        <label htmlFor='guests' className='form-label'>Number of Guests</label>
+                        <label htmlFor='guests' className='form-label'>Number of Passengers</label>
                         <input type='number' className='form-control' id='guests'
                                 onChange={e => setGuests(Number(e.target.value))}/>
                     </div>

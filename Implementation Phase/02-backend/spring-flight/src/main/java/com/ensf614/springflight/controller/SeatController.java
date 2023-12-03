@@ -25,15 +25,6 @@ public class SeatController {
         return seatService.allSeats();
     }
 
-    @GetMapping("/id/{id}")
-    public Seat getSeatById(@PathVariable int id) {
-        return seatService.seatById(id);
-    }
-    @GetMapping("/aircraftid/{id}")
-    public List<Seat> getSeatByAircraftId(@PathVariable int id) {
-        return seatService.seatByAircraftId(id);
-    }
-
     @GetMapping("/flightid/{id}")
     public List<SeatView> getSeatByFlightId(@PathVariable int id) {
         return seatService.seatsOnFlight(id);

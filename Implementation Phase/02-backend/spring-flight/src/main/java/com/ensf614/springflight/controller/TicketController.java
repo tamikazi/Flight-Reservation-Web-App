@@ -54,7 +54,6 @@ public class TicketController {
         return ticketService.ticketsOnTicketIDAndName(ticketID, name);
     }
 
-
     @PostMapping("/add")
     public void addTicket(@RequestBody List<TicketView> tickets) {
 
@@ -78,7 +77,6 @@ public class TicketController {
 
         if (ticketService.ticketByID(ticketID).isInsurance()) {
             refundAmount -= 50;
-            deletedTicket.setCost(refundAmount);
         }
 
         refund.setAmount(refundAmount);
