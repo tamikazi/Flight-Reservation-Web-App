@@ -21,7 +21,4 @@ public class CrewFlightsService {
 
     public List<CrewFlights> allCrewFlightsOnFlight(int flightID) { return crewFlightsRepository.findByFlightID(flightID); }
 
-
-
-
 }

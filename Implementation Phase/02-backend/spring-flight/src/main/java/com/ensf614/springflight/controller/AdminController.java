@@ -34,15 +34,6 @@ public class AdminController {
         return adminService.allUsers();
     }
 
-//    @GetMapping("/users/role/{id}")
-//    public List<User> getUserByUsername(@PathVariable int id) {
-//        return adminService.allUsersByRole(id);
-//    }
-//    @GetMapping("/users/card/{card}")
-//    public List<User> getUserByMember(@PathVariable boolean card) {
-//        return adminService.allUsersByCard(card);
-//    }
-
     @GetMapping("/aircrafts/all")
     public List<Aircraft> getAllAircrafts() {
         return adminService.allAircrafts();
@@ -147,7 +138,6 @@ public class AdminController {
         for (Ticket ticket : deletedTickets) {
             emailService.ticketCancellationEmail(ticket);
         }
-
         adminService.deleteFlight(flightID);
     }
 

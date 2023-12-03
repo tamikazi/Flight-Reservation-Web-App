@@ -54,7 +54,6 @@ public class TicketController {
         return ticketService.ticketsOnTicketIDAndName(ticketID, name);
     }
 
-
     @PostMapping("/add")
     public void addTicket(@RequestBody List<TicketView> tickets) {
 
