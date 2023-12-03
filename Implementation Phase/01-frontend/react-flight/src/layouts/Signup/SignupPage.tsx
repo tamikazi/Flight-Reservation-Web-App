@@ -101,6 +101,9 @@ export const SignupPage = () => {
                             Enroll company credit card
                         </label>
                     </div>
+                    <div className='col-12'>
+                        New users will automatically be subscribed to the monthly newsletter.
+                    </div>
                 </div>
                 <button type='button' className='btn btn-primary mt-4 mb-3' onClick={signupHandle}>
                     Sign Up
