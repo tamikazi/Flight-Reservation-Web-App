@@ -35,10 +35,10 @@ public class TicketController {
         return ticketService.allTickets();
     }
 
-//    @GetMapping("/id/{id}")
-//    public Ticket getTicketById(@PathVariable int id) {
-//        return ticketService.ticketByID(id);
-//    }
+    @GetMapping("/id/{id}")
+    public Ticket getTicketById(@PathVariable int id) {
+        return ticketService.ticketByID(id);
+    }
     @GetMapping("/flightid/{id}")
     public List<Ticket> getTicketByFlightID(@PathVariable int id) {
         return ticketService.allTicketsOnFlight(id);
