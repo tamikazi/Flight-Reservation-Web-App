@@ -29,14 +29,6 @@ public class SeatService {
         return seatRepository.findAll();
     }
 
-    public Seat seatById(int id) {
-        return seatRepository.findBySeatID(id);
-    }
-
-    public List<Seat> seatByAircraftId(int id) {
-        return seatRepository.findByAircraftID(id);
-    }
-
     public List<SeatView> seatsOnFlight(int flightID) {
 
         Optional<Flight> currentFlight = flightRepository.findById(flightID);

@@ -95,10 +95,6 @@ public class TicketService {
         }
     }
 
-    public List<Ticket> ticketsOnFlightIDAndUserID(int flightID, int userID) {
-        return ticketRepository.findByFlightIDAndUserID(flightID, userID);
-    }
-
     public Ticket addTicket(TicketView ticketView) {
 
         Ticket newTicket = new Ticket();
