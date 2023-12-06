@@ -19,9 +19,13 @@ export const CancelTicketPage = () => {
             return;
         }
 
-        const responseData = await response.json();
-
-        return responseData.name;
+        try {
+            const responseData = await response.json();
+            return responseData.name;
+        } catch {
+            setDisplayFailureWarning(true);
+            return '_';
+        }
     };
 
     const deleteBooking = async () => {
